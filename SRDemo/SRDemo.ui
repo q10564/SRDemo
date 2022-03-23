@@ -1,0 +1,541 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>SRDemoClass</class>
+ <widget class="QMainWindow" name="SRDemoClass">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>953</width>
+    <height>745</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>SRDemo</string>
+  </property>
+  <widget class="QWidget" name="centralWidget">
+   <layout class="QHBoxLayout" name="horizontalLayout_3">
+    <item>
+     <widget class="QTabWidget" name="tabWidget">
+      <property name="currentIndex">
+       <number>0</number>
+      </property>
+      <widget class="QWidget" name="tab_cv">
+       <attribute name="title">
+        <string>视觉</string>
+       </attribute>
+       <layout class="QHBoxLayout" name="horizontalLayout" stretch="8,0">
+        <property name="sizeConstraint">
+         <enum>QLayout::SetNoConstraint</enum>
+        </property>
+        <item>
+         <widget class="QWidget" name="widget" native="true">
+          <layout class="QGridLayout" name="gridLayout_2">
+           <item row="0" column="0">
+            <widget class="QLabel" name="label_image">
+             <property name="sizePolicy">
+              <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+               <horstretch>0</horstretch>
+               <verstretch>0</verstretch>
+              </sizepolicy>
+             </property>
+             <property name="text">
+              <string/>
+             </property>
+             <property name="scaledContents">
+              <bool>false</bool>
+             </property>
+             <property name="alignment">
+              <set>Qt::AlignCenter</set>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </widget>
+        </item>
+        <item>
+         <widget class="QWidget" name="widget_2" native="true">
+          <layout class="QVBoxLayout" name="verticalLayout">
+           <item>
+            <layout class="QHBoxLayout" name="horizontalLayout_2">
+             <item>
+              <widget class="QPushButton" name="pushbutton_input">
+               <property name="text">
+                <string>导入图像</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QLineEdit" name="line_path">
+               <property name="enabled">
+                <bool>false</bool>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QPushButton" name="btn_reset">
+               <property name="text">
+                <string>重置处理</string>
+               </property>
+              </widget>
+             </item>
+            </layout>
+           </item>
+           <item>
+            <layout class="QHBoxLayout" name="horizontalLayout_6">
+             <item>
+              <widget class="QCheckBox" name="checkBox_useCalib">
+               <property name="text">
+                <string>引用标定</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QComboBox" name="comboBox_calib"/>
+             </item>
+             <item>
+              <widget class="QPushButton" name="pushbutton_calib">
+               <property name="text">
+                <string>自动标定</string>
+               </property>
+              </widget>
+             </item>
+            </layout>
+           </item>
+           <item>
+            <widget class="QGroupBox" name="groupBox">
+             <property name="title">
+              <string>处理方式</string>
+             </property>
+             <layout class="QVBoxLayout" name="verticalLayout_3">
+              <item>
+               <layout class="QGridLayout" name="gridLayout">
+                <item row="0" column="0">
+                 <widget class="QPushButton" name="b3">
+                  <property name="text">
+                   <string>腐蚀</string>
+                  </property>
+                 </widget>
+                </item>
+                <item row="0" column="1">
+                 <widget class="QPushButton" name="b9">
+                  <property name="text">
+                   <string>膨胀</string>
+                  </property>
+                 </widget>
+                </item>
+                <item row="0" column="2">
+                 <widget class="QPushButton" name="b4">
+                  <property name="text">
+                   <string>开运算</string>
+                  </property>
+                 </widget>
+                </item>
+                <item row="1" column="0">
+                 <widget class="QPushButton" name="b6">
+                  <property name="text">
+                   <string>闭运算</string>
+                  </property>
+                 </widget>
+                </item>
+                <item row="1" column="1">
+                 <widget class="QPushButton" name="b1">
+                  <property name="text">
+                   <string>高斯滤波</string>
+                  </property>
+                 </widget>
+                </item>
+                <item row="1" column="2">
+                 <widget class="QPushButton" name="b5">
+                  <property name="text">
+                   <string>中值滤波</string>
+                  </property>
+                 </widget>
+                </item>
+                <item row="2" column="0">
+                 <widget class="QPushButton" name="b7">
+                  <property name="text">
+                   <string>均值滤波</string>
+                  </property>
+                 </widget>
+                </item>
+                <item row="2" column="1">
+                 <widget class="QPushButton" name="b2">
+                  <property name="text">
+                   <string>傅里叶变换</string>
+                  </property>
+                 </widget>
+                </item>
+                <item row="2" column="2">
+                 <widget class="QPushButton" name="b8">
+                  <property name="text">
+                   <string>直方图均衡化</string>
+                  </property>
+                 </widget>
+                </item>
+               </layout>
+              </item>
+              <item>
+               <layout class="QHBoxLayout" name="horizontalLayout_4">
+                <item>
+                 <widget class="QLabel" name="label">
+                  <property name="text">
+                   <string>旋转</string>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QSlider" name="horizontalSlider">
+                  <property name="maximum">
+                   <number>360</number>
+                  </property>
+                  <property name="singleStep">
+                   <number>1</number>
+                  </property>
+                  <property name="pageStep">
+                   <number>10</number>
+                  </property>
+                  <property name="orientation">
+                   <enum>Qt::Horizontal</enum>
+                  </property>
+                  <property name="invertedAppearance">
+                   <bool>false</bool>
+                  </property>
+                  <property name="invertedControls">
+                   <bool>false</bool>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QSpinBox" name="spinBox">
+                  <property name="maximum">
+                   <number>360</number>
+                  </property>
+                 </widget>
+                </item>
+               </layout>
+              </item>
+              <item>
+               <layout class="QHBoxLayout" name="horizontalLayout_5">
+                <item>
+                 <widget class="QLabel" name="label_2">
+                  <property name="text">
+                   <string>镜像</string>
+                  </property>
+                  <property name="alignment">
+                   <set>Qt::AlignCenter</set>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QCheckBox" name="checkBox_7">
+                  <property name="text">
+                   <string>X方向</string>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QCheckBox" name="checkBox_8">
+                  <property name="text">
+                   <string>Y方向</string>
+                  </property>
+                 </widget>
+                </item>
+               </layout>
+              </item>
+             </layout>
+            </widget>
+           </item>
+           <item>
+            <widget class="QGroupBox" name="groupBox_2">
+             <property name="title">
+              <string>定位检测</string>
+             </property>
+             <layout class="QGridLayout" name="gridLayout_3">
+              <item row="1" column="2">
+               <widget class="QPushButton" name="pushButton_8">
+                <property name="text">
+                 <string>Blob分析</string>
+                </property>
+               </widget>
+              </item>
+              <item row="1" column="1">
+               <widget class="QPushButton" name="pushButton_7">
+                <property name="text">
+                 <string>角点检测</string>
+                </property>
+               </widget>
+              </item>
+              <item row="0" column="2">
+               <widget class="QPushButton" name="pushButton_6">
+                <property name="text">
+                 <string>轮廓查找</string>
+                </property>
+               </widget>
+              </item>
+              <item row="1" column="0">
+               <widget class="QPushButton" name="pushButton_4">
+                <property name="text">
+                 <string>找点</string>
+                </property>
+               </widget>
+              </item>
+              <item row="0" column="0">
+               <widget class="QPushButton" name="pushButton_3">
+                <property name="text">
+                 <string>找直线</string>
+                </property>
+               </widget>
+              </item>
+              <item row="0" column="1">
+               <widget class="QPushButton" name="pushButton_5">
+                <property name="text">
+                 <string>找圆</string>
+                </property>
+               </widget>
+              </item>
+              <item row="2" column="0">
+               <widget class="QPushButton" name="pushButton_9">
+                <property name="text">
+                 <string>灰度匹配</string>
+                </property>
+               </widget>
+              </item>
+              <item row="2" column="1">
+               <widget class="QPushButton" name="pushButton_10">
+                <property name="text">
+                 <string>特征匹配</string>
+                </property>
+               </widget>
+              </item>
+              <item row="2" column="2">
+               <widget class="QPushButton" name="pushButton_11">
+                <property name="text">
+                 <string>轮廓匹配</string>
+                </property>
+               </widget>
+              </item>
+             </layout>
+            </widget>
+           </item>
+           <item>
+            <widget class="QWidget" name="widget_3" native="true">
+             <layout class="QVBoxLayout" name="verticalLayout_2">
+              <item>
+               <widget class="QTextEdit" name="textEdit"/>
+              </item>
+             </layout>
+            </widget>
+           </item>
+          </layout>
+         </widget>
+        </item>
+       </layout>
+      </widget>
+      <widget class="QWidget" name="tab_connect">
+       <attribute name="title">
+        <string>通讯</string>
+       </attribute>
+      </widget>
+     </widget>
+    </item>
+   </layout>
+  </widget>
+  <widget class="QMenuBar" name="menuBar">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>953</width>
+     <height>23</height>
+    </rect>
+   </property>
+  </widget>
+  <widget class="QToolBar" name="mainToolBar">
+   <attribute name="toolBarArea">
+    <enum>TopToolBarArea</enum>
+   </attribute>
+   <attribute name="toolBarBreak">
+    <bool>false</bool>
+   </attribute>
+  </widget>
+  <widget class="QStatusBar" name="statusBar">
+   <property name="mouseTracking">
+    <bool>false</bool>
+   </property>
+  </widget>
+ </widget>
+ <layoutdefault spacing="6" margin="11"/>
+ <tabstops>
+  <tabstop>pushbutton_input</tabstop>
+  <tabstop>b9</tabstop>
+  <tabstop>pushbutton_calib</tabstop>
+  <tabstop>b6</tabstop>
+  <tabstop>b1</tabstop>
+  <tabstop>b5</tabstop>
+  <tabstop>b7</tabstop>
+  <tabstop>b2</tabstop>
+  <tabstop>b8</tabstop>
+  <tabstop>checkBox_useCalib</tabstop>
+  <tabstop>comboBox_calib</tabstop>
+  <tabstop>pushbutton_calib</tabstop>
+  <tabstop>tabWidget</tabstop>
+  <tabstop>pushbutton_input</tabstop>
+  <tabstop>line_path</tabstop>
+  <tabstop>horizontalSlider</tabstop>
+  <tabstop>spinBox</tabstop>
+  <tabstop>checkBox_7</tabstop>
+  <tabstop>checkBox_8</tabstop>
+  <tabstop>pushButton_8</tabstop>
+  <tabstop>pushButton_7</tabstop>
+  <tabstop>b8</tabstop>
+  <tabstop>b6</tabstop>
+  <tabstop>b5</tabstop>
+  <tabstop>b7</tabstop>
+  <tabstop>b9</tabstop>
+  <tabstop>b1</tabstop>
+  <tabstop>b2</tabstop>
+  <tabstop>textEdit</tabstop>
+ </tabstops>
+ <resources>
+  <include location="SRDemo.qrc"/>
+ </resources>
+ <connections>
+  <connection>
+   <sender>pushbutton_input</sender>
+   <signal>clicked()</signal>
+   <receiver>SRDemoClass</receiver>
+   <slot>on_inputClicked()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>671</x>
+     <y>97</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>515</x>
+     <y>-5</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>pushbutton_calib</sender>
+   <signal>clicked()</signal>
+   <receiver>SRDemoClass</receiver>
+   <slot>on_calib()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>874</x>
+     <y>130</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>562</x>
+     <y>-11</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>checkBox_useCalib</sender>
+   <signal>clicked(bool)</signal>
+   <receiver>SRDemoClass</receiver>
+   <slot>on_useCalib(bool)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>696</x>
+     <y>125</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>324</x>
+     <y>-18</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>comboBox_calib</sender>
+   <signal>currentTextChanged(QString)</signal>
+   <receiver>SRDemoClass</receiver>
+   <slot>on_calibChanged(QString)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>801</x>
+     <y>126</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>567</x>
+     <y>40</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>horizontalSlider</sender>
+   <signal>valueChanged(int)</signal>
+   <receiver>spinBox</receiver>
+   <slot>setValue(int)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>763</x>
+     <y>266</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>891</x>
+     <y>271</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>spinBox</sender>
+   <signal>valueChanged(int)</signal>
+   <receiver>horizontalSlider</receiver>
+   <slot>setValue(int)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>886</x>
+     <y>261</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>746</x>
+     <y>274</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>horizontalSlider</sender>
+   <signal>valueChanged(int)</signal>
+   <receiver>SRDemoClass</receiver>
+   <slot>on_rotation(int)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>737</x>
+     <y>262</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>388</x>
+     <y>37</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>btn_reset</sender>
+   <signal>clicked()</signal>
+   <receiver>SRDemoClass</receiver>
+   <slot>on_reset()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>889</x>
+     <y>91</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>733</x>
+     <y>-6</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
+ <slots>
+  <slot>on_inputClicked()</slot>
+  <slot>on_calib()</slot>
+  <slot>on_useCalib(bool)</slot>
+  <slot>on_calibChanged(QString)</slot>
+  <slot>on_rotation(int)</slot>
+  <slot>on_reset()</slot>
+ </slots>
+</ui>
