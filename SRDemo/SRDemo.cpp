@@ -5,6 +5,7 @@ SRDemo::SRDemo(QWidget *parent)
 {
     ui.setupUi(this);
 	refreshCalibBox();
+	ui.stackedWidget->setCurrentWidget(ui.page_non);
 }
 void SRDemo::on_inputClicked()
 {
@@ -216,6 +217,37 @@ void SRDemo::on_rotation(int value)
 	currentImage = dst;
 }
 
+void SRDemo::on_extraction()
+{
+	ui.stackedWidget->setCurrentWidget(ui.page_extraction);
+	ui.radioButton_RGB->setChecked(true);
+}
+
+void SRDemo::on_do()
+{
+	int index = ui.stackedWidget->currentIndex();
+	switch (index)
+	{
+		case 0: break;
+		case 1://通道提取
+		{
+			if (ui.radioButton_RGB->isChecked())
+				qDebug() << "is RGB";
+			else if (ui.radioButton_HSL->isChecked())
+				qDebug() << "is HSL";
+			else if (ui.radioButton_HSV->isChecked())
+				qDebug() << "is HSV";
+			else if (ui.radioButton_HSI->isChecked())
+				qDebug() << "is HSI";
+		}
+		default:break;
+	}
+}
+
+void SRDemo::on_cancel()
+{
+	ui.stackedWidget->setCurrentWidget(ui.page_non);
+}
 
 cv::Mat QImageToMat(QImage image)
 {

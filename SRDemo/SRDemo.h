@@ -36,4 +36,7 @@ public slots:
 	void on_useCalib(bool);//使用标定
 	void on_calibChanged(QString);//切换标定文件
 	void on_rotation(int);//旋转
+	void on_extraction();//通道提取
+	void on_do();
+	void on_cancel();
 };

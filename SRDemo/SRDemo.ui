@@ -6,15 +6,15 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>953</width>
-    <height>745</height>
+    <width>1115</width>
+    <height>866</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>SRDemo</string>
   </property>
   <widget class="QWidget" name="centralWidget">
-   <layout class="QHBoxLayout" name="horizontalLayout_3">
+   <layout class="QVBoxLayout" name="verticalLayout_4">
     <item>
      <widget class="QTabWidget" name="tabWidget">
       <property name="currentIndex">
@@ -103,6 +103,74 @@
             </layout>
            </item>
            <item>
+            <layout class="QHBoxLayout" name="horizontalLayout_4">
+             <item>
+              <widget class="QLabel" name="label">
+               <property name="text">
+                <string>旋转</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QSlider" name="horizontalSlider">
+               <property name="maximum">
+                <number>360</number>
+               </property>
+               <property name="singleStep">
+                <number>1</number>
+               </property>
+               <property name="pageStep">
+                <number>10</number>
+               </property>
+               <property name="orientation">
+                <enum>Qt::Horizontal</enum>
+               </property>
+               <property name="invertedAppearance">
+                <bool>false</bool>
+               </property>
+               <property name="invertedControls">
+                <bool>false</bool>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QSpinBox" name="spinBox">
+               <property name="maximum">
+                <number>360</number>
+               </property>
+              </widget>
+             </item>
+            </layout>
+           </item>
+           <item>
+            <layout class="QHBoxLayout" name="horizontalLayout_5">
+             <item>
+              <widget class="QLabel" name="label_2">
+               <property name="text">
+                <string>镜像</string>
+               </property>
+               <property name="alignment">
+                <set>Qt::AlignCenter</set>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QCheckBox" name="checkBox_7">
+               <property name="text">
+                <string>X方向</string>
+               </property>
+              </widget>
+             </item>
+             <item>
+              <widget class="QCheckBox" name="checkBox_8">
+               <property name="text">
+                <string>Y方向</string>
+               </property>
+              </widget>
+             </item>
+            </layout>
+           </item>
+           <item>
             <widget class="QGroupBox" name="groupBox">
              <property name="title">
               <string>处理方式</string>
@@ -110,134 +178,87 @@
              <layout class="QVBoxLayout" name="verticalLayout_3">
               <item>
                <layout class="QGridLayout" name="gridLayout">
-                <item row="0" column="0">
-                 <widget class="QPushButton" name="b3">
-                  <property name="text">
-                   <string>腐蚀</string>
-                  </property>
-                 </widget>
-                </item>
-                <item row="0" column="1">
-                 <widget class="QPushButton" name="b9">
-                  <property name="text">
-                   <string>膨胀</string>
-                  </property>
-                 </widget>
-                </item>
-                <item row="0" column="2">
-                 <widget class="QPushButton" name="b4">
-                  <property name="text">
-                   <string>开运算</string>
-                  </property>
-                 </widget>
-                </item>
-                <item row="1" column="0">
-                 <widget class="QPushButton" name="b6">
-                  <property name="text">
-                   <string>闭运算</string>
-                  </property>
-                 </widget>
-                </item>
-                <item row="1" column="1">
-                 <widget class="QPushButton" name="b1">
-                  <property name="text">
-                   <string>高斯滤波</string>
-                  </property>
-                 </widget>
-                </item>
-                <item row="1" column="2">
+                <item row="2" column="2">
                  <widget class="QPushButton" name="b5">
                   <property name="text">
                    <string>中值滤波</string>
                   </property>
                  </widget>
                 </item>
-                <item row="2" column="0">
-                 <widget class="QPushButton" name="b7">
+                <item row="1" column="1">
+                 <widget class="QPushButton" name="b9">
                   <property name="text">
-                   <string>均值滤波</string>
+                   <string>膨胀</string>
                   </property>
                  </widget>
                 </item>
-                <item row="2" column="1">
-                 <widget class="QPushButton" name="b2">
-                  <property name="text">
-                   <string>傅里叶变换</string>
-                  </property>
-                 </widget>
-                </item>
-                <item row="2" column="2">
+                <item row="3" column="2">
                  <widget class="QPushButton" name="b8">
                   <property name="text">
                    <string>直方图均衡化</string>
                   </property>
                  </widget>
                 </item>
-               </layout>
-              </item>
-              <item>
-               <layout class="QHBoxLayout" name="horizontalLayout_4">
-                <item>
-                 <widget class="QLabel" name="label">
+                <item row="1" column="0">
+                 <widget class="QPushButton" name="b3">
                   <property name="text">
-                   <string>旋转</string>
+                   <string>腐蚀</string>
                   </property>
                  </widget>
                 </item>
-                <item>
-                 <widget class="QSlider" name="horizontalSlider">
-                  <property name="maximum">
-                   <number>360</number>
-                  </property>
-                  <property name="singleStep">
-                   <number>1</number>
-                  </property>
-                  <property name="pageStep">
-                   <number>10</number>
-                  </property>
-                  <property name="orientation">
-                   <enum>Qt::Horizontal</enum>
-                  </property>
-                  <property name="invertedAppearance">
-                   <bool>false</bool>
-                  </property>
-                  <property name="invertedControls">
-                   <bool>false</bool>
-                  </property>
-                 </widget>
-                </item>
-                <item>
-                 <widget class="QSpinBox" name="spinBox">
-                  <property name="maximum">
-                   <number>360</number>
-                  </property>
-                 </widget>
-                </item>
-               </layout>
-              </item>
-              <item>
-               <layout class="QHBoxLayout" name="horizontalLayout_5">
-                <item>
-                 <widget class="QLabel" name="label_2">
+                <item row="3" column="1">
+                 <widget class="QPushButton" name="b2">
                   <property name="text">
-                   <string>镜像</string>
-                  </property>
-                  <property name="alignment">
-                   <set>Qt::AlignCenter</set>
+                   <string>傅里叶变换</string>
                   </property>
                  </widget>
                 </item>
-                <item>
-                 <widget class="QCheckBox" name="checkBox_7">
+                <item row="1" column="2">
+                 <widget class="QPushButton" name="b4">
                   <property name="text">
-                   <string>X方向</string>
+                   <string>开运算</string>
                   </property>
                  </widget>
                 </item>
-                <item>
-                 <widget class="QCheckBox" name="checkBox_8">
+                <item row="2" column="0">
+                 <widget class="QPushButton" name="b6">
                   <property name="text">
-                   <string>Y方向</string>
+                   <string>闭运算</string>
+                  </property>
+                 </widget>
+                </item>
+                <item row="2" column="1">
+                 <widget class="QPushButton" name="b1">
+                  <property name="text">
+                   <string>高斯滤波</string>
+                  </property>
+                 </widget>
+                </item>
+                <item row="3" column="0">
+                 <widget class="QPushButton" name="b7">
+                  <property name="text">
+                   <string>均值滤波</string>
+                  </property>
+                 </widget>
+                </item>
+                <item row="0" column="0">
+                 <widget class="QPushButton" name="pushButton">
+                  <property name="text">
+                   <string>通道提取</string>
+                  </property>
+                 </widget>
+                </item>
+                <item row="0" column="1">
+                 <widget class="QPushButton" name="pushButton_2">
+                  <property name="text">
+                   <string>二值化</string>
+                  </property>
+                 </widget>
+                </item>
+                <item row="0" column="2">
+                 <widget class="QPushButton" name="pushButton_12">
+                  <property name="text">
+                   <string>自定义卷积</string>
                   </property>
                  </widget>
                 </item>
@@ -319,10 +340,212 @@
             </widget>
            </item>
            <item>
-            <widget class="QWidget" name="widget_3" native="true">
+            <widget class="QGroupBox" name="groupBox_set">
+             <property name="title">
+              <string>参数</string>
+             </property>
              <layout class="QVBoxLayout" name="verticalLayout_2">
               <item>
-               <widget class="QTextEdit" name="textEdit"/>
+               <widget class="QStackedWidget" name="stackedWidget">
+                <property name="currentIndex">
+                 <number>1</number>
+                </property>
+                <widget class="QWidget" name="page_non"/>
+                <widget class="QWidget" name="page_extraction">
+                 <layout class="QVBoxLayout" name="verticalLayout_5">
+                  <item>
+                   <layout class="QHBoxLayout" name="horizontalLayout_7" stretch="3,6">
+                    <property name="spacing">
+                     <number>20</number>
+                    </property>
+                    <item>
+                     <widget class="QRadioButton" name="radioButton_RGB">
+                      <property name="layoutDirection">
+                       <enum>Qt::RightToLeft</enum>
+                      </property>
+                      <property name="text">
+                       <string>RGB模式</string>
+                      </property>
+                     </widget>
+                    </item>
+                    <item>
+                     <widget class="QComboBox" name="comboBox">
+                      <item>
+                       <property name="text">
+                        <string>红色</string>
+                       </property>
+                      </item>
+                      <item>
+                       <property name="text">
+                        <string>绿色</string>
+                       </property>
+                      </item>
+                      <item>
+                       <property name="text">
+                        <string>蓝色</string>
+                       </property>
+                      </item>
+                     </widget>
+                    </item>
+                   </layout>
+                  </item>
+                  <item>
+                   <layout class="QHBoxLayout" name="horizontalLayout_8" stretch="3,6">
+                    <property name="spacing">
+                     <number>20</number>
+                    </property>
+                    <item>
+                     <widget class="QRadioButton" name="radioButton_HSL">
+                      <property name="layoutDirection">
+                       <enum>Qt::RightToLeft</enum>
+                      </property>
+                      <property name="text">
+                       <string>HSL模式</string>
+                      </property>
+                     </widget>
+                    </item>
+                    <item>
+                     <widget class="QComboBox" name="comboBox_2">
+                      <item>
+                       <property name="text">
+                        <string>色度</string>
+                       </property>
+                      </item>
+                      <item>
+                       <property name="text">
+                        <string>饱和度</string>
+                       </property>
+                      </item>
+                      <item>
+                       <property name="text">
+                        <string>亮度</string>
+                       </property>
+                      </item>
+                     </widget>
+                    </item>
+                   </layout>
+                  </item>
+                  <item>
+                   <layout class="QHBoxLayout" name="horizontalLayout_9" stretch="3,6">
+                    <property name="spacing">
+                     <number>20</number>
+                    </property>
+                    <item>
+                     <widget class="QRadioButton" name="radioButton_HSV">
+                      <property name="layoutDirection">
+                       <enum>Qt::RightToLeft</enum>
+                      </property>
+                      <property name="text">
+                       <string>HSV模式</string>
+                      </property>
+                     </widget>
+                    </item>
+                    <item>
+                     <widget class="QComboBox" name="comboBox_3">
+                      <item>
+                       <property name="text">
+                        <string>色度</string>
+                       </property>
+                      </item>
+                      <item>
+                       <property name="text">
+                        <string>饱和度</string>
+                       </property>
+                      </item>
+                      <item>
+                       <property name="text">
+                        <string>明度</string>
+                       </property>
+                      </item>
+                     </widget>
+                    </item>
+                   </layout>
+                  </item>
+                  <item>
+                   <layout class="QHBoxLayout" name="horizontalLayout_10" stretch="3,6">
+                    <property name="spacing">
+                     <number>20</number>
+                    </property>
+                    <item>
+                     <widget class="QRadioButton" name="radioButton_HSI">
+                      <property name="layoutDirection">
+                       <enum>Qt::RightToLeft</enum>
+                      </property>
+                      <property name="text">
+                       <string>HSI模式</string>
+                      </property>
+                     </widget>
+                    </item>
+                    <item>
+                     <widget class="QComboBox" name="comboBox_4">
+                      <item>
+                       <property name="text">
+                        <string>色度</string>
+                       </property>
+                      </item>
+                      <item>
+                       <property name="text">
+                        <string>饱和度</string>
+                       </property>
+                      </item>
+                      <item>
+                       <property name="text">
+                        <string>强度</string>
+                       </property>
+                      </item>
+                     </widget>
+                    </item>
+                   </layout>
+                  </item>
+                 </layout>
+                </widget>
+                <widget class="QWidget" name="page_2">
+                 <widget class="QSlider" name="verticalSlider">
+                  <property name="geometry">
+                   <rect>
+                    <x>40</x>
+                    <y>40</y>
+                    <width>22</width>
+                    <height>160</height>
+                   </rect>
+                  </property>
+                  <property name="orientation">
+                   <enum>Qt::Vertical</enum>
+                  </property>
+                 </widget>
+                 <widget class="QSlider" name="verticalSlider_2">
+                  <property name="geometry">
+                   <rect>
+                    <x>150</x>
+                    <y>40</y>
+                    <width>22</width>
+                    <height>160</height>
+                   </rect>
+                  </property>
+                  <property name="orientation">
+                   <enum>Qt::Vertical</enum>
+                  </property>
+                 </widget>
+                </widget>
+               </widget>
+              </item>
+              <item>
+               <layout class="QHBoxLayout" name="layout_set">
+                <item>
+                 <widget class="QPushButton" name="btn_do">
+                  <property name="text">
+                   <string>执行</string>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QPushButton" name="pushButton_14">
+                  <property name="text">
+                   <string>取消</string>
+                  </property>
+                 </widget>
+                </item>
+               </layout>
               </item>
              </layout>
             </widget>
@@ -346,7 +569,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>953</width>
+     <width>1115</width>
      <height>23</height>
     </rect>
    </property>
@@ -367,13 +590,12 @@
  </widget>
  <layoutdefault spacing="6" margin="11"/>
  <tabstops>
-  <tabstop>pushbutton_input</tabstop>
-  <tabstop>b9</tabstop>
-  <tabstop>pushbutton_calib</tabstop>
-  <tabstop>b6</tabstop>
-  <tabstop>b1</tabstop>
-  <tabstop>b5</tabstop>
+  <tabstop>radioButton_HSL</tabstop>
+  <tabstop>radioButton_RGB</tabstop>
+  <tabstop>radioButton_HSV</tabstop>
+  <tabstop>radioButton_HSI</tabstop>
   <tabstop>b7</tabstop>
+  <tabstop>pushButton_8</tabstop>
   <tabstop>b2</tabstop>
   <tabstop>b8</tabstop>
   <tabstop>checkBox_useCalib</tabstop>
@@ -386,16 +608,41 @@
   <tabstop>spinBox</tabstop>
   <tabstop>checkBox_7</tabstop>
   <tabstop>checkBox_8</tabstop>
-  <tabstop>pushButton_8</tabstop>
-  <tabstop>pushButton_7</tabstop>
-  <tabstop>b8</tabstop>
+  <tabstop>comboBox</tabstop>
+  <tabstop>comboBox_2</tabstop>
+  <tabstop>comboBox_3</tabstop>
+  <tabstop>comboBox_4</tabstop>
   <tabstop>b6</tabstop>
   <tabstop>b5</tabstop>
   <tabstop>b7</tabstop>
   <tabstop>b9</tabstop>
   <tabstop>b1</tabstop>
   <tabstop>b2</tabstop>
-  <tabstop>textEdit</tabstop>
+  <tabstop>btn_reset</tabstop>
+  <tabstop>b3</tabstop>
+  <tabstop>b4</tabstop>
+  <tabstop>pushButton</tabstop>
+  <tabstop>pushButton_2</tabstop>
+  <tabstop>pushButton_12</tabstop>
+  <tabstop>pushButton_6</tabstop>
+  <tabstop>pushButton_4</tabstop>
+  <tabstop>pushButton_3</tabstop>
+  <tabstop>pushButton_5</tabstop>
+  <tabstop>pushButton_9</tabstop>
+  <tabstop>pushButton_10</tabstop>
+  <tabstop>pushButton_11</tabstop>
+  <tabstop>btn_do</tabstop>
+  <tabstop>pushButton_14</tabstop>
+  <tabstop>verticalSlider</tabstop>
+  <tabstop>verticalSlider_2</tabstop>
+  <tabstop>b9</tabstop>
+  <tabstop>b1</tabstop>
+  <tabstop>pushbutton_input</tabstop>
+  <tabstop>b5</tabstop>
+  <tabstop>b8</tabstop>
+  <tabstop>pushButton_7</tabstop>
+  <tabstop>b6</tabstop>
+  <tabstop>pushbutton_calib</tabstop>
  </tabstops>
  <resources>
   <include location="SRDemo.qrc"/>
@@ -408,12 +655,12 @@
    <slot>on_inputClicked()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>671</x>
-     <y>97</y>
+     <x>862</x>
+     <y>106</y>
     </hint>
     <hint type="destinationlabel">
      <x>515</x>
-     <y>-5</y>
+     <y>0</y>
     </hint>
    </hints>
   </connection>
@@ -424,12 +671,12 @@
    <slot>on_calib()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>874</x>
-     <y>130</y>
+     <x>1082</x>
+     <y>137</y>
     </hint>
     <hint type="destinationlabel">
      <x>562</x>
-     <y>-11</y>
+     <y>0</y>
     </hint>
    </hints>
   </connection>
@@ -440,12 +687,12 @@
    <slot>on_useCalib(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>696</x>
-     <y>125</y>
+     <x>881</x>
+     <y>133</y>
     </hint>
     <hint type="destinationlabel">
      <x>324</x>
-     <y>-18</y>
+     <y>0</y>
     </hint>
    </hints>
   </connection>
@@ -456,8 +703,8 @@
    <slot>on_calibChanged(QString)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>801</x>
-     <y>126</y>
+     <x>982</x>
+     <y>135</y>
     </hint>
     <hint type="destinationlabel">
      <x>567</x>
@@ -472,12 +719,12 @@
    <slot>setValue(int)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>763</x>
-     <y>266</y>
+     <x>1028</x>
+     <y>167</y>
     </hint>
     <hint type="destinationlabel">
-     <x>891</x>
-     <y>271</y>
+     <x>1082</x>
+     <y>166</y>
     </hint>
    </hints>
   </connection>
@@ -488,12 +735,12 @@
    <slot>setValue(int)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>886</x>
-     <y>261</y>
+     <x>1082</x>
+     <y>166</y>
     </hint>
     <hint type="destinationlabel">
-     <x>746</x>
-     <y>274</y>
+     <x>1028</x>
+     <y>167</y>
     </hint>
    </hints>
   </connection>
@@ -504,8 +751,8 @@
    <slot>on_rotation(int)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>737</x>
-     <y>262</y>
+     <x>1028</x>
+     <y>167</y>
     </hint>
     <hint type="destinationlabel">
      <x>388</x>
@@ -520,12 +767,60 @@
    <slot>on_reset()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>889</x>
-     <y>91</y>
+     <x>1082</x>
+     <y>106</y>
     </hint>
     <hint type="destinationlabel">
      <x>733</x>
-     <y>-6</y>
+     <y>0</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>btn_do</sender>
+   <signal>clicked()</signal>
+   <receiver>SRDemoClass</receiver>
+   <slot>on_do()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>872</x>
+     <y>795</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>874</x>
+     <y>843</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>pushButton_14</sender>
+   <signal>clicked()</signal>
+   <receiver>SRDemoClass</receiver>
+   <slot>on_cancel()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>1004</x>
+     <y>795</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>994</x>
+     <y>873</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>pushButton</sender>
+   <signal>clicked()</signal>
+   <receiver>SRDemoClass</receiver>
+   <slot>on_extraction()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>839</x>
+     <y>233</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>1110</x>
+     <y>236</y>
     </hint>
    </hints>
   </connection>
@@ -537,5 +832,8 @@
   <slot>on_calibChanged(QString)</slot>
   <slot>on_rotation(int)</slot>
   <slot>on_reset()</slot>
+  <slot>on_do()</slot>
+  <slot>on_cancel()</slot>
+  <slot>on_extraction()</slot>
  </slots>
 </ui>
