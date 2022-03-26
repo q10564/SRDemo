@@ -25,6 +25,7 @@ private:
     Ui::SRDemoClass ui;
 	Mat sourceImage;
 	Mat currentImage;
+	Mat debugImage;
 	QString imagePath;
 	QMessageBox msgBox;
 	QLabel statusBarMessage;
@@ -37,6 +38,7 @@ public slots:
 	void on_calibChanged(QString);//切换标定文件
 	void on_rotation(int);//旋转
 	void on_extraction();//通道提取
+	void on_deBugImage();
 	void on_do();
 	void on_cancel();
 };

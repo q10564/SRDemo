@@ -3,6 +3,7 @@
 #include <vector>
 using namespace cv;
 using namespace std;
+#define PI 3.1415926
 /*
 	标定结果矩阵
 */
@@ -28,6 +29,10 @@ calib: 标定结果
 */
 bool calibration(vector<Point2f> world, vector<Point2f> pix, calibResult &calib);
 
+Mat cvtColor_RGB2HSI(Mat &input);
+
 Mat ImageRotation(cv::Mat &image, double angle);
 
 Mat ImageMirror(cv::Mat &image, int type);
+
+void GetCalcHistImage(Mat input, Mat &output);

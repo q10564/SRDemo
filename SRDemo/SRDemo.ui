@@ -2,18 +2,40 @@
 <ui version="4.0">
  <class>SRDemoClass</class>
  <widget class="QMainWindow" name="SRDemoClass">
+  <property name="windowModality">
+   <enum>Qt::WindowModal</enum>
+  </property>
   <property name="geometry">
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1115</width>
-    <height>866</height>
+    <width>1059</width>
+    <height>913</height>
    </rect>
   </property>
+  <property name="minimumSize">
+   <size>
+    <width>0</width>
+    <height>0</height>
+   </size>
+  </property>
   <property name="windowTitle">
-   <string>SRDemo</string>
+   <string>SRVision</string>
+  </property>
+  <property name="windowIcon">
+   <iconset>
+    <normaloff>../image/ico.png</normaloff>../image/ico.png</iconset>
+  </property>
+  <property name="tabShape">
+   <enum>QTabWidget::Rounded</enum>
   </property>
   <widget class="QWidget" name="centralWidget">
+   <property name="minimumSize">
+    <size>
+     <width>0</width>
+     <height>0</height>
+    </size>
+   </property>
    <layout class="QVBoxLayout" name="verticalLayout_4">
     <item>
      <widget class="QTabWidget" name="tabWidget">
@@ -55,6 +77,12 @@
         </item>
         <item>
          <widget class="QWidget" name="widget_2" native="true">
+          <property name="minimumSize">
+           <size>
+            <width>300</width>
+            <height>0</height>
+           </size>
+          </property>
           <layout class="QVBoxLayout" name="verticalLayout">
            <item>
             <layout class="QHBoxLayout" name="horizontalLayout_2">
@@ -273,31 +301,17 @@
               <string>定位检测</string>
              </property>
              <layout class="QGridLayout" name="gridLayout_3">
-              <item row="1" column="2">
-               <widget class="QPushButton" name="pushButton_8">
+              <item row="2" column="0">
+               <widget class="QPushButton" name="pushButton_9">
                 <property name="text">
-                 <string>Blob分析</string>
+                 <string>灰度匹配</string>
                 </property>
                </widget>
               </item>
-              <item row="1" column="1">
-               <widget class="QPushButton" name="pushButton_7">
+              <item row="2" column="2">
+               <widget class="QPushButton" name="pushButton_11">
                 <property name="text">
-                 <string>角点检测</string>
-                </property>
-               </widget>
-              </item>
-              <item row="0" column="2">
-               <widget class="QPushButton" name="pushButton_6">
-                <property name="text">
-                 <string>轮廓查找</string>
-                </property>
-               </widget>
-              </item>
-              <item row="1" column="0">
-               <widget class="QPushButton" name="pushButton_4">
-                <property name="text">
-                 <string>找点</string>
+                 <string>轮廓匹配</string>
                 </property>
                </widget>
               </item>
@@ -315,10 +329,31 @@
                 </property>
                </widget>
               </item>
-              <item row="2" column="0">
-               <widget class="QPushButton" name="pushButton_9">
+              <item row="1" column="0">
+               <widget class="QPushButton" name="pushButton_4">
                 <property name="text">
-                 <string>灰度匹配</string>
+                 <string>找点</string>
+                </property>
+               </widget>
+              </item>
+              <item row="1" column="2">
+               <widget class="QPushButton" name="pushButton_8">
+                <property name="text">
+                 <string>Blob分析</string>
+                </property>
+               </widget>
+              </item>
+              <item row="1" column="1">
+               <widget class="QPushButton" name="pushButton_7">
+                <property name="text">
+                 <string>角点检测</string>
+                </property>
+               </widget>
+              </item>
+              <item row="0" column="2">
+               <widget class="QPushButton" name="pushButton_6">
+                <property name="text">
+                 <string>轮廓提取</string>
                 </property>
                </widget>
               </item>
@@ -326,13 +361,6 @@
                <widget class="QPushButton" name="pushButton_10">
                 <property name="text">
                  <string>特征匹配</string>
-                </property>
-               </widget>
-              </item>
-              <item row="2" column="2">
-               <widget class="QPushButton" name="pushButton_11">
-                <property name="text">
-                 <string>轮廓匹配</string>
                 </property>
                </widget>
               </item>
@@ -348,9 +376,34 @@
               <item>
                <widget class="QStackedWidget" name="stackedWidget">
                 <property name="currentIndex">
-                 <number>1</number>
+                 <number>2</number>
                 </property>
-                <widget class="QWidget" name="page_non"/>
+                <widget class="QWidget" name="page_non">
+                 <layout class="QVBoxLayout" name="verticalLayout_6">
+                  <item>
+                   <widget class="QLabel" name="label_ico">
+                    <property name="text">
+                     <string/>
+                    </property>
+                    <property name="pixmap">
+                     <pixmap>../image/logo.png</pixmap>
+                    </property>
+                    <property name="scaledContents">
+                     <bool>false</bool>
+                    </property>
+                    <property name="alignment">
+                     <set>Qt::AlignCenter</set>
+                    </property>
+                    <property name="wordWrap">
+                     <bool>false</bool>
+                    </property>
+                    <property name="margin">
+                     <number>0</number>
+                    </property>
+                   </widget>
+                  </item>
+                 </layout>
+                </widget>
                 <widget class="QWidget" name="page_extraction">
                  <layout class="QVBoxLayout" name="verticalLayout_5">
                   <item>
@@ -369,7 +422,12 @@
                      </widget>
                     </item>
                     <item>
-                     <widget class="QComboBox" name="comboBox">
+                     <widget class="QComboBox" name="comboBox_RGB">
+                      <item>
+                       <property name="text">
+                        <string>RGB模式</string>
+                       </property>
+                      </item>
                       <item>
                        <property name="text">
                         <string>红色</string>
@@ -405,10 +463,15 @@
                      </widget>
                     </item>
                     <item>
-                     <widget class="QComboBox" name="comboBox_2">
+                     <widget class="QComboBox" name="comboBox_HSL">
                       <item>
                        <property name="text">
-                        <string>色度</string>
+                        <string>HSL模式</string>
+                       </property>
+                      </item>
+                      <item>
+                       <property name="text">
+                        <string>色调</string>
                        </property>
                       </item>
                       <item>
@@ -441,10 +504,15 @@
                      </widget>
                     </item>
                     <item>
-                     <widget class="QComboBox" name="comboBox_3">
+                     <widget class="QComboBox" name="comboBox_HSV">
                       <item>
                        <property name="text">
-                        <string>色度</string>
+                        <string>HSV模式</string>
+                       </property>
+                      </item>
+                      <item>
+                       <property name="text">
+                        <string>色调</string>
                        </property>
                       </item>
                       <item>
@@ -477,10 +545,15 @@
                      </widget>
                     </item>
                     <item>
-                     <widget class="QComboBox" name="comboBox_4">
+                     <widget class="QComboBox" name="comboBox_HSI">
                       <item>
                        <property name="text">
-                        <string>色度</string>
+                        <string>HSI模式</string>
+                       </property>
+                      </item>
+                      <item>
+                       <property name="text">
+                        <string>色调</string>
                        </property>
                       </item>
                       <item>
@@ -499,33 +572,135 @@
                   </item>
                  </layout>
                 </widget>
-                <widget class="QWidget" name="page_2">
-                 <widget class="QSlider" name="verticalSlider">
-                  <property name="geometry">
-                   <rect>
-                    <x>40</x>
-                    <y>40</y>
-                    <width>22</width>
-                    <height>160</height>
-                   </rect>
-                  </property>
-                  <property name="orientation">
-                   <enum>Qt::Vertical</enum>
-                  </property>
-                 </widget>
-                 <widget class="QSlider" name="verticalSlider_2">
-                  <property name="geometry">
-                   <rect>
-                    <x>150</x>
-                    <y>40</y>
-                    <width>22</width>
-                    <height>160</height>
-                   </rect>
-                  </property>
-                  <property name="orientation">
-                   <enum>Qt::Vertical</enum>
-                  </property>
-                 </widget>
+                <widget class="QWidget" name="page_Threshold">
+                 <layout class="QVBoxLayout" name="verticalLayout_8">
+                  <item>
+                   <layout class="QHBoxLayout" name="horizontalLayout_3">
+                    <item>
+                     <spacer name="horizontalSpacer">
+                      <property name="orientation">
+                       <enum>Qt::Horizontal</enum>
+                      </property>
+                      <property name="sizeHint" stdset="0">
+                       <size>
+                        <width>40</width>
+                        <height>20</height>
+                       </size>
+                      </property>
+                     </spacer>
+                    </item>
+                    <item>
+                     <widget class="QRadioButton" name="Threshold_radioButton_black">
+                      <property name="text">
+                       <string>黑色对象</string>
+                      </property>
+                     </widget>
+                    </item>
+                    <item>
+                     <widget class="QRadioButton" name="Threshold_radioButton_white_manual">
+                      <property name="text">
+                       <string>白色对象</string>
+                      </property>
+                     </widget>
+                    </item>
+                    <item>
+                     <spacer name="horizontalSpacer_3">
+                      <property name="orientation">
+                       <enum>Qt::Horizontal</enum>
+                      </property>
+                      <property name="sizeHint" stdset="0">
+                       <size>
+                        <width>40</width>
+                        <height>20</height>
+                       </size>
+                      </property>
+                     </spacer>
+                    </item>
+                   </layout>
+                  </item>
+                  <item>
+                   <layout class="QHBoxLayout" name="horizontalLayout_13">
+                    <item>
+                     <widget class="QLabel" name="label_5">
+                      <property name="text">
+                       <string>方式：</string>
+                      </property>
+                     </widget>
+                    </item>
+                    <item>
+                     <widget class="QComboBox" name="comboBox"/>
+                    </item>
+                   </layout>
+                  </item>
+                  <item>
+                   <widget class="QGroupBox" name="groupBox_3">
+                    <property name="title">
+                     <string>直方图</string>
+                    </property>
+                    <layout class="QVBoxLayout" name="verticalLayout_9">
+                     <item>
+                      <widget class="QLabel" name="label_histImage">
+                       <property name="minimumSize">
+                        <size>
+                         <width>256</width>
+                         <height>160</height>
+                        </size>
+                       </property>
+                       <property name="text">
+                        <string/>
+                       </property>
+                      </widget>
+                     </item>
+                    </layout>
+                   </widget>
+                  </item>
+                  <item>
+                   <layout class="QVBoxLayout" name="verticalLayout_7">
+                    <item>
+                     <layout class="QHBoxLayout" name="horizontalLayout_11">
+                      <item>
+                       <widget class="QLabel" name="label_3">
+                        <property name="text">
+                         <string>低阈值</string>
+                        </property>
+                       </widget>
+                      </item>
+                      <item>
+                       <widget class="QSlider" name="Threshold_Slider_low">
+                        <property name="orientation">
+                         <enum>Qt::Horizontal</enum>
+                        </property>
+                       </widget>
+                      </item>
+                      <item>
+                       <widget class="QSpinBox" name="Threshold_spinBox_low"/>
+                      </item>
+                     </layout>
+                    </item>
+                    <item>
+                     <layout class="QHBoxLayout" name="horizontalLayout_12">
+                      <item>
+                       <widget class="QLabel" name="label_4">
+                        <property name="text">
+                         <string>高阈值</string>
+                        </property>
+                       </widget>
+                      </item>
+                      <item>
+                       <widget class="QSlider" name="Threshold_Slider_high">
+                        <property name="orientation">
+                         <enum>Qt::Horizontal</enum>
+                        </property>
+                       </widget>
+                      </item>
+                      <item>
+                       <widget class="QSpinBox" name="Threshold_spinBox_high"/>
+                      </item>
+                     </layout>
+                    </item>
+                   </layout>
+                  </item>
+                 </layout>
                 </widget>
                </widget>
               </item>
@@ -569,7 +744,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>1115</width>
+     <width>1059</width>
      <height>23</height>
     </rect>
    </property>
@@ -608,10 +783,10 @@
   <tabstop>spinBox</tabstop>
   <tabstop>checkBox_7</tabstop>
   <tabstop>checkBox_8</tabstop>
-  <tabstop>comboBox</tabstop>
-  <tabstop>comboBox_2</tabstop>
-  <tabstop>comboBox_3</tabstop>
-  <tabstop>comboBox_4</tabstop>
+  <tabstop>comboBox_RGB</tabstop>
+  <tabstop>comboBox_HSL</tabstop>
+  <tabstop>comboBox_HSV</tabstop>
+  <tabstop>comboBox_HSI</tabstop>
   <tabstop>b6</tabstop>
   <tabstop>b5</tabstop>
   <tabstop>b7</tabstop>
@@ -633,8 +808,6 @@
   <tabstop>pushButton_11</tabstop>
   <tabstop>btn_do</tabstop>
   <tabstop>pushButton_14</tabstop>
-  <tabstop>verticalSlider</tabstop>
-  <tabstop>verticalSlider_2</tabstop>
   <tabstop>b9</tabstop>
   <tabstop>b1</tabstop>
   <tabstop>pushbutton_input</tabstop>
@@ -824,6 +997,134 @@
     </hint>
    </hints>
   </connection>
+  <connection>
+   <sender>comboBox_RGB</sender>
+   <signal>currentIndexChanged(int)</signal>
+   <receiver>SRDemoClass</receiver>
+   <slot>on_deBugImage()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>965</x>
+     <y>532</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>1112</x>
+     <y>435</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>comboBox_HSL</sender>
+   <signal>currentIndexChanged(int)</signal>
+   <receiver>SRDemoClass</receiver>
+   <slot>on_deBugImage()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>1011</x>
+     <y>597</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>1110</x>
+     <y>555</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>comboBox_HSV</sender>
+   <signal>currentIndexChanged(int)</signal>
+   <receiver>SRDemoClass</receiver>
+   <slot>on_deBugImage()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>988</x>
+     <y>668</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>1109</x>
+     <y>653</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>comboBox_HSI</sender>
+   <signal>currentIndexChanged(int)</signal>
+   <receiver>SRDemoClass</receiver>
+   <slot>on_deBugImage()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>943</x>
+     <y>734</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>1110</x>
+     <y>716</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>radioButton_RGB</sender>
+   <signal>clicked()</signal>
+   <receiver>SRDemoClass</receiver>
+   <slot>on_deBugImage()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>863</x>
+     <y>529</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>1108</x>
+     <y>499</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>radioButton_HSL</sender>
+   <signal>clicked()</signal>
+   <receiver>SRDemoClass</receiver>
+   <slot>on_deBugImage()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>858</x>
+     <y>594</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>1111</x>
+     <y>531</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>radioButton_HSV</sender>
+   <signal>clicked()</signal>
+   <receiver>SRDemoClass</receiver>
+   <slot>on_deBugImage()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>859</x>
+     <y>666</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>1106</x>
+     <y>606</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>radioButton_HSI</sender>
+   <signal>clicked()</signal>
+   <receiver>SRDemoClass</receiver>
+   <slot>on_deBugImage()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>850</x>
+     <y>735</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>1111</x>
+     <y>696</y>
+    </hint>
+   </hints>
+  </connection>
  </connections>
  <slots>
   <slot>on_inputClicked()</slot>
@@ -835,5 +1136,6 @@
   <slot>on_do()</slot>
   <slot>on_cancel()</slot>
   <slot>on_extraction()</slot>
+  <slot>on_deBugImage()</slot>
  </slots>
 </ui>

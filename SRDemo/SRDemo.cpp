@@ -5,7 +5,6 @@ SRDemo::SRDemo(QWidget *parent)
 {
     ui.setupUi(this);
 	refreshCalibBox();
-	ui.stackedWidget->setCurrentWidget(ui.page_non);
 }
 void SRDemo::on_inputClicked()
 {
@@ -209,10 +208,10 @@ void SRDemo::on_calibChanged(QString name)
 
 void SRDemo::on_rotation(int value)
 {
-	/*有bug，每一次都是在旋转后的基础上再旋转*/
 	if (sourceImage.empty())
 		return;
-	Mat dst = ImageRotation(currentImage, value);
+	debugImage = sourceImage;
+	Mat dst = ImageRotation(debugImage, value);
 	refreshImage(dst);
 	currentImage = dst;
 }
@@ -220,32 +219,85 @@ void SRDemo::on_rotation(int value)
 void SRDemo::on_extraction()
 {
 	ui.stackedWidget->setCurrentWidget(ui.page_extraction);
-	ui.radioButton_RGB->setChecked(true);
+}
+
+void SRDemo::on_deBugImage()
+{
+	if (currentImage.empty())
+		return;
+	debugImage = currentImage.clone();
+	switch (ui.stackedWidget->currentIndex())
+	{
+	case 0: break;
+	case 1://通道提取
+	{
+		Mat mv[3];
+		if (ui.radioButton_RGB->isChecked())
+		{
+			qDebug() << "use RGB";
+			split(debugImage, mv);
+			switch (ui.comboBox_RGB->currentIndex())
+			{
+			case 0:refreshImage(debugImage); break;//RGB模式
+			case 1:refreshImage(mv[2]); break;//R
+			case 2:refreshImage(mv[1]); break;//G
+			case 3:refreshImage(mv[0]); break;//B
+			}
+		}
+		else if (ui.radioButton_HSL->isChecked())
+		{
+			qDebug() << "use HSL";
+			cvtColor(currentImage, debugImage, COLOR_BGR2HLS);	
+			split(debugImage, mv);
+			switch (ui.comboBox_HSL->currentIndex())
+			{
+			case 0:refreshImage(debugImage); break;//HSL模式
+			case 1:refreshImage(mv[0]); break;//H色调
+			case 2:refreshImage(mv[2]); break;//S饱和度
+			case 3:refreshImage(mv[1]); break;//L亮度
+			}
+		}
+		else if (ui.radioButton_HSV->isChecked())
+		{
+			qDebug() << "use HSV";
+			cvtColor(currentImage, debugImage, COLOR_BGR2HSV);
+			split(debugImage, mv);
+			switch (ui.comboBox_HSV->currentIndex())
+			{
+			case 0:refreshImage(debugImage); break;//HSL模式
+			case 1:refreshImage(mv[0]); break;//H色调
+			case 2:refreshImage(mv[1]); break;//S饱和度
+			case 3:refreshImage(mv[2]); break;//L明度
+			}
+		}
+		else if (ui.radioButton_HSI->isChecked())
+		{
+			qDebug() << "use HSI";
+			debugImage = cvtColor_RGB2HSI(currentImage);
+			split(debugImage, mv);
+			switch (ui.comboBox_HSI->currentIndex())
+			{
+			case 0:refreshImage(debugImage); break;
+			case 1:refreshImage(mv[0]); break;//H色调
+			case 2:refreshImage(mv[1]); break;//S饱和度
+			case 3:refreshImage(mv[2]); break;//L明度
+			}
+		}
+	}
+	default:break;
+	}
 }
 
 void SRDemo::on_do()
 {
-	int index = ui.stackedWidget->currentIndex();
-	switch (index)
-	{
-		case 0: break;
-		case 1://通道提取
-		{
-			if (ui.radioButton_RGB->isChecked())
-				qDebug() << "is RGB";
-			else if (ui.radioButton_HSL->isChecked())
-				qDebug() << "is HSL";
-			else if (ui.radioButton_HSV->isChecked())
-				qDebug() << "is HSV";
-			else if (ui.radioButton_HSI->isChecked())
-				qDebug() << "is HSI";
-		}
-		default:break;
-	}
+	currentImage = debugImage;
+	ui.stackedWidget->setCurrentWidget(ui.page_non);
 }
 
 void SRDemo::on_cancel()
 {
+	if(!currentImage.empty())
+		refreshImage(currentImage);
 	ui.stackedWidget->setCurrentWidget(ui.page_non);
 }
 
