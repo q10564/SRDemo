@@ -9,8 +9,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1059</width>
-    <height>913</height>
+    <width>1114</width>
+    <height>963</height>
    </rect>
   </property>
   <property name="minimumSize">
@@ -79,121 +79,162 @@
          <widget class="QWidget" name="widget_2" native="true">
           <property name="minimumSize">
            <size>
-            <width>300</width>
+            <width>350</width>
             <height>0</height>
            </size>
           </property>
-          <layout class="QVBoxLayout" name="verticalLayout">
+          <property name="maximumSize">
+           <size>
+            <width>350</width>
+            <height>16777215</height>
+           </size>
+          </property>
+          <layout class="QVBoxLayout" name="verticalLayout_12">
            <item>
-            <layout class="QHBoxLayout" name="horizontalLayout_2">
+            <layout class="QHBoxLayout" name="horizontalLayout_15">
              <item>
-              <widget class="QPushButton" name="pushbutton_input">
-               <property name="text">
-                <string>导入图像</string>
-               </property>
-              </widget>
+              <layout class="QVBoxLayout" name="verticalLayout">
+               <item>
+                <layout class="QHBoxLayout" name="horizontalLayout_2">
+                 <item>
+                  <widget class="QPushButton" name="pushbutton_input">
+                   <property name="text">
+                    <string>导入图像</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item>
+                  <widget class="QLineEdit" name="line_path">
+                   <property name="enabled">
+                    <bool>false</bool>
+                   </property>
+                  </widget>
+                 </item>
+                 <item>
+                  <widget class="QPushButton" name="btn_reset">
+                   <property name="text">
+                    <string>重置处理</string>
+                   </property>
+                  </widget>
+                 </item>
+                </layout>
+               </item>
+               <item>
+                <layout class="QHBoxLayout" name="horizontalLayout_6">
+                 <item>
+                  <widget class="QCheckBox" name="checkBox_useCalib">
+                   <property name="text">
+                    <string>引用标定</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item>
+                  <widget class="QComboBox" name="comboBox_calib"/>
+                 </item>
+                 <item>
+                  <widget class="QPushButton" name="pushbutton_calib">
+                   <property name="text">
+                    <string>自动标定</string>
+                   </property>
+                  </widget>
+                 </item>
+                </layout>
+               </item>
+               <item>
+                <layout class="QHBoxLayout" name="horizontalLayout_4">
+                 <item>
+                  <widget class="QLabel" name="label">
+                   <property name="text">
+                    <string>旋转</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item>
+                  <widget class="QSlider" name="horizontalSlider">
+                   <property name="maximum">
+                    <number>360</number>
+                   </property>
+                   <property name="singleStep">
+                    <number>1</number>
+                   </property>
+                   <property name="pageStep">
+                    <number>10</number>
+                   </property>
+                   <property name="orientation">
+                    <enum>Qt::Horizontal</enum>
+                   </property>
+                   <property name="invertedAppearance">
+                    <bool>false</bool>
+                   </property>
+                   <property name="invertedControls">
+                    <bool>false</bool>
+                   </property>
+                  </widget>
+                 </item>
+                 <item>
+                  <widget class="QSpinBox" name="spinBox">
+                   <property name="maximum">
+                    <number>360</number>
+                   </property>
+                  </widget>
+                 </item>
+                </layout>
+               </item>
+               <item>
+                <layout class="QHBoxLayout" name="horizontalLayout_5">
+                 <item>
+                  <widget class="QLabel" name="label_2">
+                   <property name="text">
+                    <string>镜像</string>
+                   </property>
+                   <property name="alignment">
+                    <set>Qt::AlignCenter</set>
+                   </property>
+                  </widget>
+                 </item>
+                 <item>
+                  <widget class="QCheckBox" name="checkBox_7">
+                   <property name="text">
+                    <string>X方向</string>
+                   </property>
+                  </widget>
+                 </item>
+                 <item>
+                  <widget class="QCheckBox" name="checkBox_8">
+                   <property name="text">
+                    <string>Y方向</string>
+                   </property>
+                  </widget>
+                 </item>
+                </layout>
+               </item>
+              </layout>
              </item>
              <item>
-              <widget class="QLineEdit" name="line_path">
-               <property name="enabled">
-                <bool>false</bool>
+              <widget class="QGroupBox" name="groupBox_5">
+               <property name="title">
+                <string>缓存列表</string>
                </property>
-              </widget>
-             </item>
-             <item>
-              <widget class="QPushButton" name="btn_reset">
-               <property name="text">
-                <string>重置处理</string>
-               </property>
-              </widget>
-             </item>
-            </layout>
-           </item>
-           <item>
-            <layout class="QHBoxLayout" name="horizontalLayout_6">
-             <item>
-              <widget class="QCheckBox" name="checkBox_useCalib">
-               <property name="text">
-                <string>引用标定</string>
-               </property>
-              </widget>
-             </item>
-             <item>
-              <widget class="QComboBox" name="comboBox_calib"/>
-             </item>
-             <item>
-              <widget class="QPushButton" name="pushbutton_calib">
-               <property name="text">
-                <string>自动标定</string>
-               </property>
-              </widget>
-             </item>
-            </layout>
-           </item>
-           <item>
-            <layout class="QHBoxLayout" name="horizontalLayout_4">
-             <item>
-              <widget class="QLabel" name="label">
-               <property name="text">
-                <string>旋转</string>
-               </property>
-              </widget>
-             </item>
-             <item>
-              <widget class="QSlider" name="horizontalSlider">
-               <property name="maximum">
-                <number>360</number>
-               </property>
-               <property name="singleStep">
-                <number>1</number>
-               </property>
-               <property name="pageStep">
-                <number>10</number>
-               </property>
-               <property name="orientation">
-                <enum>Qt::Horizontal</enum>
-               </property>
-               <property name="invertedAppearance">
-                <bool>false</bool>
-               </property>
-               <property name="invertedControls">
-                <bool>false</bool>
-               </property>
-              </widget>
-             </item>
-             <item>
-              <widget class="QSpinBox" name="spinBox">
-               <property name="maximum">
-                <number>360</number>
-               </property>
-              </widget>
-             </item>
-            </layout>
-           </item>
-           <item>
-            <layout class="QHBoxLayout" name="horizontalLayout_5">
-             <item>
-              <widget class="QLabel" name="label_2">
-               <property name="text">
-                <string>镜像</string>
-               </property>
-               <property name="alignment">
-                <set>Qt::AlignCenter</set>
-               </property>
-              </widget>
-             </item>
-             <item>
-              <widget class="QCheckBox" name="checkBox_7">
-               <property name="text">
-                <string>X方向</string>
-               </property>
-              </widget>
-             </item>
-             <item>
-              <widget class="QCheckBox" name="checkBox_8">
-               <property name="text">
-                <string>Y方向</string>
-               </property>
+               <layout class="QVBoxLayout" name="verticalLayout_13" stretch="0">
+                <property name="spacing">
+                 <number>3</number>
+                </property>
+                <property name="leftMargin">
+                 <number>1</number>
+                </property>
+                <property name="topMargin">
+                 <number>1</number>
+                </property>
+                <property name="rightMargin">
+                 <number>1</number>
+                </property>
+                <property name="bottomMargin">
+                 <number>1</number>
+                </property>
+                <item>
+                 <widget class="QListView" name="listView"/>
+                </item>
+               </layout>
               </widget>
              </item>
             </layout>
@@ -207,70 +248,70 @@
               <item>
                <layout class="QGridLayout" name="gridLayout">
                 <item row="2" column="2">
-                 <widget class="QPushButton" name="b5">
+                 <widget class="QPushButton" name="btn_medianFilter">
                   <property name="text">
                    <string>中值滤波</string>
                   </property>
                  </widget>
                 </item>
                 <item row="1" column="1">
-                 <widget class="QPushButton" name="b9">
+                 <widget class="QPushButton" name="btn_dilat">
                   <property name="text">
                    <string>膨胀</string>
                   </property>
                  </widget>
                 </item>
                 <item row="3" column="2">
-                 <widget class="QPushButton" name="b8">
+                 <widget class="QPushButton" name="btn_histogramEqualization">
                   <property name="text">
                    <string>直方图均衡化</string>
                   </property>
                  </widget>
                 </item>
                 <item row="1" column="0">
-                 <widget class="QPushButton" name="b3">
+                 <widget class="QPushButton" name="btn_erod">
                   <property name="text">
                    <string>腐蚀</string>
                   </property>
                  </widget>
                 </item>
                 <item row="3" column="1">
-                 <widget class="QPushButton" name="b2">
+                 <widget class="QPushButton" name="btn_fourierTransformation">
                   <property name="text">
                    <string>傅里叶变换</string>
                   </property>
                  </widget>
                 </item>
                 <item row="1" column="2">
-                 <widget class="QPushButton" name="b4">
+                 <widget class="QPushButton" name="btn_open">
                   <property name="text">
                    <string>开运算</string>
                   </property>
                  </widget>
                 </item>
                 <item row="2" column="0">
-                 <widget class="QPushButton" name="b6">
+                 <widget class="QPushButton" name="btn_clos">
                   <property name="text">
                    <string>闭运算</string>
                   </property>
                  </widget>
                 </item>
                 <item row="2" column="1">
-                 <widget class="QPushButton" name="b1">
+                 <widget class="QPushButton" name="btn_gaussianFilter">
                   <property name="text">
                    <string>高斯滤波</string>
                   </property>
                  </widget>
                 </item>
                 <item row="3" column="0">
-                 <widget class="QPushButton" name="b7">
+                 <widget class="QPushButton" name="btn_averageFilter">
                   <property name="text">
                    <string>均值滤波</string>
                   </property>
                  </widget>
                 </item>
                 <item row="0" column="0">
-                 <widget class="QPushButton" name="pushButton">
+                 <widget class="QPushButton" name="btn_extraction">
                   <property name="text">
                    <string>通道提取</string>
                   </property>
@@ -286,7 +327,7 @@
                 <item row="0" column="2">
                  <widget class="QPushButton" name="pushButton_12">
                   <property name="text">
-                   <string>自定义卷积</string>
+                   <string>自定义滤波</string>
                   </property>
                  </widget>
                 </item>
@@ -301,17 +342,59 @@
               <string>定位检测</string>
              </property>
              <layout class="QGridLayout" name="gridLayout_3">
-              <item row="2" column="0">
-               <widget class="QPushButton" name="pushButton_9">
+              <item row="3" column="1">
+               <widget class="QPushButton" name="pushButton_10">
                 <property name="text">
-                 <string>灰度匹配</string>
+                 <string>特征匹配</string>
+                </property>
+               </widget>
+              </item>
+              <item row="4" column="2">
+               <widget class="QPushButton" name="pushButton">
+                <property name="text">
+                 <string>二维码识别</string>
+                </property>
+               </widget>
+              </item>
+              <item row="4" column="1">
+               <widget class="QPushButton" name="pushButton_13">
+                <property name="text">
+                 <string>字符识别</string>
+                </property>
+               </widget>
+              </item>
+              <item row="3" column="2">
+               <widget class="QPushButton" name="pushButton_11">
+                <property name="text">
+                 <string>轮廓匹配</string>
+                </property>
+               </widget>
+              </item>
+              <item row="2" column="1">
+               <widget class="QPushButton" name="pushButton_7">
+                <property name="text">
+                 <string>角点检测</string>
+                </property>
+               </widget>
+              </item>
+              <item row="2" column="0">
+               <widget class="QPushButton" name="pushButton_4">
+                <property name="text">
+                 <string>找点</string>
                 </property>
                </widget>
               </item>
               <item row="2" column="2">
-               <widget class="QPushButton" name="pushButton_11">
+               <widget class="QPushButton" name="pushButton_8">
                 <property name="text">
-                 <string>轮廓匹配</string>
+                 <string>Blob分析</string>
+                </property>
+               </widget>
+              </item>
+              <item row="3" column="0">
+               <widget class="QPushButton" name="pushButton_9">
+                <property name="text">
+                 <string>灰度匹配</string>
                 </property>
                </widget>
               </item>
@@ -329,27 +412,6 @@
                 </property>
                </widget>
               </item>
-              <item row="1" column="0">
-               <widget class="QPushButton" name="pushButton_4">
-                <property name="text">
-                 <string>找点</string>
-                </property>
-               </widget>
-              </item>
-              <item row="1" column="2">
-               <widget class="QPushButton" name="pushButton_8">
-                <property name="text">
-                 <string>Blob分析</string>
-                </property>
-               </widget>
-              </item>
-              <item row="1" column="1">
-               <widget class="QPushButton" name="pushButton_7">
-                <property name="text">
-                 <string>角点检测</string>
-                </property>
-               </widget>
-              </item>
               <item row="0" column="2">
                <widget class="QPushButton" name="pushButton_6">
                 <property name="text">
@@ -357,10 +419,10 @@
                 </property>
                </widget>
               </item>
-              <item row="2" column="1">
-               <widget class="QPushButton" name="pushButton_10">
+              <item row="4" column="0">
+               <widget class="QPushButton" name="pushButton_15">
                 <property name="text">
-                 <string>特征匹配</string>
+                 <string>间隙测量</string>
                 </property>
                </widget>
               </item>
@@ -376,7 +438,7 @@
               <item>
                <widget class="QStackedWidget" name="stackedWidget">
                 <property name="currentIndex">
-                 <number>2</number>
+                 <number>3</number>
                 </property>
                 <widget class="QWidget" name="page_non">
                  <layout class="QVBoxLayout" name="verticalLayout_6">
@@ -418,6 +480,9 @@
                       </property>
                       <property name="text">
                        <string>RGB模式</string>
+                      </property>
+                      <property name="checked">
+                       <bool>true</bool>
                       </property>
                      </widget>
                     </item>
@@ -577,49 +642,22 @@
                   <item>
                    <layout class="QHBoxLayout" name="horizontalLayout_3">
                     <item>
-                     <spacer name="horizontalSpacer">
-                      <property name="orientation">
-                       <enum>Qt::Horizontal</enum>
-                      </property>
-                      <property name="sizeHint" stdset="0">
-                       <size>
-                        <width>40</width>
-                        <height>20</height>
-                       </size>
-                      </property>
-                     </spacer>
-                    </item>
-                    <item>
                      <widget class="QRadioButton" name="Threshold_radioButton_black">
                       <property name="text">
                        <string>黑色对象</string>
                       </property>
+                      <property name="checked">
+                       <bool>true</bool>
+                      </property>
                      </widget>
                     </item>
                     <item>
-                     <widget class="QRadioButton" name="Threshold_radioButton_white_manual">
+                     <widget class="QRadioButton" name="Threshold_radioButton_white">
                       <property name="text">
                        <string>白色对象</string>
                       </property>
                      </widget>
                     </item>
-                    <item>
-                     <spacer name="horizontalSpacer_3">
-                      <property name="orientation">
-                       <enum>Qt::Horizontal</enum>
-                      </property>
-                      <property name="sizeHint" stdset="0">
-                       <size>
-                        <width>40</width>
-                        <height>20</height>
-                       </size>
-                      </property>
-                     </spacer>
-                    </item>
-                   </layout>
-                  </item>
-                  <item>
-                   <layout class="QHBoxLayout" name="horizontalLayout_13">
                     <item>
                      <widget class="QLabel" name="label_5">
                       <property name="text">
@@ -628,7 +666,82 @@
                      </widget>
                     </item>
                     <item>
-                     <widget class="QComboBox" name="comboBox"/>
+                     <widget class="QComboBox" name="Threshold_comboBox_type">
+                      <item>
+                       <property name="text">
+                        <string>手动二值化</string>
+                       </property>
+                      </item>
+                      <item>
+                       <property name="text">
+                        <string>大津法二值化</string>
+                       </property>
+                      </item>
+                     </widget>
+                    </item>
+                   </layout>
+                  </item>
+                  <item>
+                   <layout class="QHBoxLayout" name="horizontalLayout_13">
+                    <item>
+                     <widget class="QLabel" name="label_6">
+                      <property name="text">
+                       <string>min:</string>
+                      </property>
+                     </widget>
+                    </item>
+                    <item>
+                     <widget class="QLineEdit" name="Threshold_lline_min">
+                      <property name="enabled">
+                       <bool>false</bool>
+                      </property>
+                      <property name="maximumSize">
+                       <size>
+                        <width>50</width>
+                        <height>20</height>
+                       </size>
+                      </property>
+                     </widget>
+                    </item>
+                    <item>
+                     <widget class="QLabel" name="label_7">
+                      <property name="text">
+                       <string>max:</string>
+                      </property>
+                     </widget>
+                    </item>
+                    <item>
+                     <widget class="QLineEdit" name="Threshold_lline_max">
+                      <property name="enabled">
+                       <bool>false</bool>
+                      </property>
+                      <property name="maximumSize">
+                       <size>
+                        <width>50</width>
+                        <height>16777215</height>
+                       </size>
+                      </property>
+                     </widget>
+                    </item>
+                    <item>
+                     <widget class="QLabel" name="label_8">
+                      <property name="text">
+                       <string>average:</string>
+                      </property>
+                     </widget>
+                    </item>
+                    <item>
+                     <widget class="QLineEdit" name="Threshold_line_average">
+                      <property name="enabled">
+                       <bool>false</bool>
+                      </property>
+                      <property name="maximumSize">
+                       <size>
+                        <width>50</width>
+                        <height>16777215</height>
+                       </size>
+                      </property>
+                     </widget>
                     </item>
                    </layout>
                   </item>
@@ -667,13 +780,20 @@
                       </item>
                       <item>
                        <widget class="QSlider" name="Threshold_Slider_low">
+                        <property name="maximum">
+                         <number>255</number>
+                        </property>
                         <property name="orientation">
                          <enum>Qt::Horizontal</enum>
                         </property>
                        </widget>
                       </item>
                       <item>
-                       <widget class="QSpinBox" name="Threshold_spinBox_low"/>
+                       <widget class="QSpinBox" name="Threshold_spinBox_low">
+                        <property name="maximum">
+                         <number>255</number>
+                        </property>
+                       </widget>
                       </item>
                      </layout>
                     </item>
@@ -688,15 +808,93 @@
                       </item>
                       <item>
                        <widget class="QSlider" name="Threshold_Slider_high">
+                        <property name="maximum">
+                         <number>255</number>
+                        </property>
+                        <property name="value">
+                         <number>255</number>
+                        </property>
                         <property name="orientation">
                          <enum>Qt::Horizontal</enum>
                         </property>
                        </widget>
                       </item>
                       <item>
-                       <widget class="QSpinBox" name="Threshold_spinBox_high"/>
+                       <widget class="QSpinBox" name="Threshold_spinBox_high">
+                        <property name="maximum">
+                         <number>255</number>
+                        </property>
+                        <property name="value">
+                         <number>255</number>
+                        </property>
+                       </widget>
                       </item>
                      </layout>
+                    </item>
+                   </layout>
+                  </item>
+                 </layout>
+                </widget>
+                <widget class="QWidget" name="page_kernel">
+                 <layout class="QVBoxLayout" name="verticalLayout_11">
+                  <item>
+                   <layout class="QVBoxLayout" name="verticalLayout_10" stretch="0,9">
+                    <item>
+                     <layout class="QHBoxLayout" name="horizontalLayout_14">
+                      <item>
+                       <spacer name="horizontalSpacer">
+                        <property name="orientation">
+                         <enum>Qt::Horizontal</enum>
+                        </property>
+                        <property name="sizeHint" stdset="0">
+                         <size>
+                          <width>40</width>
+                          <height>20</height>
+                         </size>
+                        </property>
+                       </spacer>
+                      </item>
+                      <item>
+                       <widget class="QLabel" name="label_9">
+                        <property name="text">
+                         <string>滤波核大小</string>
+                        </property>
+                       </widget>
+                      </item>
+                      <item>
+                       <widget class="QSpinBox" name="kernel_spinBox">
+                        <property name="minimum">
+                         <number>3</number>
+                        </property>
+                        <property name="maximum">
+                         <number>9</number>
+                        </property>
+                        <property name="singleStep">
+                         <number>2</number>
+                        </property>
+                       </widget>
+                      </item>
+                      <item>
+                       <spacer name="horizontalSpacer_2">
+                        <property name="orientation">
+                         <enum>Qt::Horizontal</enum>
+                        </property>
+                        <property name="sizeHint" stdset="0">
+                         <size>
+                          <width>40</width>
+                          <height>20</height>
+                         </size>
+                        </property>
+                       </spacer>
+                      </item>
+                     </layout>
+                    </item>
+                    <item>
+                     <widget class="QGroupBox" name="groupBox_4">
+                      <property name="title">
+                       <string>滤波核</string>
+                      </property>
+                     </widget>
                     </item>
                    </layout>
                   </item>
@@ -744,7 +942,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>1059</width>
+     <width>1114</width>
      <height>23</height>
     </rect>
    </property>
@@ -769,10 +967,10 @@
   <tabstop>radioButton_RGB</tabstop>
   <tabstop>radioButton_HSV</tabstop>
   <tabstop>radioButton_HSI</tabstop>
-  <tabstop>b7</tabstop>
+  <tabstop>btn_averageFilter</tabstop>
   <tabstop>pushButton_8</tabstop>
-  <tabstop>b2</tabstop>
-  <tabstop>b8</tabstop>
+  <tabstop>btn_fourierTransformation</tabstop>
+  <tabstop>btn_histogramEqualization</tabstop>
   <tabstop>checkBox_useCalib</tabstop>
   <tabstop>comboBox_calib</tabstop>
   <tabstop>pushbutton_calib</tabstop>
@@ -787,19 +985,18 @@
   <tabstop>comboBox_HSL</tabstop>
   <tabstop>comboBox_HSV</tabstop>
   <tabstop>comboBox_HSI</tabstop>
-  <tabstop>b6</tabstop>
-  <tabstop>b5</tabstop>
-  <tabstop>b7</tabstop>
-  <tabstop>b9</tabstop>
-  <tabstop>b1</tabstop>
-  <tabstop>b2</tabstop>
+  <tabstop>btn_clos</tabstop>
+  <tabstop>btn_medianFilter</tabstop>
+  <tabstop>btn_averageFilter</tabstop>
+  <tabstop>btn_dilat</tabstop>
+  <tabstop>btn_gaussianFilter</tabstop>
+  <tabstop>btn_fourierTransformation</tabstop>
   <tabstop>btn_reset</tabstop>
-  <tabstop>b3</tabstop>
-  <tabstop>b4</tabstop>
-  <tabstop>pushButton</tabstop>
+  <tabstop>btn_erod</tabstop>
+  <tabstop>btn_open</tabstop>
+  <tabstop>btn_extraction</tabstop>
   <tabstop>pushButton_2</tabstop>
   <tabstop>pushButton_12</tabstop>
-  <tabstop>pushButton_6</tabstop>
   <tabstop>pushButton_4</tabstop>
   <tabstop>pushButton_3</tabstop>
   <tabstop>pushButton_5</tabstop>
@@ -808,13 +1005,13 @@
   <tabstop>pushButton_11</tabstop>
   <tabstop>btn_do</tabstop>
   <tabstop>pushButton_14</tabstop>
-  <tabstop>b9</tabstop>
-  <tabstop>b1</tabstop>
+  <tabstop>btn_dilat</tabstop>
+  <tabstop>btn_gaussianFilter</tabstop>
   <tabstop>pushbutton_input</tabstop>
-  <tabstop>b5</tabstop>
-  <tabstop>b8</tabstop>
+  <tabstop>btn_medianFilter</tabstop>
+  <tabstop>btn_histogramEqualization</tabstop>
   <tabstop>pushButton_7</tabstop>
-  <tabstop>b6</tabstop>
+  <tabstop>btn_clos</tabstop>
   <tabstop>pushbutton_calib</tabstop>
  </tabstops>
  <resources>
@@ -828,11 +1025,11 @@
    <slot>on_inputClicked()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>862</x>
+     <x>792</x>
      <y>106</y>
     </hint>
     <hint type="destinationlabel">
-     <x>515</x>
+     <x>461</x>
      <y>0</y>
     </hint>
    </hints>
@@ -844,11 +1041,11 @@
    <slot>on_calib()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>1082</x>
+     <x>1047</x>
      <y>137</y>
     </hint>
     <hint type="destinationlabel">
-     <x>562</x>
+     <x>461</x>
      <y>0</y>
     </hint>
    </hints>
@@ -860,7 +1057,7 @@
    <slot>on_useCalib(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>881</x>
+     <x>823</x>
      <y>133</y>
     </hint>
     <hint type="destinationlabel">
@@ -876,11 +1073,11 @@
    <slot>on_calibChanged(QString)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>982</x>
+     <x>935</x>
      <y>135</y>
     </hint>
     <hint type="destinationlabel">
-     <x>567</x>
+     <x>461</x>
      <y>40</y>
     </hint>
    </hints>
@@ -892,11 +1089,11 @@
    <slot>setValue(int)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>1028</x>
+     <x>993</x>
      <y>167</y>
     </hint>
     <hint type="destinationlabel">
-     <x>1082</x>
+     <x>1047</x>
      <y>166</y>
     </hint>
    </hints>
@@ -908,11 +1105,11 @@
    <slot>setValue(int)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>1082</x>
+     <x>1047</x>
      <y>166</y>
     </hint>
     <hint type="destinationlabel">
-     <x>1028</x>
+     <x>993</x>
      <y>167</y>
     </hint>
    </hints>
@@ -924,7 +1121,7 @@
    <slot>on_rotation(int)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>1028</x>
+     <x>993</x>
      <y>167</y>
     </hint>
     <hint type="destinationlabel">
@@ -940,11 +1137,11 @@
    <slot>on_reset()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>1082</x>
+     <x>1047</x>
      <y>106</y>
     </hint>
     <hint type="destinationlabel">
-     <x>733</x>
+     <x>461</x>
      <y>0</y>
     </hint>
    </hints>
@@ -956,11 +1153,11 @@
    <slot>on_do()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>872</x>
-     <y>795</y>
+     <x>879</x>
+     <y>898</y>
     </hint>
     <hint type="destinationlabel">
-     <x>874</x>
+     <x>461</x>
      <y>843</y>
     </hint>
    </hints>
@@ -972,27 +1169,27 @@
    <slot>on_cancel()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>1004</x>
-     <y>795</y>
+     <x>1037</x>
+     <y>898</y>
     </hint>
     <hint type="destinationlabel">
-     <x>994</x>
+     <x>461</x>
      <y>873</y>
     </hint>
    </hints>
   </connection>
   <connection>
-   <sender>pushButton</sender>
+   <sender>btn_extraction</sender>
    <signal>clicked()</signal>
    <receiver>SRDemoClass</receiver>
    <slot>on_extraction()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>839</x>
-     <y>233</y>
+     <x>826</x>
+     <y>244</y>
     </hint>
     <hint type="destinationlabel">
-     <x>1110</x>
+     <x>461</x>
      <y>236</y>
     </hint>
    </hints>
@@ -1004,11 +1201,11 @@
    <slot>on_deBugImage()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>965</x>
-     <y>532</y>
+     <x>826</x>
+     <y>548</y>
     </hint>
     <hint type="destinationlabel">
-     <x>1112</x>
+     <x>461</x>
      <y>435</y>
     </hint>
    </hints>
@@ -1020,11 +1217,11 @@
    <slot>on_deBugImage()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>1011</x>
-     <y>597</y>
+     <x>826</x>
+     <y>548</y>
     </hint>
     <hint type="destinationlabel">
-     <x>1110</x>
+     <x>461</x>
      <y>555</y>
     </hint>
    </hints>
@@ -1036,11 +1233,11 @@
    <slot>on_deBugImage()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>988</x>
-     <y>668</y>
+     <x>826</x>
+     <y>548</y>
     </hint>
     <hint type="destinationlabel">
-     <x>1109</x>
+     <x>461</x>
      <y>653</y>
     </hint>
    </hints>
@@ -1052,11 +1249,11 @@
    <slot>on_deBugImage()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>943</x>
-     <y>734</y>
+     <x>826</x>
+     <y>548</y>
     </hint>
     <hint type="destinationlabel">
-     <x>1110</x>
+     <x>461</x>
      <y>716</y>
     </hint>
    </hints>
@@ -1068,11 +1265,11 @@
    <slot>on_deBugImage()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>863</x>
-     <y>529</y>
+     <x>826</x>
+     <y>548</y>
     </hint>
     <hint type="destinationlabel">
-     <x>1108</x>
+     <x>461</x>
      <y>499</y>
     </hint>
    </hints>
@@ -1084,11 +1281,11 @@
    <slot>on_deBugImage()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>858</x>
-     <y>594</y>
+     <x>826</x>
+     <y>548</y>
     </hint>
     <hint type="destinationlabel">
-     <x>1111</x>
+     <x>461</x>
      <y>531</y>
     </hint>
    </hints>
@@ -1100,11 +1297,11 @@
    <slot>on_deBugImage()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>859</x>
-     <y>666</y>
+     <x>826</x>
+     <y>548</y>
     </hint>
     <hint type="destinationlabel">
-     <x>1106</x>
+     <x>461</x>
      <y>606</y>
     </hint>
    </hints>
@@ -1116,12 +1313,364 @@
    <slot>on_deBugImage()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>850</x>
-     <y>735</y>
+     <x>826</x>
+     <y>548</y>
     </hint>
     <hint type="destinationlabel">
-     <x>1111</x>
+     <x>461</x>
      <y>696</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>pushButton_2</sender>
+   <signal>clicked()</signal>
+   <receiver>SRDemoClass</receiver>
+   <slot>on_threshold()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>932</x>
+     <y>244</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>461</x>
+     <y>191</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>Threshold_Slider_low</sender>
+   <signal>valueChanged(int)</signal>
+   <receiver>Threshold_spinBox_low</receiver>
+   <slot>setValue(int)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>826</x>
+     <y>548</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>826</x>
+     <y>548</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>Threshold_Slider_high</sender>
+   <signal>valueChanged(int)</signal>
+   <receiver>Threshold_spinBox_high</receiver>
+   <slot>setValue(int)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>826</x>
+     <y>548</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>826</x>
+     <y>548</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>Threshold_spinBox_low</sender>
+   <signal>valueChanged(int)</signal>
+   <receiver>Threshold_Slider_low</receiver>
+   <slot>setValue(int)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>826</x>
+     <y>548</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>826</x>
+     <y>548</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>Threshold_spinBox_high</sender>
+   <signal>valueChanged(int)</signal>
+   <receiver>Threshold_Slider_high</receiver>
+   <slot>setValue(int)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>826</x>
+     <y>548</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>826</x>
+     <y>548</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>pushButton_2</sender>
+   <signal>clicked()</signal>
+   <receiver>SRDemoClass</receiver>
+   <slot>on_deBugImage()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>856</x>
+     <y>234</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>1032</x>
+     <y>221</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>Threshold_Slider_high</sender>
+   <signal>valueChanged(int)</signal>
+   <receiver>SRDemoClass</receiver>
+   <slot>on_deBugImage()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>826</x>
+     <y>548</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>942</x>
+     <y>917</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>Threshold_Slider_low</sender>
+   <signal>valueChanged(int)</signal>
+   <receiver>SRDemoClass</receiver>
+   <slot>on_deBugImage()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>826</x>
+     <y>548</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>1033</x>
+     <y>688</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>Threshold_radioButton_black</sender>
+   <signal>clicked()</signal>
+   <receiver>SRDemoClass</receiver>
+   <slot>on_deBugImage()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>758</x>
+     <y>546</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>1034</x>
+     <y>474</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>Threshold_radioButton_white</sender>
+   <signal>clicked()</signal>
+   <receiver>SRDemoClass</receiver>
+   <slot>on_deBugImage()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>826</x>
+     <y>548</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>1028</x>
+     <y>528</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>Threshold_comboBox_type</sender>
+   <signal>currentIndexChanged(int)</signal>
+   <receiver>SRDemoClass</receiver>
+   <slot>on_deBugImage()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>826</x>
+     <y>548</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>1030</x>
+     <y>457</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>pushButton_12</sender>
+   <signal>clicked()</signal>
+   <receiver>SRDemoClass</receiver>
+   <slot>on_kernel()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>1037</x>
+     <y>244</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>1026</x>
+     <y>268</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>kernel_spinBox</sender>
+   <signal>valueChanged(int)</signal>
+   <receiver>SRDemoClass</receiver>
+   <slot>on_kernelSet(int)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>933</x>
+     <y>549</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>1027</x>
+     <y>558</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>btn_erod</sender>
+   <signal>clicked()</signal>
+   <receiver>SRDemoClass</receiver>
+   <slot>on_erod()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>796</x>
+     <y>265</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>1073</x>
+     <y>265</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>btn_dilat</sender>
+   <signal>clicked()</signal>
+   <receiver>SRDemoClass</receiver>
+   <slot>on_dilat()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>905</x>
+     <y>272</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>1075</x>
+     <y>248</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>btn_open</sender>
+   <signal>clicked()</signal>
+   <receiver>SRDemoClass</receiver>
+   <slot>on_openFilter()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>1000</x>
+     <y>256</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>1075</x>
+     <y>237</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>btn_clos</sender>
+   <signal>clicked()</signal>
+   <receiver>SRDemoClass</receiver>
+   <slot>on_closFilter()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>763</x>
+     <y>291</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>1076</x>
+     <y>307</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>btn_gaussianFilter</sender>
+   <signal>clicked()</signal>
+   <receiver>SRDemoClass</receiver>
+   <slot>on_gaussianFilter()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>869</x>
+     <y>284</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>1075</x>
+     <y>296</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>btn_medianFilter</sender>
+   <signal>clicked()</signal>
+   <receiver>SRDemoClass</receiver>
+   <slot>on_medianFilter()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>1013</x>
+     <y>290</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>1077</x>
+     <y>178</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>btn_averageFilter</sender>
+   <signal>clicked()</signal>
+   <receiver>SRDemoClass</receiver>
+   <slot>on_averageFilter()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>785</x>
+     <y>321</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>1075</x>
+     <y>152</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>btn_fourierTransformation</sender>
+   <signal>clicked()</signal>
+   <receiver>SRDemoClass</receiver>
+   <slot>on_fourierTransformation()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>888</x>
+     <y>315</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>1074</x>
+     <y>210</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>btn_histogramEqualization</sender>
+   <signal>clicked()</signal>
+   <receiver>SRDemoClass</receiver>
+   <slot>on_histogramEqualization()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>978</x>
+     <y>328</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>1074</x>
+     <y>354</y>
     </hint>
    </hints>
   </connection>
@@ -1137,5 +1686,17 @@
   <slot>on_cancel()</slot>
   <slot>on_extraction()</slot>
   <slot>on_deBugImage()</slot>
+  <slot>on_threshold()</slot>
+  <slot>on_kernel()</slot>
+  <slot>on_kernelSet(int)</slot>
+  <slot>on_erod()</slot>
+  <slot>on_dilat()</slot>
+  <slot>on_openFilter()</slot>
+  <slot>on_closFilter()</slot>
+  <slot>on_gaussianFilter()</slot>
+  <slot>on_medianFilter()</slot>
+  <slot>on_averageFilter()</slot>
+  <slot>on_fourierTransformation()</slot>
+  <slot>on_histogramEqualization()</slot>
  </slots>
 </ui>

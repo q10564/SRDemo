@@ -5,6 +5,7 @@ SRDemo::SRDemo(QWidget *parent)
 {
     ui.setupUi(this);
 	refreshCalibBox();
+	kernel_gridLayout = new QGridLayout();
 }
 void SRDemo::on_inputClicked()
 {
@@ -211,14 +212,34 @@ void SRDemo::on_rotation(int value)
 	if (sourceImage.empty())
 		return;
 	debugImage = sourceImage;
-	Mat dst = ImageRotation(debugImage, value);
+	Mat dst = getRotationImage(debugImage, value);
 	refreshImage(dst);
 	currentImage = dst;
 }
 
 void SRDemo::on_extraction()
 {
+	if (currentImage.type() != CV_8UC3)
+	{
+		msgBox.setWindowTitle(tr("error"));
+		msgBox.setText(u8"该图像不为三通道图像");
+		msgBox.exec();
+		return;
+	}
+
 	ui.stackedWidget->setCurrentWidget(ui.page_extraction);
+}
+
+void SRDemo::on_threshold()
+{
+	if (currentImage.type() != CV_8UC1)
+	{
+		msgBox.setWindowTitle(tr("error"));
+		msgBox.setText(u8"该图像不为灰度图像");
+		msgBox.exec();
+		return;
+	}
+	ui.stackedWidget->setCurrentWidget(ui.page_Threshold);
 }
 
 void SRDemo::on_deBugImage()
@@ -239,9 +260,9 @@ void SRDemo::on_deBugImage()
 			switch (ui.comboBox_RGB->currentIndex())
 			{
 			case 0:refreshImage(debugImage); break;//RGB模式
-			case 1:refreshImage(mv[2]); break;//R
-			case 2:refreshImage(mv[1]); break;//G
-			case 3:refreshImage(mv[0]); break;//B
+			case 1:refreshImage(mv[2]); debugImage = mv[2]; break;//R
+			case 2:refreshImage(mv[1]); debugImage = mv[1]; break;//G
+			case 3:refreshImage(mv[0]); debugImage = mv[0]; break;//B
 			}
 		}
 		else if (ui.radioButton_HSL->isChecked())
@@ -252,9 +273,9 @@ void SRDemo::on_deBugImage()
 			switch (ui.comboBox_HSL->currentIndex())
 			{
 			case 0:refreshImage(debugImage); break;//HSL模式
-			case 1:refreshImage(mv[0]); break;//H色调
-			case 2:refreshImage(mv[2]); break;//S饱和度
-			case 3:refreshImage(mv[1]); break;//L亮度
+			case 1:refreshImage(mv[0]); debugImage = mv[0]; break;//H色调
+			case 2:refreshImage(mv[2]); debugImage = mv[2]; break;//S饱和度
+			case 3:refreshImage(mv[1]); debugImage = mv[1]; break;//L亮度
 			}
 		}
 		else if (ui.radioButton_HSV->isChecked())
@@ -265,9 +286,9 @@ void SRDemo::on_deBugImage()
 			switch (ui.comboBox_HSV->currentIndex())
 			{
 			case 0:refreshImage(debugImage); break;//HSL模式
-			case 1:refreshImage(mv[0]); break;//H色调
-			case 2:refreshImage(mv[1]); break;//S饱和度
-			case 3:refreshImage(mv[2]); break;//L明度
+			case 1:refreshImage(mv[0]);  debugImage = mv[0]; break;//H色调
+			case 2:refreshImage(mv[1]);  debugImage = mv[1]; break;//S饱和度
+			case 3:refreshImage(mv[2]);  debugImage = mv[2]; break;//L明度
 			}
 		}
 		else if (ui.radioButton_HSI->isChecked())
@@ -278,11 +299,99 @@ void SRDemo::on_deBugImage()
 			switch (ui.comboBox_HSI->currentIndex())
 			{
 			case 0:refreshImage(debugImage); break;
-			case 1:refreshImage(mv[0]); break;//H色调
-			case 2:refreshImage(mv[1]); break;//S饱和度
-			case 3:refreshImage(mv[2]); break;//L明度
+			case 1:refreshImage(mv[0]); debugImage = mv[0]; break;//H色调
+			case 2:refreshImage(mv[1]); debugImage = mv[1]; break;//S饱和度
+			case 3:refreshImage(mv[2]); debugImage = mv[2]; break;//L明度
 			}
 		}
+		break;
+	}
+	case 2://二值化
+	{
+		ui.Threshold_Slider_high->setEnabled(true);
+		ui.Threshold_Slider_low->setEnabled(true);
+		ui.Threshold_spinBox_high->setEnabled(true);
+		ui.Threshold_spinBox_low->setEnabled(true);
+		if (currentImage.type() != CV_8UC1)
+			return;
+		//阈值信息
+		int hight, low;
+		hight = ui.Threshold_spinBox_high->value();
+		low = ui.Threshold_spinBox_low->value();
+
+		//获取灰度直方图
+		SRCalcHist hist(currentImage);
+		ui.Threshold_lline_min->setText(QString::number(hist.min));
+		ui.Threshold_lline_max->setText(QString::number(hist.max));
+		ui.Threshold_line_average->setText(QString::number(hist.average));
+
+		debugImage = hist.calcHistImage;
+		ui.label_histImage->setPixmap(QPixmap::fromImage(MatToQImage(debugImage)));
+		if (ui.Threshold_radioButton_black->isChecked())//黑色对象
+		{
+			if (ui.Threshold_comboBox_type->currentIndex() == 0)//手动二值化
+			{
+				SRVision::getThresholdImage(currentImage, debugImage, SRVision::Threshold_0, low, hight);
+			}
+			if (ui.Threshold_comboBox_type->currentIndex() == 1)//大津法二值化
+			{
+				ui.Threshold_Slider_high->setEnabled(false);
+				ui.Threshold_Slider_low->setEnabled(false);
+				ui.Threshold_spinBox_high->setEnabled(false);
+				ui.Threshold_spinBox_low->setEnabled(false);
+				//SRVision::getThresholdImage(currentImage, debugImage, SRVision::Threshold_2);
+				int threshold = getThresholdImage(currentImage, debugImage, Threshold_2);
+				ui.Threshold_Slider_high->setValue(threshold);
+				ui.Threshold_Slider_low->setValue(0);
+			}
+			
+		}
+		else if (ui.Threshold_radioButton_white->isChecked())//白色对象
+		{
+			if (ui.Threshold_comboBox_type->currentIndex() == 0)//手动二值化
+			{
+				SRVision::getThresholdImage(currentImage, debugImage, SRVision::Threshold_1, low, hight);
+			}
+			if (ui.Threshold_comboBox_type->currentIndex() == 1)//大津法二值化
+			{
+				
+				ui.Threshold_Slider_high->setEnabled(false);
+				ui.Threshold_Slider_low->setEnabled(false);
+				ui.Threshold_spinBox_high->setEnabled(false);
+				ui.Threshold_spinBox_low->setEnabled(false);
+				//SRVision::getThresholdImage(currentImage, debugImage, SRVision::Threshold_3);
+				int threshold = getThresholdImage(currentImage, debugImage, Threshold_3);
+				ui.Threshold_Slider_high->setValue(255);
+				ui.Threshold_Slider_low->setValue(threshold);
+			}
+		}
+		else
+		{
+			break;
+		}
+		refreshImage(debugImage);
+		break;
+			
+	}
+	case 3://自定义滤波
+	{
+		qDebug() << "kernel is changed";
+		int kernel_size = kernel_gridLayout->rowCount();//获取行列
+		int *value;
+		Mat kernel = (Mat_<float>(kernel_size, kernel_size));		
+		for (int i = 0; i < kernel_size; i++)
+		{
+			for (int j = 0; j < kernel_size; j++)
+			{
+				kernel.ptr<float>(i)[j] = ((QLineEdit*)(kernel_gridLayout->itemAtPosition(i, j)->widget()))->text().toFloat();
+				qDebug() << kernel.ptr<float>(i)[j];
+			}	
+			
+				//qDebug() << ((QLineEdit*)(kernel_gridLayout->itemAtPosition(i,j)->widget()))->text().toFloat();
+		}
+		filter2D(currentImage, debugImage, -1, kernel);
+		refreshImage(debugImage);
+		break;
 	}
 	default:break;
 	}
@@ -299,6 +408,99 @@ void SRDemo::on_cancel()
 	if(!currentImage.empty())
 		refreshImage(currentImage);
 	ui.stackedWidget->setCurrentWidget(ui.page_non);
+}
+
+void SRDemo::on_kernel()
+{
+	if (currentImage.type() != CV_8UC1)
+	{
+		msgBox.setWindowTitle(tr("error"));
+		msgBox.setText(u8"该图像不为灰度图像");
+		msgBox.exec();
+		return;
+	}
+	ui.stackedWidget->setCurrentWidget(ui.page_kernel);
+	on_kernelSet(ui.kernel_spinBox->value());
+}
+
+void SRDemo::clearLayout(QLayout *layout)
+{
+	QLayoutItem *item;
+	while ((item = layout->takeAt(0)) != 0) {
+		//删除widget
+		if (item->widget()) {
+			delete item->widget();
+			//item->widget()->deleteLater();
+		}
+		//删除子布局
+		QLayout *childLayout = item->layout();
+		if (childLayout) {
+			clearLayout(childLayout);
+		}
+		delete item;
+	}
+}
+
+void SRDemo::on_erod()
+{
+}
+
+void SRDemo::on_dilat()
+{
+}
+
+void SRDemo::on_openFilter()
+{
+}
+
+void SRDemo::on_closeFilter()
+{
+}
+
+void SRDemo::on_gaussianFilter()
+{
+}
+
+void SRDemo::on_medianFilter()
+{
+}
+
+void SRDemo::on_averageFilter()
+{
+}
+
+void SRDemo::on_fourierTransformation()
+{
+}
+
+void SRDemo::on_histogramEqualization()
+{
+}
+
+void SRDemo::on_kernelSet(int num)
+{
+	clearLayout(kernel_gridLayout);
+	kernel_gridLayout->update();
+	int w = ui.groupBox_4->width()/num;
+	int h = ui.groupBox_4->height()/num;
+	int value = min(min(50,w), h);
+	for (int i = 0;i < num; i++)
+	{
+		for (int j = 0;j < num; j++)
+		{
+			QLineEdit* line = new QLineEdit();
+			line->setMaximumWidth(value);
+			line->setMaximumHeight(value);
+			line->setMinimumWidth(value);
+			line->setMinimumHeight(value);
+			line->setAlignment(Qt::AlignmentFlag::AlignCenter);
+			line->setText("0");
+			connect(line, &QLineEdit::textChanged, this, &SRDemo::on_deBugImage);
+			kernel_gridLayout->addWidget(line,i,j,1,1);
+		}
+	}
+	ui.groupBox_4->setLayout(kernel_gridLayout);
+
 }
 
 cv::Mat QImageToMat(QImage image)

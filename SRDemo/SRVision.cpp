@@ -1,6 +1,6 @@
 ﻿#include "SRVision.h"
 
-bool calibration(vector<Point2f> world, vector<Point2f> pix, calibResult &calib)
+bool SRVision::calibration(vector<Point2f> world, vector<Point2f> pix, calibResult &calib)
 {
 	if (world.size() != 9 || pix.size() != 9)
 	{
@@ -55,7 +55,7 @@ bool calibration(vector<Point2f> world, vector<Point2f> pix, calibResult &calib)
 		input:输入图像
 		output：输出图像
 */
-Mat cvtColor_RGB2HSI(Mat &input)
+Mat SRVision::cvtColor_RGB2HSI(Mat &input)
 {
 	/*
 			RGB  --->  HSI
@@ -128,7 +128,7 @@ Mat cvtColor_RGB2HSI(Mat &input)
 		image:待旋转图像
 		angle：旋转角度
 */
-Mat ImageRotation(cv::Mat &image, double angle)
+Mat SRVision::getRotationImage(cv::Mat &image, double angle)
 {
 	cv::Mat src = image.clone();
 	cv::Mat dst;
@@ -148,13 +148,44 @@ Mat ImageRotation(cv::Mat &image, double angle)
 		image:待旋转图像
 		type：0 x轴镜像  <0 y轴镜像 >0同时翻转
 */
-cv::Mat ImageMirror(cv::Mat &image, int type)
+cv::Mat SRVision::getMirrorImage(cv::Mat &image, int type)
 {
 	cv::Mat dst;
 	cv::Mat src = image.clone();
 	cv::flip(src, dst, type);//0 x轴镜像  <0 y轴镜像 >0同时翻转
 	return dst;
 }
+
+SRVision::SRCalcHist::SRCalcHist(Mat image)
+{
+	Mat std, avg;
+	minMaxLoc(image, &min, &max);
+	meanStdDev(image, std, avg);
+	stddev = std.at<double>(0, 0);
+	average = avg.at<double>(0, 0);
+	getCalcHistImage(image, this->calcHistImage);
+	for (int i = 0; i < image.rows; i++)
+	{
+		for (int j = 0; j < image.cols; j++)
+		{
+			int value = image.ptr<uchar>(i)[j];
+			this->gray[value]++;
+		}
+	}
+		
+}
+/*
+	无参构造函数
+*/
+SRVision::SRCalcHist::SRCalcHist()
+{
+	this->average = 0.0;
+	this->max = 255.0;
+	this->min = 0.0;
+	this->stddev = 0.0;
+	this->calcHistImage = Mat::zeros(Size(1,1), CV_8UC1);
+}
+
 /*
 函数作用：
 		获取直方图
@@ -162,7 +193,7 @@ cv::Mat ImageMirror(cv::Mat &image, int type)
 		input:输入图像
 		output：输出直方图图像
 */
-void GetCalcHistImage(Mat input, Mat &output)
+void SRVision::SRCalcHist::getCalcHistImage(Mat input, Mat &output)
 {
 	/*
 	* calcHist用来计算图像直方图：
@@ -188,7 +219,7 @@ void GetCalcHistImage(Mat input, Mat &output)
 	float range[] = { 0, 256 };
 	const float *histRange = { range };
 	int binStep = cvRound((float)width / (float)numbers);
-	if (input.channels() == 1)
+	if (input.type() == CV_8UC1)
 	{
 		Mat hist;
 		calcHist(&input, 1, 0, Mat(), hist, 1, &numbers, &histRange);
@@ -258,4 +289,111 @@ void GetCalcHistImage(Mat input, Mat &output)
 	}
 	output = histImage;
 }
+/*
+函数作用：
+		获取二值化图像
+	变量：
+		input:输入图像
+		output：输出直方图图像
+		low: 低阈值
+		hight:高阈值
+		type: Threshold_0, //手动二值化 黑色对象
+			  Threshold_1, //手动二值化 白色对象
+			  Threshold_2, //大津法二值化 黑色对象
+			  Threshold_3, //大津法二值化 白色对象
+*/
+int SRVision::getThresholdImage(Mat input, Mat & output, SRThreshold type, int low, int hight)
+{
+	switch (type)
+	{
+	case Threshold_0://手动二值化黑色对象
+	{
+		/*高于高阈值的设255，低于低阈值的设0，两图运算*/
+		Mat dst1, dst2;
+		threshold(input, dst1, hight, 255, THRESH_BINARY);
+		threshold(input, dst2, low, 255, THRESH_BINARY_INV);
+		output = dst1 | dst2;
+		return 0;
+	}
+	case Threshold_1://手动二值化白色对象
+	{
+		/*高于高阈值的设255，低于低阈值的设0，两图运算*/
+		Mat dst1, dst2;
+		threshold(input, dst1, hight, 255, THRESH_BINARY_INV);
+		threshold(input, dst2, low, 255, THRESH_BINARY);
+		output = dst1 & dst2;
+		return 0;
+	}
+	case Threshold_2://大津法二值化 黑色对象
+	{
+		//threshold(input, output, low, hight, THRESH_BINARY | THRESH_OTSU);
+		int treshold = getThresholdOtsu(input, output, Threshold_2);
+		return treshold;
+	}
+	case Threshold_3://大津法二值化 白色对象
+	{
+		//threshold(input, output, low, hight, THRESH_BINARY_INV | THRESH_OTSU);
+		int treshold = getThresholdOtsu(input, output, Threshold_3);
+		return treshold;
+	}
+	default:
+		return -1;
+	}
+}
 
+int SRVision::getThresholdOtsu(Mat input, Mat &output, SRThreshold type)
+{
+	SRCalcHist hist(input);
+	//获取灰度概率直方图
+	double histogram[256];
+	for (int i = 0; i <= 255; i++) {
+		histogram[i] = double(hist.gray[i]) / double(input.rows * input.cols);
+	}
+	double w1 = 0.0, w2 = 1.0; //类概率w1,w2
+	double u1, u2; //类均值u1,u2
+	double max = 0.0; //最大类间方差
+	double sum = 0.0;//总均值
+	for (int i = 0; i <= 255; i++) {
+		sum += i * histogram[i];
+	}
+	printf("sum is %lf",sum);
+	double sum1 = 0.0, sum2 = sum;
+	double threshold1 = 0.0, threshold2 = 0.0; //有一个最大则取一个，两个最大取平均
+	for (int t = 1; t <= 255; t++) {
+		w1 += histogram[t];
+		w2 = 1 - w1;
+		if (w1 == 0) { //还没出现点时不会是阈值
+			continue;
+		}
+		else if (w2 == 0) { //后面没点时已获得最佳阈值
+			break;
+		}
+		sum1 += t * histogram[t];
+		sum2 = sum - sum1;
+		u1 = sum1 / w1;
+		u2 = sum2 / w2;
+		double v = w1 * w2 * (u1 - u2) * (u1 - u2); //类间方差
+		if (v >= max) {
+			threshold1 = t; //大于等于，等于时，有两个最大
+			if (v > max) {
+				threshold2 = t; //大于时，有唯一最大，threshold1、threshold2统一
+			}
+			max = v; //替换max
+		}
+	}
+	double value = (threshold1 + threshold2) / 2;
+	switch (type)
+	{
+	case Threshold_2:
+	{
+		getThresholdImage(input, output, Threshold_0, 0, round(value));
+		break;
+	}
+	case Threshold_3:
+	{
+		getThresholdImage(input, output, Threshold_1, round(value), 255);
+		break;
+	}
+	}
+	return round(value);
+}
