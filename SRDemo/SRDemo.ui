@@ -9,8 +9,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1114</width>
-    <height>963</height>
+    <width>1069</width>
+    <height>1002</height>
    </rect>
   </property>
   <property name="minimumSize">
@@ -90,130 +90,235 @@
            </size>
           </property>
           <layout class="QVBoxLayout" name="verticalLayout_12">
+           <property name="leftMargin">
+            <number>1</number>
+           </property>
+           <property name="topMargin">
+            <number>1</number>
+           </property>
+           <property name="rightMargin">
+            <number>1</number>
+           </property>
+           <property name="bottomMargin">
+            <number>1</number>
+           </property>
            <item>
             <layout class="QHBoxLayout" name="horizontalLayout_15">
              <item>
-              <layout class="QVBoxLayout" name="verticalLayout">
-               <item>
-                <layout class="QHBoxLayout" name="horizontalLayout_2">
-                 <item>
-                  <widget class="QPushButton" name="pushbutton_input">
-                   <property name="text">
-                    <string>导入图像</string>
-                   </property>
-                  </widget>
-                 </item>
-                 <item>
-                  <widget class="QLineEdit" name="line_path">
-                   <property name="enabled">
-                    <bool>false</bool>
-                   </property>
-                  </widget>
-                 </item>
-                 <item>
-                  <widget class="QPushButton" name="btn_reset">
-                   <property name="text">
-                    <string>重置处理</string>
-                   </property>
-                  </widget>
-                 </item>
-                </layout>
-               </item>
-               <item>
-                <layout class="QHBoxLayout" name="horizontalLayout_6">
-                 <item>
-                  <widget class="QCheckBox" name="checkBox_useCalib">
-                   <property name="text">
-                    <string>引用标定</string>
-                   </property>
-                  </widget>
-                 </item>
-                 <item>
-                  <widget class="QComboBox" name="comboBox_calib"/>
-                 </item>
-                 <item>
-                  <widget class="QPushButton" name="pushbutton_calib">
-                   <property name="text">
-                    <string>自动标定</string>
-                   </property>
-                  </widget>
-                 </item>
-                </layout>
-               </item>
-               <item>
-                <layout class="QHBoxLayout" name="horizontalLayout_4">
-                 <item>
-                  <widget class="QLabel" name="label">
-                   <property name="text">
-                    <string>旋转</string>
-                   </property>
-                  </widget>
-                 </item>
-                 <item>
-                  <widget class="QSlider" name="horizontalSlider">
-                   <property name="maximum">
-                    <number>360</number>
-                   </property>
-                   <property name="singleStep">
-                    <number>1</number>
-                   </property>
-                   <property name="pageStep">
-                    <number>10</number>
-                   </property>
-                   <property name="orientation">
-                    <enum>Qt::Horizontal</enum>
-                   </property>
-                   <property name="invertedAppearance">
-                    <bool>false</bool>
-                   </property>
-                   <property name="invertedControls">
-                    <bool>false</bool>
-                   </property>
-                  </widget>
-                 </item>
-                 <item>
-                  <widget class="QSpinBox" name="spinBox">
-                   <property name="maximum">
-                    <number>360</number>
-                   </property>
-                  </widget>
-                 </item>
-                </layout>
-               </item>
-               <item>
-                <layout class="QHBoxLayout" name="horizontalLayout_5">
-                 <item>
-                  <widget class="QLabel" name="label_2">
-                   <property name="text">
-                    <string>镜像</string>
-                   </property>
-                   <property name="alignment">
-                    <set>Qt::AlignCenter</set>
-                   </property>
-                  </widget>
-                 </item>
-                 <item>
-                  <widget class="QCheckBox" name="checkBox_7">
-                   <property name="text">
-                    <string>X方向</string>
-                   </property>
-                  </widget>
-                 </item>
-                 <item>
-                  <widget class="QCheckBox" name="checkBox_8">
-                   <property name="text">
-                    <string>Y方向</string>
-                   </property>
-                  </widget>
-                 </item>
-                </layout>
-               </item>
-              </layout>
+              <widget class="QGroupBox" name="groupBox_11">
+               <property name="minimumSize">
+                <size>
+                 <width>0</width>
+                 <height>0</height>
+                </size>
+               </property>
+               <property name="maximumSize">
+                <size>
+                 <width>16777215</width>
+                 <height>16777215</height>
+                </size>
+               </property>
+               <property name="title">
+                <string>图像</string>
+               </property>
+               <property name="alignment">
+                <set>Qt::AlignCenter</set>
+               </property>
+               <layout class="QVBoxLayout" name="verticalLayout_28">
+                <property name="leftMargin">
+                 <number>0</number>
+                </property>
+                <property name="topMargin">
+                 <number>0</number>
+                </property>
+                <property name="rightMargin">
+                 <number>0</number>
+                </property>
+                <property name="bottomMargin">
+                 <number>0</number>
+                </property>
+                <item>
+                 <layout class="QVBoxLayout" name="verticalLayout">
+                  <item>
+                   <layout class="QHBoxLayout" name="horizontalLayout_2">
+                    <item>
+                     <widget class="QPushButton" name="pushbutton_input">
+                      <property name="text">
+                       <string>导入图像</string>
+                      </property>
+                     </widget>
+                    </item>
+                    <item>
+                     <widget class="QLineEdit" name="line_path">
+                      <property name="enabled">
+                       <bool>false</bool>
+                      </property>
+                     </widget>
+                    </item>
+                    <item>
+                     <widget class="QPushButton" name="btn_reset">
+                      <property name="text">
+                       <string>重置处理</string>
+                      </property>
+                     </widget>
+                    </item>
+                   </layout>
+                  </item>
+                  <item>
+                   <layout class="QHBoxLayout" name="horizontalLayout_6">
+                    <item>
+                     <widget class="QCheckBox" name="checkBox_useCalib">
+                      <property name="text">
+                       <string>引用标定</string>
+                      </property>
+                     </widget>
+                    </item>
+                    <item>
+                     <widget class="QComboBox" name="comboBox_calib"/>
+                    </item>
+                    <item>
+                     <widget class="QPushButton" name="pushbutton_calib">
+                      <property name="text">
+                       <string>自动标定</string>
+                      </property>
+                     </widget>
+                    </item>
+                   </layout>
+                  </item>
+                  <item>
+                   <layout class="QHBoxLayout" name="horizontalLayout_4">
+                    <item>
+                     <widget class="QLabel" name="label">
+                      <property name="text">
+                       <string>旋转</string>
+                      </property>
+                     </widget>
+                    </item>
+                    <item>
+                     <widget class="QSlider" name="horizontalSlider">
+                      <property name="maximum">
+                       <number>360</number>
+                      </property>
+                      <property name="singleStep">
+                       <number>1</number>
+                      </property>
+                      <property name="pageStep">
+                       <number>10</number>
+                      </property>
+                      <property name="orientation">
+                       <enum>Qt::Horizontal</enum>
+                      </property>
+                      <property name="invertedAppearance">
+                       <bool>false</bool>
+                      </property>
+                      <property name="invertedControls">
+                       <bool>false</bool>
+                      </property>
+                     </widget>
+                    </item>
+                    <item>
+                     <widget class="QSpinBox" name="spinBox">
+                      <property name="maximum">
+                       <number>360</number>
+                      </property>
+                     </widget>
+                    </item>
+                   </layout>
+                  </item>
+                  <item>
+                   <layout class="QHBoxLayout" name="horizontalLayout_5">
+                    <item>
+                     <widget class="QLabel" name="label_2">
+                      <property name="text">
+                       <string>镜像</string>
+                      </property>
+                      <property name="alignment">
+                       <set>Qt::AlignCenter</set>
+                      </property>
+                     </widget>
+                    </item>
+                    <item>
+                     <widget class="QCheckBox" name="checkBox_7">
+                      <property name="text">
+                       <string>X方向</string>
+                      </property>
+                     </widget>
+                    </item>
+                    <item>
+                     <widget class="QCheckBox" name="checkBox_8">
+                      <property name="text">
+                       <string>Y方向</string>
+                      </property>
+                     </widget>
+                    </item>
+                   </layout>
+                  </item>
+                  <item>
+                   <layout class="QHBoxLayout" name="horizontalLayout_19">
+                    <item>
+                     <widget class="QRadioButton" name="camera_radioButton">
+                      <property name="focusPolicy">
+                       <enum>Qt::ClickFocus</enum>
+                      </property>
+                      <property name="layoutDirection">
+                       <enum>Qt::LeftToRight</enum>
+                      </property>
+                      <property name="text">
+                       <string>启用相机------</string>
+                      </property>
+                      <property name="checked">
+                       <bool>true</bool>
+                      </property>
+                     </widget>
+                    </item>
+                    <item>
+                     <widget class="QComboBox" name="camera_comboBox"/>
+                    </item>
+                   </layout>
+                  </item>
+                  <item>
+                   <layout class="QHBoxLayout" name="horizontalLayout_20">
+                    <item>
+                     <widget class="QPushButton" name="camera_btn_online">
+                      <property name="text">
+                       <string>实时采集</string>
+                      </property>
+                     </widget>
+                    </item>
+                    <item>
+                     <widget class="QPushButton" name="camera_btn_ontime">
+                      <property name="text">
+                       <string>拍照</string>
+                      </property>
+                     </widget>
+                    </item>
+                   </layout>
+                  </item>
+                  <item>
+                   <spacer name="verticalSpacer">
+                    <property name="orientation">
+                     <enum>Qt::Vertical</enum>
+                    </property>
+                    <property name="sizeHint" stdset="0">
+                     <size>
+                      <width>20</width>
+                      <height>40</height>
+                     </size>
+                    </property>
+                   </spacer>
+                  </item>
+                 </layout>
+                </item>
+               </layout>
+              </widget>
              </item>
              <item>
               <widget class="QGroupBox" name="groupBox_5">
                <property name="title">
-                <string>缓存列表</string>
+                <string>处理模板</string>
+               </property>
+               <property name="alignment">
+                <set>Qt::AlignCenter</set>
                </property>
                <layout class="QVBoxLayout" name="verticalLayout_13" stretch="0">
                 <property name="spacing">
@@ -232,7 +337,7 @@
                  <number>1</number>
                 </property>
                 <item>
-                 <widget class="QListView" name="listView"/>
+                 <widget class="QListView" name="func_list"/>
                 </item>
                </layout>
               </widget>
@@ -241,189 +346,268 @@
            </item>
            <item>
             <widget class="QGroupBox" name="groupBox">
+             <property name="minimumSize">
+              <size>
+               <width>0</width>
+               <height>130</height>
+              </size>
+             </property>
              <property name="title">
               <string>处理方式</string>
              </property>
              <layout class="QVBoxLayout" name="verticalLayout_3">
+              <property name="spacing">
+               <number>6</number>
+              </property>
+              <property name="leftMargin">
+               <number>1</number>
+              </property>
+              <property name="topMargin">
+               <number>1</number>
+              </property>
+              <property name="rightMargin">
+               <number>1</number>
+              </property>
+              <property name="bottomMargin">
+               <number>1</number>
+              </property>
               <item>
-               <layout class="QGridLayout" name="gridLayout">
-                <item row="2" column="2">
-                 <widget class="QPushButton" name="btn_medianFilter">
-                  <property name="text">
-                   <string>中值滤波</string>
-                  </property>
-                 </widget>
-                </item>
-                <item row="1" column="1">
-                 <widget class="QPushButton" name="btn_dilat">
-                  <property name="text">
-                   <string>膨胀</string>
-                  </property>
-                 </widget>
-                </item>
-                <item row="3" column="2">
-                 <widget class="QPushButton" name="btn_histogramEqualization">
-                  <property name="text">
-                   <string>直方图均衡化</string>
-                  </property>
-                 </widget>
-                </item>
-                <item row="1" column="0">
-                 <widget class="QPushButton" name="btn_erod">
-                  <property name="text">
-                   <string>腐蚀</string>
-                  </property>
-                 </widget>
-                </item>
-                <item row="3" column="1">
-                 <widget class="QPushButton" name="btn_fourierTransformation">
-                  <property name="text">
-                   <string>傅里叶变换</string>
-                  </property>
-                 </widget>
-                </item>
-                <item row="1" column="2">
-                 <widget class="QPushButton" name="btn_open">
-                  <property name="text">
-                   <string>开运算</string>
-                  </property>
-                 </widget>
-                </item>
-                <item row="2" column="0">
-                 <widget class="QPushButton" name="btn_clos">
-                  <property name="text">
-                   <string>闭运算</string>
-                  </property>
-                 </widget>
-                </item>
-                <item row="2" column="1">
-                 <widget class="QPushButton" name="btn_gaussianFilter">
-                  <property name="text">
-                   <string>高斯滤波</string>
-                  </property>
-                 </widget>
-                </item>
-                <item row="3" column="0">
-                 <widget class="QPushButton" name="btn_averageFilter">
-                  <property name="text">
-                   <string>均值滤波</string>
-                  </property>
-                 </widget>
-                </item>
-                <item row="0" column="0">
-                 <widget class="QPushButton" name="btn_extraction">
-                  <property name="text">
-                   <string>通道提取</string>
-                  </property>
-                 </widget>
-                </item>
-                <item row="0" column="1">
-                 <widget class="QPushButton" name="pushButton_2">
-                  <property name="text">
-                   <string>二值化</string>
-                  </property>
-                 </widget>
-                </item>
-                <item row="0" column="2">
-                 <widget class="QPushButton" name="pushButton_12">
-                  <property name="text">
-                   <string>自定义滤波</string>
-                  </property>
-                 </widget>
-                </item>
-               </layout>
+               <widget class="QScrollArea" name="scrollArea">
+                <property name="minimumSize">
+                 <size>
+                  <width>0</width>
+                  <height>0</height>
+                 </size>
+                </property>
+                <property name="widgetResizable">
+                 <bool>true</bool>
+                </property>
+                <widget class="QWidget" name="scrollAreaWidgetContents_2">
+                 <property name="geometry">
+                  <rect>
+                   <x>0</x>
+                   <y>0</y>
+                   <width>325</width>
+                   <height>128</height>
+                  </rect>
+                 </property>
+                 <layout class="QGridLayout" name="gridLayout">
+                  <item row="0" column="0">
+                   <widget class="QPushButton" name="btn_extraction">
+                    <property name="text">
+                     <string>通道提取</string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item row="0" column="1">
+                   <widget class="QPushButton" name="pushButton_2">
+                    <property name="text">
+                     <string>二值化</string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item row="3" column="2">
+                   <widget class="QPushButton" name="btn_histogramEqualization">
+                    <property name="text">
+                     <string>直方图均衡化</string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item row="1" column="0">
+                   <widget class="QPushButton" name="btn_erod">
+                    <property name="text">
+                     <string>腐蚀</string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item row="2" column="1">
+                   <widget class="QPushButton" name="btn_gaussianFilter">
+                    <property name="text">
+                     <string>高斯滤波</string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item row="3" column="0">
+                   <widget class="QPushButton" name="btn_averageFilter">
+                    <property name="text">
+                     <string>均值滤波</string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item row="3" column="1">
+                   <widget class="QPushButton" name="btn_fourierTransformation">
+                    <property name="text">
+                     <string>傅里叶变换</string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item row="0" column="2">
+                   <widget class="QPushButton" name="pushButton_12">
+                    <property name="text">
+                     <string>自定义滤波</string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item row="2" column="2">
+                   <widget class="QPushButton" name="btn_medianFilter">
+                    <property name="text">
+                     <string>中值滤波</string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item row="1" column="1">
+                   <widget class="QPushButton" name="btn_dilat">
+                    <property name="text">
+                     <string>膨胀</string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item row="1" column="2">
+                   <widget class="QPushButton" name="btn_open">
+                    <property name="text">
+                     <string>开运算</string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item row="2" column="0">
+                   <widget class="QPushButton" name="btn_close">
+                    <property name="text">
+                     <string>闭运算</string>
+                    </property>
+                   </widget>
+                  </item>
+                 </layout>
+                </widget>
+               </widget>
               </item>
              </layout>
             </widget>
            </item>
            <item>
             <widget class="QGroupBox" name="groupBox_2">
+             <property name="minimumSize">
+              <size>
+               <width>0</width>
+               <height>130</height>
+              </size>
+             </property>
              <property name="title">
               <string>定位检测</string>
              </property>
-             <layout class="QGridLayout" name="gridLayout_3">
-              <item row="3" column="1">
-               <widget class="QPushButton" name="pushButton_10">
-                <property name="text">
-                 <string>特征匹配</string>
+             <layout class="QVBoxLayout" name="verticalLayout_27">
+              <property name="leftMargin">
+               <number>1</number>
+              </property>
+              <property name="topMargin">
+               <number>1</number>
+              </property>
+              <property name="rightMargin">
+               <number>1</number>
+              </property>
+              <property name="bottomMargin">
+               <number>1</number>
+              </property>
+              <item>
+               <widget class="QScrollArea" name="scrollArea_2">
+                <property name="widgetResizable">
+                 <bool>true</bool>
                 </property>
-               </widget>
-              </item>
-              <item row="4" column="2">
-               <widget class="QPushButton" name="pushButton">
-                <property name="text">
-                 <string>二维码识别</string>
-                </property>
-               </widget>
-              </item>
-              <item row="4" column="1">
-               <widget class="QPushButton" name="pushButton_13">
-                <property name="text">
-                 <string>字符识别</string>
-                </property>
-               </widget>
-              </item>
-              <item row="3" column="2">
-               <widget class="QPushButton" name="pushButton_11">
-                <property name="text">
-                 <string>轮廓匹配</string>
-                </property>
-               </widget>
-              </item>
-              <item row="2" column="1">
-               <widget class="QPushButton" name="pushButton_7">
-                <property name="text">
-                 <string>角点检测</string>
-                </property>
-               </widget>
-              </item>
-              <item row="2" column="0">
-               <widget class="QPushButton" name="pushButton_4">
-                <property name="text">
-                 <string>找点</string>
-                </property>
-               </widget>
-              </item>
-              <item row="2" column="2">
-               <widget class="QPushButton" name="pushButton_8">
-                <property name="text">
-                 <string>Blob分析</string>
-                </property>
-               </widget>
-              </item>
-              <item row="3" column="0">
-               <widget class="QPushButton" name="pushButton_9">
-                <property name="text">
-                 <string>灰度匹配</string>
-                </property>
-               </widget>
-              </item>
-              <item row="0" column="0">
-               <widget class="QPushButton" name="pushButton_3">
-                <property name="text">
-                 <string>找直线</string>
-                </property>
-               </widget>
-              </item>
-              <item row="0" column="1">
-               <widget class="QPushButton" name="pushButton_5">
-                <property name="text">
-                 <string>找圆</string>
-                </property>
-               </widget>
-              </item>
-              <item row="0" column="2">
-               <widget class="QPushButton" name="pushButton_6">
-                <property name="text">
-                 <string>轮廓提取</string>
-                </property>
-               </widget>
-              </item>
-              <item row="4" column="0">
-               <widget class="QPushButton" name="pushButton_15">
-                <property name="text">
-                 <string>间隙测量</string>
-                </property>
+                <widget class="QWidget" name="scrollAreaWidgetContents_3">
+                 <property name="geometry">
+                  <rect>
+                   <x>0</x>
+                   <y>0</y>
+                   <width>325</width>
+                   <height>128</height>
+                  </rect>
+                 </property>
+                 <layout class="QGridLayout" name="gridLayout_3">
+                  <item row="1" column="2">
+                   <widget class="QPushButton" name="pushButton_8">
+                    <property name="text">
+                     <string>Blob分析</string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item row="0" column="2">
+                   <widget class="QPushButton" name="pushButton_6">
+                    <property name="text">
+                     <string>轮廓提取</string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item row="1" column="1">
+                   <widget class="QPushButton" name="pushButton_7">
+                    <property name="text">
+                     <string>角点检测</string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item row="2" column="2">
+                   <widget class="QPushButton" name="pushButton_11">
+                    <property name="text">
+                     <string>轮廓匹配</string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item row="2" column="1">
+                   <widget class="QPushButton" name="pushButton_10">
+                    <property name="text">
+                     <string>特征匹配</string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item row="2" column="0">
+                   <widget class="QPushButton" name="pushButton_9">
+                    <property name="text">
+                     <string>灰度匹配</string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item row="1" column="0">
+                   <widget class="QPushButton" name="pushButton_4">
+                    <property name="text">
+                     <string>找点</string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item row="0" column="1">
+                   <widget class="QPushButton" name="pushButton_5">
+                    <property name="text">
+                     <string>找圆</string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item row="3" column="0">
+                   <widget class="QPushButton" name="pushButton_15">
+                    <property name="text">
+                     <string>间隙测量</string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item row="3" column="2">
+                   <widget class="QPushButton" name="pushButton">
+                    <property name="text">
+                     <string>二维码识别</string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item row="0" column="0">
+                   <widget class="QPushButton" name="pushButton_3">
+                    <property name="text">
+                     <string>找直线</string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item row="3" column="1">
+                   <widget class="QPushButton" name="pushButton_13">
+                    <property name="text">
+                     <string>字符识别</string>
+                    </property>
+                   </widget>
+                  </item>
+                 </layout>
+                </widget>
                </widget>
               </item>
              </layout>
@@ -434,11 +618,14 @@
              <property name="title">
               <string>参数</string>
              </property>
-             <layout class="QVBoxLayout" name="verticalLayout_2">
+             <layout class="QVBoxLayout" name="verticalLayout_2" stretch="0,0">
+              <property name="spacing">
+               <number>25</number>
+              </property>
               <item>
                <widget class="QStackedWidget" name="stackedWidget">
                 <property name="currentIndex">
-                 <number>3</number>
+                 <number>10</number>
                 </property>
                 <widget class="QWidget" name="page_non">
                  <layout class="QVBoxLayout" name="verticalLayout_6">
@@ -900,6 +1087,1210 @@
                   </item>
                  </layout>
                 </widget>
+                <widget class="QWidget" name="page_erod">
+                 <layout class="QVBoxLayout" name="verticalLayout_14" stretch="0,0,0,9">
+                  <item>
+                   <layout class="QHBoxLayout" name="horizontalLayout_16">
+                    <item>
+                     <spacer name="horizontalSpacer_3">
+                      <property name="orientation">
+                       <enum>Qt::Horizontal</enum>
+                      </property>
+                      <property name="sizeHint" stdset="0">
+                       <size>
+                        <width>40</width>
+                        <height>20</height>
+                       </size>
+                      </property>
+                     </spacer>
+                    </item>
+                    <item>
+                     <widget class="QLabel" name="label_10">
+                      <property name="text">
+                       <string>形态核大小</string>
+                      </property>
+                     </widget>
+                    </item>
+                    <item>
+                     <widget class="QComboBox" name="erod_comboBox_size">
+                      <property name="minimumSize">
+                       <size>
+                        <width>70</width>
+                        <height>0</height>
+                       </size>
+                      </property>
+                      <property name="maximumSize">
+                       <size>
+                        <width>70</width>
+                        <height>16777215</height>
+                       </size>
+                      </property>
+                      <item>
+                       <property name="text">
+                        <string>3X3</string>
+                       </property>
+                      </item>
+                      <item>
+                       <property name="text">
+                        <string>5X5</string>
+                       </property>
+                      </item>
+                      <item>
+                       <property name="text">
+                        <string>7X7</string>
+                       </property>
+                      </item>
+                      <item>
+                       <property name="text">
+                        <string>9X9</string>
+                       </property>
+                      </item>
+                      <item>
+                       <property name="text">
+                        <string>11X11</string>
+                       </property>
+                      </item>
+                      <item>
+                       <property name="text">
+                        <string>13X13</string>
+                       </property>
+                      </item>
+                      <item>
+                       <property name="text">
+                        <string>15X15</string>
+                       </property>
+                      </item>
+                      <item>
+                       <property name="text">
+                        <string>17X17</string>
+                       </property>
+                      </item>
+                      <item>
+                       <property name="text">
+                        <string>19X19</string>
+                       </property>
+                      </item>
+                      <item>
+                       <property name="text">
+                        <string>21X21</string>
+                       </property>
+                      </item>
+                      <item>
+                       <property name="text">
+                        <string>23X23</string>
+                       </property>
+                      </item>
+                      <item>
+                       <property name="text">
+                        <string>25X25</string>
+                       </property>
+                      </item>
+                     </widget>
+                    </item>
+                    <item>
+                     <spacer name="horizontalSpacer_4">
+                      <property name="orientation">
+                       <enum>Qt::Horizontal</enum>
+                      </property>
+                      <property name="sizeHint" stdset="0">
+                       <size>
+                        <width>40</width>
+                        <height>20</height>
+                       </size>
+                      </property>
+                     </spacer>
+                    </item>
+                   </layout>
+                  </item>
+                  <item>
+                   <layout class="QHBoxLayout" name="horizontalLayout_17">
+                    <item>
+                     <spacer name="horizontalSpacer_5">
+                      <property name="orientation">
+                       <enum>Qt::Horizontal</enum>
+                      </property>
+                      <property name="sizeHint" stdset="0">
+                       <size>
+                        <width>40</width>
+                        <height>20</height>
+                       </size>
+                      </property>
+                     </spacer>
+                    </item>
+                    <item>
+                     <widget class="QLabel" name="label_11">
+                      <property name="text">
+                       <string>形态核形状</string>
+                      </property>
+                     </widget>
+                    </item>
+                    <item>
+                     <widget class="QComboBox" name="erod_comboBox_shape">
+                      <property name="minimumSize">
+                       <size>
+                        <width>70</width>
+                        <height>0</height>
+                       </size>
+                      </property>
+                      <property name="maximumSize">
+                       <size>
+                        <width>70</width>
+                        <height>16777215</height>
+                       </size>
+                      </property>
+                      <item>
+                       <property name="text">
+                        <string>矩形</string>
+                       </property>
+                      </item>
+                      <item>
+                       <property name="text">
+                        <string>椭圆</string>
+                       </property>
+                      </item>
+                      <item>
+                       <property name="text">
+                        <string>十字交叉</string>
+                       </property>
+                      </item>
+                     </widget>
+                    </item>
+                    <item>
+                     <spacer name="horizontalSpacer_6">
+                      <property name="orientation">
+                       <enum>Qt::Horizontal</enum>
+                      </property>
+                      <property name="sizeHint" stdset="0">
+                       <size>
+                        <width>40</width>
+                        <height>20</height>
+                       </size>
+                      </property>
+                     </spacer>
+                    </item>
+                   </layout>
+                  </item>
+                  <item>
+                   <layout class="QHBoxLayout" name="horizontalLayout_18">
+                    <item>
+                     <spacer name="horizontalSpacer_7">
+                      <property name="orientation">
+                       <enum>Qt::Horizontal</enum>
+                      </property>
+                      <property name="sizeHint" stdset="0">
+                       <size>
+                        <width>40</width>
+                        <height>20</height>
+                       </size>
+                      </property>
+                     </spacer>
+                    </item>
+                    <item>
+                     <widget class="QLabel" name="label_12">
+                      <property name="text">
+                       <string>迭代</string>
+                      </property>
+                     </widget>
+                    </item>
+                    <item>
+                     <widget class="QSpinBox" name="erod_spinBox">
+                      <property name="minimum">
+                       <number>1</number>
+                      </property>
+                      <property name="maximum">
+                       <number>99</number>
+                      </property>
+                     </widget>
+                    </item>
+                    <item>
+                     <spacer name="horizontalSpacer_8">
+                      <property name="orientation">
+                       <enum>Qt::Horizontal</enum>
+                      </property>
+                      <property name="sizeHint" stdset="0">
+                       <size>
+                        <width>40</width>
+                        <height>20</height>
+                       </size>
+                      </property>
+                     </spacer>
+                    </item>
+                   </layout>
+                  </item>
+                  <item>
+                   <widget class="QGroupBox" name="groupBox_6">
+                    <property name="title">
+                     <string>灰度直方图</string>
+                    </property>
+                    <layout class="QVBoxLayout" name="verticalLayout_15">
+                     <item>
+                      <widget class="QLabel" name="erod_label_histImage">
+                       <property name="text">
+                        <string/>
+                       </property>
+                      </widget>
+                     </item>
+                    </layout>
+                   </widget>
+                  </item>
+                 </layout>
+                </widget>
+                <widget class="QWidget" name="page_dilat">
+                 <layout class="QVBoxLayout" name="verticalLayout_26" stretch="0,0,0,9">
+                  <item>
+                   <layout class="QHBoxLayout" name="horizontalLayout_33">
+                    <item>
+                     <spacer name="horizontalSpacer_21">
+                      <property name="orientation">
+                       <enum>Qt::Horizontal</enum>
+                      </property>
+                      <property name="sizeHint" stdset="0">
+                       <size>
+                        <width>40</width>
+                        <height>20</height>
+                       </size>
+                      </property>
+                     </spacer>
+                    </item>
+                    <item>
+                     <widget class="QLabel" name="label_25">
+                      <property name="text">
+                       <string>形态核大小</string>
+                      </property>
+                     </widget>
+                    </item>
+                    <item>
+                     <widget class="QComboBox" name="dilat_comboBox_size">
+                      <property name="minimumSize">
+                       <size>
+                        <width>70</width>
+                        <height>0</height>
+                       </size>
+                      </property>
+                      <property name="maximumSize">
+                       <size>
+                        <width>70</width>
+                        <height>16777215</height>
+                       </size>
+                      </property>
+                      <item>
+                       <property name="text">
+                        <string>3X3</string>
+                       </property>
+                      </item>
+                      <item>
+                       <property name="text">
+                        <string>5X5</string>
+                       </property>
+                      </item>
+                      <item>
+                       <property name="text">
+                        <string>7X7</string>
+                       </property>
+                      </item>
+                      <item>
+                       <property name="text">
+                        <string>9X9</string>
+                       </property>
+                      </item>
+                      <item>
+                       <property name="text">
+                        <string>11X11</string>
+                       </property>
+                      </item>
+                      <item>
+                       <property name="text">
+                        <string>13X13</string>
+                       </property>
+                      </item>
+                      <item>
+                       <property name="text">
+                        <string>15X15</string>
+                       </property>
+                      </item>
+                      <item>
+                       <property name="text">
+                        <string>17X17</string>
+                       </property>
+                      </item>
+                      <item>
+                       <property name="text">
+                        <string>19X19</string>
+                       </property>
+                      </item>
+                      <item>
+                       <property name="text">
+                        <string>21X21</string>
+                       </property>
+                      </item>
+                      <item>
+                       <property name="text">
+                        <string>23X23</string>
+                       </property>
+                      </item>
+                      <item>
+                       <property name="text">
+                        <string>25X25</string>
+                       </property>
+                      </item>
+                     </widget>
+                    </item>
+                    <item>
+                     <spacer name="horizontalSpacer_22">
+                      <property name="orientation">
+                       <enum>Qt::Horizontal</enum>
+                      </property>
+                      <property name="sizeHint" stdset="0">
+                       <size>
+                        <width>40</width>
+                        <height>20</height>
+                       </size>
+                      </property>
+                     </spacer>
+                    </item>
+                   </layout>
+                  </item>
+                  <item>
+                   <layout class="QHBoxLayout" name="horizontalLayout_32">
+                    <item>
+                     <spacer name="horizontalSpacer_19">
+                      <property name="orientation">
+                       <enum>Qt::Horizontal</enum>
+                      </property>
+                      <property name="sizeHint" stdset="0">
+                       <size>
+                        <width>40</width>
+                        <height>20</height>
+                       </size>
+                      </property>
+                     </spacer>
+                    </item>
+                    <item>
+                     <widget class="QLabel" name="label_24">
+                      <property name="text">
+                       <string>形态核形状</string>
+                      </property>
+                     </widget>
+                    </item>
+                    <item>
+                     <widget class="QComboBox" name="dilat_comboBox_shape">
+                      <property name="minimumSize">
+                       <size>
+                        <width>70</width>
+                        <height>0</height>
+                       </size>
+                      </property>
+                      <property name="maximumSize">
+                       <size>
+                        <width>70</width>
+                        <height>16777215</height>
+                       </size>
+                      </property>
+                      <item>
+                       <property name="text">
+                        <string>矩形</string>
+                       </property>
+                      </item>
+                      <item>
+                       <property name="text">
+                        <string>椭圆</string>
+                       </property>
+                      </item>
+                      <item>
+                       <property name="text">
+                        <string>十字交叉</string>
+                       </property>
+                      </item>
+                     </widget>
+                    </item>
+                    <item>
+                     <spacer name="horizontalSpacer_20">
+                      <property name="orientation">
+                       <enum>Qt::Horizontal</enum>
+                      </property>
+                      <property name="sizeHint" stdset="0">
+                       <size>
+                        <width>40</width>
+                        <height>20</height>
+                       </size>
+                      </property>
+                     </spacer>
+                    </item>
+                   </layout>
+                  </item>
+                  <item>
+                   <layout class="QHBoxLayout" name="horizontalLayout_31">
+                    <item>
+                     <spacer name="horizontalSpacer_17">
+                      <property name="orientation">
+                       <enum>Qt::Horizontal</enum>
+                      </property>
+                      <property name="sizeHint" stdset="0">
+                       <size>
+                        <width>40</width>
+                        <height>20</height>
+                       </size>
+                      </property>
+                     </spacer>
+                    </item>
+                    <item>
+                     <widget class="QLabel" name="label_23">
+                      <property name="text">
+                       <string>迭代</string>
+                      </property>
+                     </widget>
+                    </item>
+                    <item>
+                     <widget class="QSpinBox" name="dilat_spinBox">
+                      <property name="minimum">
+                       <number>1</number>
+                      </property>
+                      <property name="maximum">
+                       <number>99</number>
+                      </property>
+                     </widget>
+                    </item>
+                    <item>
+                     <spacer name="horizontalSpacer_18">
+                      <property name="orientation">
+                       <enum>Qt::Horizontal</enum>
+                      </property>
+                      <property name="sizeHint" stdset="0">
+                       <size>
+                        <width>40</width>
+                        <height>20</height>
+                       </size>
+                      </property>
+                     </spacer>
+                    </item>
+                   </layout>
+                  </item>
+                  <item>
+                   <widget class="QGroupBox" name="groupBox_10">
+                    <property name="title">
+                     <string>灰度直方图</string>
+                    </property>
+                    <layout class="QVBoxLayout" name="verticalLayout_25">
+                     <item>
+                      <widget class="QLabel" name="dilat_label_histImage">
+                       <property name="text">
+                        <string/>
+                       </property>
+                      </widget>
+                     </item>
+                    </layout>
+                   </widget>
+                  </item>
+                 </layout>
+                </widget>
+                <widget class="QWidget" name="page_open">
+                 <layout class="QVBoxLayout" name="verticalLayout_30" stretch="0,0,0,9">
+                  <item>
+                   <layout class="QHBoxLayout" name="horizontalLayout_34">
+                    <item>
+                     <spacer name="horizontalSpacer_23">
+                      <property name="orientation">
+                       <enum>Qt::Horizontal</enum>
+                      </property>
+                      <property name="sizeHint" stdset="0">
+                       <size>
+                        <width>40</width>
+                        <height>20</height>
+                       </size>
+                      </property>
+                     </spacer>
+                    </item>
+                    <item>
+                     <widget class="QLabel" name="label_26">
+                      <property name="text">
+                       <string>形态核大小</string>
+                      </property>
+                     </widget>
+                    </item>
+                    <item>
+                     <widget class="QComboBox" name="open_comboBox_size">
+                      <property name="minimumSize">
+                       <size>
+                        <width>70</width>
+                        <height>0</height>
+                       </size>
+                      </property>
+                      <property name="maximumSize">
+                       <size>
+                        <width>70</width>
+                        <height>16777215</height>
+                       </size>
+                      </property>
+                      <item>
+                       <property name="text">
+                        <string>3X3</string>
+                       </property>
+                      </item>
+                      <item>
+                       <property name="text">
+                        <string>5X5</string>
+                       </property>
+                      </item>
+                      <item>
+                       <property name="text">
+                        <string>7X7</string>
+                       </property>
+                      </item>
+                      <item>
+                       <property name="text">
+                        <string>9X9</string>
+                       </property>
+                      </item>
+                      <item>
+                       <property name="text">
+                        <string>11X11</string>
+                       </property>
+                      </item>
+                      <item>
+                       <property name="text">
+                        <string>13X13</string>
+                       </property>
+                      </item>
+                      <item>
+                       <property name="text">
+                        <string>15X15</string>
+                       </property>
+                      </item>
+                      <item>
+                       <property name="text">
+                        <string>17X17</string>
+                       </property>
+                      </item>
+                      <item>
+                       <property name="text">
+                        <string>19X19</string>
+                       </property>
+                      </item>
+                      <item>
+                       <property name="text">
+                        <string>21X21</string>
+                       </property>
+                      </item>
+                      <item>
+                       <property name="text">
+                        <string>23X23</string>
+                       </property>
+                      </item>
+                      <item>
+                       <property name="text">
+                        <string>25X25</string>
+                       </property>
+                      </item>
+                     </widget>
+                    </item>
+                    <item>
+                     <spacer name="horizontalSpacer_24">
+                      <property name="orientation">
+                       <enum>Qt::Horizontal</enum>
+                      </property>
+                      <property name="sizeHint" stdset="0">
+                       <size>
+                        <width>40</width>
+                        <height>20</height>
+                       </size>
+                      </property>
+                     </spacer>
+                    </item>
+                   </layout>
+                  </item>
+                  <item>
+                   <layout class="QHBoxLayout" name="horizontalLayout_36">
+                    <item>
+                     <spacer name="horizontalSpacer_27">
+                      <property name="orientation">
+                       <enum>Qt::Horizontal</enum>
+                      </property>
+                      <property name="sizeHint" stdset="0">
+                       <size>
+                        <width>40</width>
+                        <height>20</height>
+                       </size>
+                      </property>
+                     </spacer>
+                    </item>
+                    <item>
+                     <widget class="QLabel" name="label_28">
+                      <property name="text">
+                       <string>形态核形状</string>
+                      </property>
+                     </widget>
+                    </item>
+                    <item>
+                     <widget class="QComboBox" name="open_comboBox_shape">
+                      <property name="minimumSize">
+                       <size>
+                        <width>70</width>
+                        <height>0</height>
+                       </size>
+                      </property>
+                      <property name="maximumSize">
+                       <size>
+                        <width>70</width>
+                        <height>16777215</height>
+                       </size>
+                      </property>
+                      <item>
+                       <property name="text">
+                        <string>矩形</string>
+                       </property>
+                      </item>
+                      <item>
+                       <property name="text">
+                        <string>椭圆</string>
+                       </property>
+                      </item>
+                      <item>
+                       <property name="text">
+                        <string>十字交叉</string>
+                       </property>
+                      </item>
+                     </widget>
+                    </item>
+                    <item>
+                     <spacer name="horizontalSpacer_28">
+                      <property name="orientation">
+                       <enum>Qt::Horizontal</enum>
+                      </property>
+                      <property name="sizeHint" stdset="0">
+                       <size>
+                        <width>40</width>
+                        <height>20</height>
+                       </size>
+                      </property>
+                     </spacer>
+                    </item>
+                   </layout>
+                  </item>
+                  <item>
+                   <layout class="QHBoxLayout" name="horizontalLayout_35">
+                    <item>
+                     <spacer name="horizontalSpacer_25">
+                      <property name="orientation">
+                       <enum>Qt::Horizontal</enum>
+                      </property>
+                      <property name="sizeHint" stdset="0">
+                       <size>
+                        <width>40</width>
+                        <height>20</height>
+                       </size>
+                      </property>
+                     </spacer>
+                    </item>
+                    <item>
+                     <widget class="QLabel" name="label_27">
+                      <property name="text">
+                       <string>迭代</string>
+                      </property>
+                     </widget>
+                    </item>
+                    <item>
+                     <widget class="QSpinBox" name="open_spinBox">
+                      <property name="minimum">
+                       <number>1</number>
+                      </property>
+                      <property name="maximum">
+                       <number>99</number>
+                      </property>
+                     </widget>
+                    </item>
+                    <item>
+                     <spacer name="horizontalSpacer_26">
+                      <property name="orientation">
+                       <enum>Qt::Horizontal</enum>
+                      </property>
+                      <property name="sizeHint" stdset="0">
+                       <size>
+                        <width>40</width>
+                        <height>20</height>
+                       </size>
+                      </property>
+                     </spacer>
+                    </item>
+                   </layout>
+                  </item>
+                  <item>
+                   <widget class="QGroupBox" name="groupBox_12">
+                    <property name="title">
+                     <string>灰度直方图</string>
+                    </property>
+                    <layout class="QVBoxLayout" name="verticalLayout_29">
+                     <item>
+                      <widget class="QLabel" name="open_label_histImage">
+                       <property name="text">
+                        <string/>
+                       </property>
+                      </widget>
+                     </item>
+                    </layout>
+                   </widget>
+                  </item>
+                 </layout>
+                </widget>
+                <widget class="QWidget" name="page_close">
+                 <layout class="QVBoxLayout" name="verticalLayout_32" stretch="0,0,0,9">
+                  <item>
+                   <layout class="QHBoxLayout" name="horizontalLayout_38" stretch="0,0,0,0">
+                    <item>
+                     <spacer name="horizontalSpacer_31">
+                      <property name="orientation">
+                       <enum>Qt::Horizontal</enum>
+                      </property>
+                      <property name="sizeHint" stdset="0">
+                       <size>
+                        <width>40</width>
+                        <height>20</height>
+                       </size>
+                      </property>
+                     </spacer>
+                    </item>
+                    <item>
+                     <widget class="QLabel" name="label_30">
+                      <property name="text">
+                       <string>形态核大小</string>
+                      </property>
+                     </widget>
+                    </item>
+                    <item>
+                     <widget class="QComboBox" name="close_comboBox_size">
+                      <property name="minimumSize">
+                       <size>
+                        <width>70</width>
+                        <height>0</height>
+                       </size>
+                      </property>
+                      <property name="maximumSize">
+                       <size>
+                        <width>70</width>
+                        <height>16777215</height>
+                       </size>
+                      </property>
+                      <item>
+                       <property name="text">
+                        <string>3X3</string>
+                       </property>
+                      </item>
+                      <item>
+                       <property name="text">
+                        <string>5X5</string>
+                       </property>
+                      </item>
+                      <item>
+                       <property name="text">
+                        <string>7X7</string>
+                       </property>
+                      </item>
+                      <item>
+                       <property name="text">
+                        <string>9X9</string>
+                       </property>
+                      </item>
+                      <item>
+                       <property name="text">
+                        <string>11X11</string>
+                       </property>
+                      </item>
+                      <item>
+                       <property name="text">
+                        <string>13X13</string>
+                       </property>
+                      </item>
+                      <item>
+                       <property name="text">
+                        <string>15X15</string>
+                       </property>
+                      </item>
+                      <item>
+                       <property name="text">
+                        <string>17X17</string>
+                       </property>
+                      </item>
+                      <item>
+                       <property name="text">
+                        <string>19X19</string>
+                       </property>
+                      </item>
+                      <item>
+                       <property name="text">
+                        <string>21X21</string>
+                       </property>
+                      </item>
+                      <item>
+                       <property name="text">
+                        <string>23X23</string>
+                       </property>
+                      </item>
+                      <item>
+                       <property name="text">
+                        <string>25X25</string>
+                       </property>
+                      </item>
+                     </widget>
+                    </item>
+                    <item>
+                     <spacer name="horizontalSpacer_32">
+                      <property name="orientation">
+                       <enum>Qt::Horizontal</enum>
+                      </property>
+                      <property name="sizeHint" stdset="0">
+                       <size>
+                        <width>40</width>
+                        <height>20</height>
+                       </size>
+                      </property>
+                     </spacer>
+                    </item>
+                   </layout>
+                  </item>
+                  <item>
+                   <layout class="QHBoxLayout" name="horizontalLayout_37" stretch="0,0,0,0">
+                    <item>
+                     <spacer name="horizontalSpacer_29">
+                      <property name="orientation">
+                       <enum>Qt::Horizontal</enum>
+                      </property>
+                      <property name="sizeHint" stdset="0">
+                       <size>
+                        <width>40</width>
+                        <height>20</height>
+                       </size>
+                      </property>
+                     </spacer>
+                    </item>
+                    <item>
+                     <widget class="QLabel" name="label_29">
+                      <property name="text">
+                       <string>形态核形状</string>
+                      </property>
+                     </widget>
+                    </item>
+                    <item>
+                     <widget class="QComboBox" name="close_comboBox_shape">
+                      <property name="minimumSize">
+                       <size>
+                        <width>70</width>
+                        <height>0</height>
+                       </size>
+                      </property>
+                      <property name="maximumSize">
+                       <size>
+                        <width>70</width>
+                        <height>16777215</height>
+                       </size>
+                      </property>
+                      <item>
+                       <property name="text">
+                        <string>矩形</string>
+                       </property>
+                      </item>
+                      <item>
+                       <property name="text">
+                        <string>椭圆</string>
+                       </property>
+                      </item>
+                      <item>
+                       <property name="text">
+                        <string>十字交叉</string>
+                       </property>
+                      </item>
+                     </widget>
+                    </item>
+                    <item>
+                     <spacer name="horizontalSpacer_30">
+                      <property name="orientation">
+                       <enum>Qt::Horizontal</enum>
+                      </property>
+                      <property name="sizeHint" stdset="0">
+                       <size>
+                        <width>40</width>
+                        <height>20</height>
+                       </size>
+                      </property>
+                     </spacer>
+                    </item>
+                   </layout>
+                  </item>
+                  <item>
+                   <layout class="QHBoxLayout" name="horizontalLayout_39" stretch="0,0,0,0">
+                    <item>
+                     <spacer name="horizontalSpacer_33">
+                      <property name="orientation">
+                       <enum>Qt::Horizontal</enum>
+                      </property>
+                      <property name="sizeHint" stdset="0">
+                       <size>
+                        <width>40</width>
+                        <height>20</height>
+                       </size>
+                      </property>
+                     </spacer>
+                    </item>
+                    <item>
+                     <widget class="QLabel" name="label_31">
+                      <property name="text">
+                       <string>迭代</string>
+                      </property>
+                     </widget>
+                    </item>
+                    <item>
+                     <widget class="QSpinBox" name="close_spinBox">
+                      <property name="minimum">
+                       <number>1</number>
+                      </property>
+                      <property name="maximum">
+                       <number>99</number>
+                      </property>
+                     </widget>
+                    </item>
+                    <item>
+                     <spacer name="horizontalSpacer_34">
+                      <property name="orientation">
+                       <enum>Qt::Horizontal</enum>
+                      </property>
+                      <property name="sizeHint" stdset="0">
+                       <size>
+                        <width>40</width>
+                        <height>20</height>
+                       </size>
+                      </property>
+                     </spacer>
+                    </item>
+                   </layout>
+                  </item>
+                  <item>
+                   <widget class="QGroupBox" name="groupBox_13">
+                    <property name="title">
+                     <string>灰度直方图</string>
+                    </property>
+                    <layout class="QVBoxLayout" name="verticalLayout_31" stretch="0">
+                     <item>
+                      <widget class="QLabel" name="close_label_histImage">
+                       <property name="text">
+                        <string/>
+                       </property>
+                      </widget>
+                     </item>
+                    </layout>
+                   </widget>
+                  </item>
+                 </layout>
+                </widget>
+                <widget class="QWidget" name="page_guassianFilter">
+                 <layout class="QVBoxLayout" name="verticalLayout_16" stretch="0,9">
+                  <item>
+                   <layout class="QHBoxLayout" name="horizontalLayout_21">
+                    <item>
+                     <spacer name="horizontalSpacer_9">
+                      <property name="orientation">
+                       <enum>Qt::Horizontal</enum>
+                      </property>
+                      <property name="sizeHint" stdset="0">
+                       <size>
+                        <width>40</width>
+                        <height>20</height>
+                       </size>
+                      </property>
+                     </spacer>
+                    </item>
+                    <item>
+                     <widget class="QLabel" name="label_13">
+                      <property name="text">
+                       <string>滤波核大小</string>
+                      </property>
+                     </widget>
+                    </item>
+                    <item>
+                     <widget class="QSpinBox" name="gauss_spinBox">
+                      <property name="minimum">
+                       <number>1</number>
+                      </property>
+                      <property name="maximum">
+                       <number>999</number>
+                      </property>
+                      <property name="singleStep">
+                       <number>2</number>
+                      </property>
+                     </widget>
+                    </item>
+                    <item>
+                     <spacer name="horizontalSpacer_10">
+                      <property name="orientation">
+                       <enum>Qt::Horizontal</enum>
+                      </property>
+                      <property name="sizeHint" stdset="0">
+                       <size>
+                        <width>40</width>
+                        <height>20</height>
+                       </size>
+                      </property>
+                     </spacer>
+                    </item>
+                   </layout>
+                  </item>
+                  <item>
+                   <widget class="QGroupBox" name="groupBox_14">
+                    <property name="title">
+                     <string>灰度直方图</string>
+                    </property>
+                    <layout class="QVBoxLayout" name="verticalLayout_33" stretch="0">
+                     <item>
+                      <widget class="QLabel" name="gauss_label_histImage">
+                       <property name="text">
+                        <string/>
+                       </property>
+                      </widget>
+                     </item>
+                    </layout>
+                   </widget>
+                  </item>
+                 </layout>
+                </widget>
+                <widget class="QWidget" name="page_medianFilter">
+                 <layout class="QVBoxLayout" name="verticalLayout_17" stretch="0,9">
+                  <item>
+                   <layout class="QHBoxLayout" name="horizontalLayout_22">
+                    <item>
+                     <spacer name="horizontalSpacer_11">
+                      <property name="orientation">
+                       <enum>Qt::Horizontal</enum>
+                      </property>
+                      <property name="sizeHint" stdset="0">
+                       <size>
+                        <width>40</width>
+                        <height>20</height>
+                       </size>
+                      </property>
+                     </spacer>
+                    </item>
+                    <item>
+                     <widget class="QLabel" name="label_14">
+                      <property name="text">
+                       <string>滤波核大小</string>
+                      </property>
+                     </widget>
+                    </item>
+                    <item>
+                     <widget class="QSpinBox" name="median_spinBox">
+                      <property name="minimum">
+                       <number>1</number>
+                      </property>
+                      <property name="maximum">
+                       <number>999</number>
+                      </property>
+                      <property name="singleStep">
+                       <number>2</number>
+                      </property>
+                     </widget>
+                    </item>
+                    <item>
+                     <spacer name="horizontalSpacer_12">
+                      <property name="orientation">
+                       <enum>Qt::Horizontal</enum>
+                      </property>
+                      <property name="sizeHint" stdset="0">
+                       <size>
+                        <width>40</width>
+                        <height>20</height>
+                       </size>
+                      </property>
+                     </spacer>
+                    </item>
+                   </layout>
+                  </item>
+                  <item>
+                   <widget class="QGroupBox" name="groupBox_15">
+                    <property name="title">
+                     <string>灰度直方图</string>
+                    </property>
+                    <layout class="QVBoxLayout" name="verticalLayout_34" stretch="0">
+                     <item>
+                      <widget class="QLabel" name="median_label_histImage">
+                       <property name="text">
+                        <string/>
+                       </property>
+                      </widget>
+                     </item>
+                    </layout>
+                   </widget>
+                  </item>
+                 </layout>
+                </widget>
+                <widget class="QWidget" name="page_averageFilter">
+                 <layout class="QVBoxLayout" name="verticalLayout_18" stretch="0,9">
+                  <item>
+                   <layout class="QHBoxLayout" name="horizontalLayout_23">
+                    <item>
+                     <spacer name="horizontalSpacer_13">
+                      <property name="orientation">
+                       <enum>Qt::Horizontal</enum>
+                      </property>
+                      <property name="sizeHint" stdset="0">
+                       <size>
+                        <width>40</width>
+                        <height>20</height>
+                       </size>
+                      </property>
+                     </spacer>
+                    </item>
+                    <item>
+                     <widget class="QLabel" name="label_15">
+                      <property name="text">
+                       <string>滤波核大小</string>
+                      </property>
+                     </widget>
+                    </item>
+                    <item>
+                     <widget class="QSpinBox" name="average_spinBox">
+                      <property name="minimum">
+                       <number>1</number>
+                      </property>
+                      <property name="maximum">
+                       <number>999</number>
+                      </property>
+                      <property name="singleStep">
+                       <number>2</number>
+                      </property>
+                     </widget>
+                    </item>
+                    <item>
+                     <spacer name="horizontalSpacer_14">
+                      <property name="orientation">
+                       <enum>Qt::Horizontal</enum>
+                      </property>
+                      <property name="sizeHint" stdset="0">
+                       <size>
+                        <width>40</width>
+                        <height>20</height>
+                       </size>
+                      </property>
+                     </spacer>
+                    </item>
+                   </layout>
+                  </item>
+                  <item>
+                   <widget class="QGroupBox" name="groupBox_16">
+                    <property name="title">
+                     <string>灰度直方图</string>
+                    </property>
+                    <layout class="QVBoxLayout" name="verticalLayout_35" stretch="0">
+                     <item>
+                      <widget class="QLabel" name="average_label_histImage">
+                       <property name="text">
+                        <string/>
+                       </property>
+                      </widget>
+                     </item>
+                    </layout>
+                   </widget>
+                  </item>
+                 </layout>
+                </widget>
+                <widget class="QWidget" name="page_fouriergramEqualization"/>
+                <widget class="QWidget" name="page_histogramTransformation"/>
                </widget>
               </item>
               <item>
@@ -942,7 +2333,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>1114</width>
+     <width>1069</width>
      <height>23</height>
     </rect>
    </property>
@@ -967,10 +2358,7 @@
   <tabstop>radioButton_RGB</tabstop>
   <tabstop>radioButton_HSV</tabstop>
   <tabstop>radioButton_HSI</tabstop>
-  <tabstop>btn_averageFilter</tabstop>
   <tabstop>pushButton_8</tabstop>
-  <tabstop>btn_fourierTransformation</tabstop>
-  <tabstop>btn_histogramEqualization</tabstop>
   <tabstop>checkBox_useCalib</tabstop>
   <tabstop>comboBox_calib</tabstop>
   <tabstop>pushbutton_calib</tabstop>
@@ -985,18 +2373,7 @@
   <tabstop>comboBox_HSL</tabstop>
   <tabstop>comboBox_HSV</tabstop>
   <tabstop>comboBox_HSI</tabstop>
-  <tabstop>btn_clos</tabstop>
-  <tabstop>btn_medianFilter</tabstop>
-  <tabstop>btn_averageFilter</tabstop>
-  <tabstop>btn_dilat</tabstop>
-  <tabstop>btn_gaussianFilter</tabstop>
-  <tabstop>btn_fourierTransformation</tabstop>
   <tabstop>btn_reset</tabstop>
-  <tabstop>btn_erod</tabstop>
-  <tabstop>btn_open</tabstop>
-  <tabstop>btn_extraction</tabstop>
-  <tabstop>pushButton_2</tabstop>
-  <tabstop>pushButton_12</tabstop>
   <tabstop>pushButton_4</tabstop>
   <tabstop>pushButton_3</tabstop>
   <tabstop>pushButton_5</tabstop>
@@ -1005,13 +2382,8 @@
   <tabstop>pushButton_11</tabstop>
   <tabstop>btn_do</tabstop>
   <tabstop>pushButton_14</tabstop>
-  <tabstop>btn_dilat</tabstop>
-  <tabstop>btn_gaussianFilter</tabstop>
   <tabstop>pushbutton_input</tabstop>
-  <tabstop>btn_medianFilter</tabstop>
-  <tabstop>btn_histogramEqualization</tabstop>
   <tabstop>pushButton_7</tabstop>
-  <tabstop>btn_clos</tabstop>
   <tabstop>pushbutton_calib</tabstop>
  </tabstops>
  <resources>
@@ -1025,8 +2397,8 @@
    <slot>on_inputClicked()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>792</x>
-     <y>106</y>
+     <x>776</x>
+     <y>113</y>
     </hint>
     <hint type="destinationlabel">
      <x>461</x>
@@ -1041,8 +2413,8 @@
    <slot>on_calib()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>1047</x>
-     <y>137</y>
+     <x>928</x>
+     <y>144</y>
     </hint>
     <hint type="destinationlabel">
      <x>461</x>
@@ -1057,8 +2429,8 @@
    <slot>on_useCalib(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>823</x>
-     <y>133</y>
+     <x>772</x>
+     <y>140</y>
     </hint>
     <hint type="destinationlabel">
      <x>324</x>
@@ -1073,8 +2445,8 @@
    <slot>on_calibChanged(QString)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>935</x>
-     <y>135</y>
+     <x>847</x>
+     <y>142</y>
     </hint>
     <hint type="destinationlabel">
      <x>461</x>
@@ -1089,12 +2461,12 @@
    <slot>setValue(int)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>993</x>
-     <y>167</y>
+     <x>874</x>
+     <y>174</y>
     </hint>
     <hint type="destinationlabel">
-     <x>1047</x>
-     <y>166</y>
+     <x>928</x>
+     <y>173</y>
     </hint>
    </hints>
   </connection>
@@ -1105,12 +2477,12 @@
    <slot>setValue(int)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>1047</x>
-     <y>166</y>
+     <x>928</x>
+     <y>173</y>
     </hint>
     <hint type="destinationlabel">
-     <x>993</x>
-     <y>167</y>
+     <x>874</x>
+     <y>174</y>
     </hint>
    </hints>
   </connection>
@@ -1121,8 +2493,8 @@
    <slot>on_rotation(int)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>993</x>
-     <y>167</y>
+     <x>874</x>
+     <y>174</y>
     </hint>
     <hint type="destinationlabel">
      <x>388</x>
@@ -1137,8 +2509,8 @@
    <slot>on_reset()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>1047</x>
-     <y>106</y>
+     <x>928</x>
+     <y>113</y>
     </hint>
     <hint type="destinationlabel">
      <x>461</x>
@@ -1153,8 +2525,8 @@
    <slot>on_do()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>879</x>
-     <y>898</y>
+     <x>868</x>
+     <y>945</y>
     </hint>
     <hint type="destinationlabel">
      <x>461</x>
@@ -1169,28 +2541,12 @@
    <slot>on_cancel()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>1037</x>
-     <y>898</y>
+     <x>1034</x>
+     <y>945</y>
     </hint>
     <hint type="destinationlabel">
      <x>461</x>
      <y>873</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>btn_extraction</sender>
-   <signal>clicked()</signal>
-   <receiver>SRDemoClass</receiver>
-   <slot>on_extraction()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>826</x>
-     <y>244</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>461</x>
-     <y>236</y>
     </hint>
    </hints>
   </connection>
@@ -1201,8 +2557,8 @@
    <slot>on_deBugImage()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>826</x>
-     <y>548</y>
+     <x>797</x>
+     <y>578</y>
     </hint>
     <hint type="destinationlabel">
      <x>461</x>
@@ -1217,8 +2573,8 @@
    <slot>on_deBugImage()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>826</x>
-     <y>548</y>
+     <x>797</x>
+     <y>583</y>
     </hint>
     <hint type="destinationlabel">
      <x>461</x>
@@ -1233,8 +2589,8 @@
    <slot>on_deBugImage()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>826</x>
-     <y>548</y>
+     <x>797</x>
+     <y>588</y>
     </hint>
     <hint type="destinationlabel">
      <x>461</x>
@@ -1249,8 +2605,8 @@
    <slot>on_deBugImage()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>826</x>
-     <y>548</y>
+     <x>797</x>
+     <y>593</y>
     </hint>
     <hint type="destinationlabel">
      <x>461</x>
@@ -1265,8 +2621,8 @@
    <slot>on_deBugImage()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>826</x>
-     <y>548</y>
+     <x>747</x>
+     <y>578</y>
     </hint>
     <hint type="destinationlabel">
      <x>461</x>
@@ -1281,8 +2637,8 @@
    <slot>on_deBugImage()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>826</x>
-     <y>548</y>
+     <x>747</x>
+     <y>583</y>
     </hint>
     <hint type="destinationlabel">
      <x>461</x>
@@ -1297,8 +2653,8 @@
    <slot>on_deBugImage()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>826</x>
-     <y>548</y>
+     <x>747</x>
+     <y>588</y>
     </hint>
     <hint type="destinationlabel">
      <x>461</x>
@@ -1313,28 +2669,12 @@
    <slot>on_deBugImage()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>826</x>
-     <y>548</y>
+     <x>747</x>
+     <y>593</y>
     </hint>
     <hint type="destinationlabel">
      <x>461</x>
      <y>696</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>pushButton_2</sender>
-   <signal>clicked()</signal>
-   <receiver>SRDemoClass</receiver>
-   <slot>on_threshold()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>932</x>
-     <y>244</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>461</x>
-     <y>191</y>
     </hint>
    </hints>
   </connection>
@@ -1345,12 +2685,12 @@
    <slot>setValue(int)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>826</x>
-     <y>548</y>
+     <x>970</x>
+     <y>855</y>
     </hint>
     <hint type="destinationlabel">
-     <x>826</x>
-     <y>548</y>
+     <x>1024</x>
+     <y>854</y>
     </hint>
    </hints>
   </connection>
@@ -1361,12 +2701,12 @@
    <slot>setValue(int)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>826</x>
-     <y>548</y>
+     <x>970</x>
+     <y>885</y>
     </hint>
     <hint type="destinationlabel">
-     <x>826</x>
-     <y>548</y>
+     <x>1024</x>
+     <y>884</y>
     </hint>
    </hints>
   </connection>
@@ -1377,12 +2717,12 @@
    <slot>setValue(int)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>826</x>
-     <y>548</y>
+     <x>1024</x>
+     <y>854</y>
     </hint>
     <hint type="destinationlabel">
-     <x>826</x>
-     <y>548</y>
+     <x>970</x>
+     <y>855</y>
     </hint>
    </hints>
   </connection>
@@ -1393,28 +2733,12 @@
    <slot>setValue(int)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>826</x>
-     <y>548</y>
+     <x>1024</x>
+     <y>884</y>
     </hint>
     <hint type="destinationlabel">
-     <x>826</x>
-     <y>548</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>pushButton_2</sender>
-   <signal>clicked()</signal>
-   <receiver>SRDemoClass</receiver>
-   <slot>on_deBugImage()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>856</x>
-     <y>234</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>1032</x>
-     <y>221</y>
+     <x>970</x>
+     <y>885</y>
     </hint>
    </hints>
   </connection>
@@ -1425,11 +2749,11 @@
    <slot>on_deBugImage()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>826</x>
-     <y>548</y>
+     <x>970</x>
+     <y>885</y>
     </hint>
     <hint type="destinationlabel">
-     <x>942</x>
+     <x>503</x>
      <y>917</y>
     </hint>
    </hints>
@@ -1441,11 +2765,11 @@
    <slot>on_deBugImage()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>826</x>
-     <y>548</y>
+     <x>970</x>
+     <y>855</y>
     </hint>
     <hint type="destinationlabel">
-     <x>1033</x>
+     <x>503</x>
      <y>688</y>
     </hint>
    </hints>
@@ -1457,11 +2781,11 @@
    <slot>on_deBugImage()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>758</x>
-     <y>546</y>
+     <x>788</x>
+     <y>596</y>
     </hint>
     <hint type="destinationlabel">
-     <x>1034</x>
+     <x>503</x>
      <y>474</y>
     </hint>
    </hints>
@@ -1473,11 +2797,11 @@
    <slot>on_deBugImage()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>826</x>
-     <y>548</y>
+     <x>865</x>
+     <y>596</y>
     </hint>
     <hint type="destinationlabel">
-     <x>1028</x>
+     <x>503</x>
      <y>528</y>
     </hint>
    </hints>
@@ -1489,28 +2813,12 @@
    <slot>on_deBugImage()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>826</x>
-     <y>548</y>
+     <x>1025</x>
+     <y>598</y>
     </hint>
     <hint type="destinationlabel">
-     <x>1030</x>
+     <x>503</x>
      <y>457</y>
-    </hint>
-   </hints>
-  </connection>
-  <connection>
-   <sender>pushButton_12</sender>
-   <signal>clicked()</signal>
-   <receiver>SRDemoClass</receiver>
-   <slot>on_kernel()</slot>
-   <hints>
-    <hint type="sourcelabel">
-     <x>1037</x>
-     <y>244</y>
-    </hint>
-    <hint type="destinationlabel">
-     <x>1026</x>
-     <y>268</y>
     </hint>
    </hints>
   </connection>
@@ -1521,12 +2829,204 @@
    <slot>on_kernelSet(int)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>933</x>
-     <y>549</y>
+     <x>922</x>
+     <y>599</y>
     </hint>
     <hint type="destinationlabel">
-     <x>1027</x>
+     <x>503</x>
      <y>558</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>erod_comboBox_size</sender>
+   <signal>currentIndexChanged(int)</signal>
+   <receiver>SRDemoClass</receiver>
+   <slot>on_deBugImage()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>939</x>
+     <y>598</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>503</x>
+     <y>538</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>erod_comboBox_shape</sender>
+   <signal>currentIndexChanged(int)</signal>
+   <receiver>SRDemoClass</receiver>
+   <slot>on_deBugImage()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>939</x>
+     <y>626</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>503</x>
+     <y>595</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>erod_spinBox</sender>
+   <signal>valueChanged(int)</signal>
+   <receiver>SRDemoClass</receiver>
+   <slot>on_deBugImage()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>907</x>
+     <y>654</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>503</x>
+     <y>645</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>dilat_comboBox_size</sender>
+   <signal>currentIndexChanged(int)</signal>
+   <receiver>SRDemoClass</receiver>
+   <slot>on_deBugImage()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>939</x>
+     <y>598</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>503</x>
+     <y>549</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>dilat_comboBox_shape</sender>
+   <signal>currentIndexChanged(int)</signal>
+   <receiver>SRDemoClass</receiver>
+   <slot>on_deBugImage()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>939</x>
+     <y>626</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>503</x>
+     <y>616</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>dilat_spinBox</sender>
+   <signal>valueChanged(int)</signal>
+   <receiver>SRDemoClass</receiver>
+   <slot>on_deBugImage()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>907</x>
+     <y>654</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>503</x>
+     <y>661</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>btn_extraction</sender>
+   <signal>clicked()</signal>
+   <receiver>SRDemoClass</receiver>
+   <slot>on_extraction()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>807</x>
+     <y>321</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>503</x>
+     <y>198</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>btn_extraction</sender>
+   <signal>clicked()</signal>
+   <receiver>SRDemoClass</receiver>
+   <slot>on_deBugImage()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>807</x>
+     <y>321</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>503</x>
+     <y>249</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>pushButton_2</sender>
+   <signal>clicked()</signal>
+   <receiver>SRDemoClass</receiver>
+   <slot>on_threshold()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>912</x>
+     <y>321</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>503</x>
+     <y>224</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>pushButton_2</sender>
+   <signal>clicked()</signal>
+   <receiver>SRDemoClass</receiver>
+   <slot>on_deBugImage()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>912</x>
+     <y>321</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>503</x>
+     <y>256</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>pushButton_12</sender>
+   <signal>clicked()</signal>
+   <receiver>SRDemoClass</receiver>
+   <slot>on_kernel()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>1016</x>
+     <y>321</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>503</x>
+     <y>276</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>pushButton_12</sender>
+   <signal>clicked()</signal>
+   <receiver>SRDemoClass</receiver>
+   <slot>on_deBugImage()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>1016</x>
+     <y>321</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>503</x>
+     <y>260</y>
     </hint>
    </hints>
   </connection>
@@ -1537,12 +3037,28 @@
    <slot>on_erod()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>796</x>
-     <y>265</y>
+     <x>807</x>
+     <y>350</y>
     </hint>
     <hint type="destinationlabel">
-     <x>1073</x>
-     <y>265</y>
+     <x>503</x>
+     <y>293</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>btn_erod</sender>
+   <signal>clicked()</signal>
+   <receiver>SRDemoClass</receiver>
+   <slot>on_deBugImage()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>807</x>
+     <y>350</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>503</x>
+     <y>284</y>
     </hint>
    </hints>
   </connection>
@@ -1553,12 +3069,28 @@
    <slot>on_dilat()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>905</x>
-     <y>272</y>
+     <x>912</x>
+     <y>350</y>
     </hint>
     <hint type="destinationlabel">
-     <x>1075</x>
-     <y>248</y>
+     <x>503</x>
+     <y>215</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>btn_dilat</sender>
+   <signal>clicked()</signal>
+   <receiver>SRDemoClass</receiver>
+   <slot>on_deBugImage()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>912</x>
+     <y>350</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>503</x>
+     <y>304</y>
     </hint>
    </hints>
   </connection>
@@ -1569,28 +3101,60 @@
    <slot>on_openFilter()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>1000</x>
-     <y>256</y>
+     <x>1016</x>
+     <y>350</y>
     </hint>
     <hint type="destinationlabel">
-     <x>1075</x>
-     <y>237</y>
+     <x>503</x>
+     <y>232</y>
     </hint>
    </hints>
   </connection>
   <connection>
-   <sender>btn_clos</sender>
+   <sender>btn_open</sender>
    <signal>clicked()</signal>
    <receiver>SRDemoClass</receiver>
-   <slot>on_closFilter()</slot>
+   <slot>on_deBugImage()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>763</x>
-     <y>291</y>
+     <x>1016</x>
+     <y>350</y>
     </hint>
     <hint type="destinationlabel">
-     <x>1076</x>
-     <y>307</y>
+     <x>503</x>
+     <y>269</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>btn_close</sender>
+   <signal>clicked()</signal>
+   <receiver>SRDemoClass</receiver>
+   <slot>on_closeFilter()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>807</x>
+     <y>379</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>503</x>
+     <y>318</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>btn_close</sender>
+   <signal>clicked()</signal>
+   <receiver>SRDemoClass</receiver>
+   <slot>on_deBugImage()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>807</x>
+     <y>379</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>503</x>
+     <y>300</y>
     </hint>
    </hints>
   </connection>
@@ -1601,12 +3165,28 @@
    <slot>on_gaussianFilter()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>869</x>
-     <y>284</y>
+     <x>912</x>
+     <y>379</y>
     </hint>
     <hint type="destinationlabel">
-     <x>1075</x>
-     <y>296</y>
+     <x>503</x>
+     <y>310</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>btn_gaussianFilter</sender>
+   <signal>clicked()</signal>
+   <receiver>SRDemoClass</receiver>
+   <slot>on_deBugImage()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>912</x>
+     <y>379</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>503</x>
+     <y>277</y>
     </hint>
    </hints>
   </connection>
@@ -1617,12 +3197,28 @@
    <slot>on_medianFilter()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>1013</x>
-     <y>290</y>
+     <x>1016</x>
+     <y>379</y>
     </hint>
     <hint type="destinationlabel">
-     <x>1077</x>
-     <y>178</y>
+     <x>503</x>
+     <y>294</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>btn_medianFilter</sender>
+   <signal>clicked()</signal>
+   <receiver>SRDemoClass</receiver>
+   <slot>on_deBugImage()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>1016</x>
+     <y>379</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>663</x>
+     <y>316</y>
     </hint>
    </hints>
   </connection>
@@ -1633,12 +3229,28 @@
    <slot>on_averageFilter()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>785</x>
-     <y>321</y>
+     <x>807</x>
+     <y>408</y>
     </hint>
     <hint type="destinationlabel">
-     <x>1075</x>
-     <y>152</y>
+     <x>632</x>
+     <y>320</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>btn_averageFilter</sender>
+   <signal>clicked()</signal>
+   <receiver>SRDemoClass</receiver>
+   <slot>on_deBugImage()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>807</x>
+     <y>408</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>644</x>
+     <y>282</y>
     </hint>
    </hints>
   </connection>
@@ -1649,12 +3261,28 @@
    <slot>on_fourierTransformation()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>888</x>
-     <y>315</y>
+     <x>912</x>
+     <y>408</y>
     </hint>
     <hint type="destinationlabel">
-     <x>1074</x>
-     <y>210</y>
+     <x>592</x>
+     <y>336</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>btn_fourierTransformation</sender>
+   <signal>clicked()</signal>
+   <receiver>SRDemoClass</receiver>
+   <slot>on_deBugImage()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>912</x>
+     <y>408</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>628</x>
+     <y>354</y>
     </hint>
    </hints>
   </connection>
@@ -1665,12 +3293,220 @@
    <slot>on_histogramEqualization()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>978</x>
-     <y>328</y>
+     <x>1016</x>
+     <y>408</y>
     </hint>
     <hint type="destinationlabel">
-     <x>1074</x>
-     <y>354</y>
+     <x>644</x>
+     <y>345</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>btn_histogramEqualization</sender>
+   <signal>clicked()</signal>
+   <receiver>SRDemoClass</receiver>
+   <slot>on_deBugImage()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>1016</x>
+     <y>408</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>665</x>
+     <y>368</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>close_comboBox_size</sender>
+   <signal>currentIndexChanged(int)</signal>
+   <receiver>SRDemoClass</receiver>
+   <slot>on_deBugImage()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>939</x>
+     <y>598</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>812</x>
+     <y>530</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>close_comboBox_shape</sender>
+   <signal>currentIndexChanged(int)</signal>
+   <receiver>SRDemoClass</receiver>
+   <slot>on_deBugImage()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>939</x>
+     <y>626</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>814</x>
+     <y>573</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>close_spinBox</sender>
+   <signal>valueChanged(int)</signal>
+   <receiver>SRDemoClass</receiver>
+   <slot>on_deBugImage()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>907</x>
+     <y>654</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>816</x>
+     <y>613</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>open_comboBox_size</sender>
+   <signal>currentIndexChanged(int)</signal>
+   <receiver>SRDemoClass</receiver>
+   <slot>on_deBugImage()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>939</x>
+     <y>598</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>811</x>
+     <y>508</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>open_comboBox_shape</sender>
+   <signal>currentIndexChanged(int)</signal>
+   <receiver>SRDemoClass</receiver>
+   <slot>on_deBugImage()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>939</x>
+     <y>626</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>981</x>
+     <y>570</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>open_spinBox</sender>
+   <signal>valueChanged(int)</signal>
+   <receiver>SRDemoClass</receiver>
+   <slot>on_deBugImage()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>907</x>
+     <y>654</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>897</x>
+     <y>597</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>gauss_spinBox</sender>
+   <signal>valueChanged(int)</signal>
+   <receiver>SRDemoClass</receiver>
+   <slot>on_deBugImage()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>900</x>
+     <y>586</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>1076</x>
+     <y>596</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>median_spinBox</sender>
+   <signal>valueChanged(int)</signal>
+   <receiver>SRDemoClass</receiver>
+   <slot>on_deBugImage()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>928</x>
+     <y>579</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>1063</x>
+     <y>583</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>average_spinBox</sender>
+   <signal>valueChanged(int)</signal>
+   <receiver>SRDemoClass</receiver>
+   <slot>on_deBugImage()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>897</x>
+     <y>588</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>1208</x>
+     <y>588</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>camera_comboBox</sender>
+   <signal>currentIndexChanged(int)</signal>
+   <receiver>SRDemoClass</receiver>
+   <slot>on_cameraChanged(int)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>903</x>
+     <y>209</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>1066</x>
+     <y>209</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>camera_btn_online</sender>
+   <signal>clicked()</signal>
+   <receiver>SRDemoClass</receiver>
+   <slot>on_cameraOnline()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>754</x>
+     <y>245</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>1065</x>
+     <y>255</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>camera_btn_ontime</sender>
+   <signal>clicked()</signal>
+   <receiver>SRDemoClass</receiver>
+   <slot>on_cameraGetImage()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>893</x>
+     <y>244</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>1065</x>
+     <y>308</y>
     </hint>
    </hints>
   </connection>
@@ -1692,11 +3528,14 @@
   <slot>on_erod()</slot>
   <slot>on_dilat()</slot>
   <slot>on_openFilter()</slot>
-  <slot>on_closFilter()</slot>
+  <slot>on_closeFilter()</slot>
   <slot>on_gaussianFilter()</slot>
   <slot>on_medianFilter()</slot>
   <slot>on_averageFilter()</slot>
   <slot>on_fourierTransformation()</slot>
   <slot>on_histogramEqualization()</slot>
+  <slot>on_cameraChanged(int)</slot>
+  <slot>on_cameraOnline()</slot>
+  <slot>on_cameraGetImage()</slot>
  </slots>
 </ui>

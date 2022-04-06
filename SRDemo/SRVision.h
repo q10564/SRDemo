@@ -1,6 +1,8 @@
 #pragma once
 #include <opencv.hpp>
 #include <vector>
+#include <QObject>
+#include <QList>
 using namespace cv;
 using namespace std;
 namespace SRVision
@@ -31,21 +33,57 @@ namespace SRVision
 	public:
 		SRCalcHist(Mat image);
 		SRCalcHist();
-		/*
-			函数作用：
-			获取直方图
-			变量：
-			input:输入图像
-			output：输出直方图图像
-		*/
+
 		Mat calcHistImage;//灰度图
-		int gray[256] = { 0 };//灰度数组
+		Mat gray;//直方图信息
 		double max;//最大灰度值
 		double min;//最小灰度值
 		double average;//平均灰度值
 		double stddev;//灰度值方差
-	private:
-		void getCalcHistImage(Mat input, Mat &output);
+	   /*
+			函数作用：
+			获取直方图
+			变量：
+			input:输入直方图数据
+			output：输出直方图图像
+		*/
+
+		static void getCalcHistImage(Mat input, Mat &output);
+		/*
+			函数作用：
+				平滑直方图
+			变量：
+				input:输入直方图数据
+				output：输出直方图数据
+				time: 迭代次数
+			
+eg:	
+				SRCalcHist::getSmoothHist(hist.gray, image,3);
+				SRCalcHist::getCalcHistImage(image, debugImage);
+		*/
+		static void getSmoothHist(Mat input, Mat &output, int time = -1);
+	};
+
+	//相机类
+	class SRCamera :public QObject
+	{
+		Q_OBJECT
+	public:
+		SRCamera();
+		~SRCamera(); 
+		QList<VideoCapture> cameraList;
+		VideoCapture capture;
+		Mat frame;
+		bool onlineFlag = false;
+		void initCamera();
+		void useCamera(int index);
+		void destroyCamera();
+		void getImage();
+		void online();
+
+	signals:
+	void sendImage(Mat image);
+
 	};
 	/*
 	9点标定函数：calibration(vector<cv::Point2f> world, vector<cv::Point2f> pix, calibResult calib)
@@ -79,4 +117,6 @@ namespace SRVision
 	int getThresholdImage(Mat input, Mat &output, SRThreshold type, int low = 0, int hight = 255);
 
 	int getThresholdOtsu(Mat input, Mat &output,SRThreshold type);
+
+	void getPreprocessImage(Mat input, Mat &output,int type,int shape, int size,int time);
 }

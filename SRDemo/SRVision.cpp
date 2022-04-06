@@ -158,21 +158,26 @@ cv::Mat SRVision::getMirrorImage(cv::Mat &image, int type)
 
 SRVision::SRCalcHist::SRCalcHist(Mat image)
 {
+	Mat debug = image.clone();
 	Mat std, avg;
-	minMaxLoc(image, &min, &max);
-	meanStdDev(image, std, avg);
+	minMaxLoc(debug, &min, &max);
+	meanStdDev(debug, std, avg);
 	stddev = std.at<double>(0, 0);
 	average = avg.at<double>(0, 0);
-	getCalcHistImage(image, this->calcHistImage);
-	for (int i = 0; i < image.rows; i++)
+
+	int numbers = 256;
+	//定义变量范围，并定义三个矩阵来存储每个直方图
+	float range[] = { 0, 256 };
+	const float *histRange = { range };
+	calcHist(&image, 1, 0, Mat(), gray, 1, &numbers, &histRange);
+	/*
+	for (int i = 0; i < 256; i++)
 	{
-		for (int j = 0; j < image.cols; j++)
-		{
-			int value = image.ptr<uchar>(i)[j];
-			this->gray[value]++;
-		}
+		printf("%f\n", gray.at<float>(i));
 	}
-		
+	*/
+	getCalcHistImage(this->gray, this->calcHistImage);
+
 }
 /*
 	无参构造函数
@@ -184,6 +189,46 @@ SRVision::SRCalcHist::SRCalcHist()
 	this->min = 0.0;
 	this->stddev = 0.0;
 	this->calcHistImage = Mat::zeros(Size(1,1), CV_8UC1);
+}
+/*
+	函数作用：
+		平滑直方图
+	变量：
+		input:输入直方图数据
+		output：输出直方图数据
+		time: 迭代次数
+		
+*/
+void SRVision::SRCalcHist::getSmoothHist(Mat input,Mat &output, int time)
+{
+	try
+	{
+		output = input.clone();
+		output.at<float>(0) = 0;
+		output.at<float>(255) = 0;
+		if (time != -1)
+		{
+			for (int i = 0; i < time; i++)
+			{
+				for (int j = 1; j < 255; j++)
+				{
+					output.at<float>(j) = (output.at<float>(j - 1) + output.at<float>(j) + output.at<float>(j + 1))/3;
+				}
+			}
+		}
+		else
+		{
+			while(1)
+			{
+
+			}
+		}
+	}
+	catch (cv::Exception e)
+	{
+		printf("%s\n", e.msg);
+	}
+	
 }
 
 /*
@@ -210,81 +255,34 @@ void SRVision::SRCalcHist::getCalcHistImage(Mat input, Mat &output)
 	   bool accumulate=false：在多个图像时，是否累计计算像素值得个数
 	*/
 	//计算出每个通道的直方图后绘制直方图，并显示给用户
+	Mat hist;
 	int width = 256;
-	int height = 256;
+	int height = 160;
 	Mat histImage(height, width, CV_8UC3, Scalar(255, 255, 255));
 	//设置直方图有256个区间,因为图像的灰度值变化为0~255
 	int numbers = 256;
-	//定义变量范围，并定义三个矩阵来存储每个直方图
-	float range[] = { 0, 256 };
-	const float *histRange = { range };
 	int binStep = cvRound((float)width / (float)numbers);
-	if (input.type() == CV_8UC1)
+	/*
+	for (int i = 0; i < 256; i++)
 	{
-		Mat hist;
-		calcHist(&input, 1, 0, Mat(), hist, 1, &numbers, &histRange);
-		normalize(hist, hist, 0, height, NORM_MINMAX);
-		for (int i = 0; i < numbers; i++)
-		{
-			try
-			{
-				line(
-					histImage,
-					Point(binStep*(i - 1), height - cvRound(hist.at<float>(i - 1))),
-					Point(binStep*(i), height - cvRound(hist.at<float>(i))),
-					Scalar(255, 0, 0)
-				);
-			}
-			catch (Exception exception)
-			{
-				printf(exception.err.c_str());
-			}
-		}
+		printf("%f\n", input.at<float>(i));
 	}
-	else
+	*/
+	normalize(input, hist, 0, height, NORM_MINMAX);
+	for (int i = 0; i < numbers; i++)
 	{
-		vector<Mat> bgr;
-		//将输入图像划分为三个通道R、G、B
-		split(input, bgr);
-		Mat b_hist, g_hist, r_hist;
-
-		calcHist(&bgr[0], 1, 0, Mat(), b_hist, 1, &numbers, &histRange);
-		calcHist(&bgr[1], 1, 0, Mat(), g_hist, 1, &numbers, &histRange);
-		calcHist(&bgr[2], 1, 0, Mat(), r_hist, 1, &numbers, &histRange);
-
-
-		//归一化
-		normalize(b_hist, b_hist, 0, height, NORM_MINMAX);
-		normalize(g_hist, g_hist, 0, height, NORM_MINMAX);
-		normalize(r_hist, r_hist, 0, height, NORM_MINMAX);
-
-		for (int i = 0; i < numbers; i++)
+		try
 		{
-			try
-			{
-				line(
-					histImage,
-					Point(binStep*(i - 1), height - cvRound(b_hist.at<float>(i - 1))),
-					Point(binStep*(i), height - cvRound(b_hist.at<float>(i))),
-					Scalar(255, 0, 0)
-				);
-				line(
-					histImage,
-					Point(binStep*(i - 1), height - cvRound(g_hist.at<float>(i - 1))),
-					Point(binStep*(i), height - cvRound(g_hist.at<float>(i))),
-					Scalar(0, 255, 0)
-				);
-				line(
-					histImage,
-					Point(binStep*(i - 1), height - cvRound(r_hist.at<float>(i - 1))),
-					Point(binStep*(i), height - cvRound(r_hist.at<float>(i))),
-					Scalar(0, 0, 255)
-				);
-			}
-			catch (Exception exception)
-			{
-				printf(exception.err.c_str());
-			}
+			line(
+				histImage,
+				Point(binStep*(i - 1), height - cvRound(hist.at<float>(i - 1))),
+				Point(binStep*(i), height - cvRound(hist.at<float>(i))),
+				Scalar(255, 0, 0)
+			);
+		}
+		catch (Exception exception)
+		{
+			printf(exception.err.c_str());
 		}
 	}
 	output = histImage;
@@ -332,6 +330,7 @@ int SRVision::getThresholdImage(Mat input, Mat & output, SRThreshold type, int l
 	}
 	case Threshold_3://大津法二值化 白色对象
 	{
+
 		//threshold(input, output, low, hight, THRESH_BINARY_INV | THRESH_OTSU);
 		int treshold = getThresholdOtsu(input, output, Threshold_3);
 		return treshold;
@@ -347,10 +346,10 @@ int SRVision::getThresholdOtsu(Mat input, Mat &output, SRThreshold type)
 	//获取灰度概率直方图
 	double histogram[256];
 	for (int i = 0; i <= 255; i++) {
-		histogram[i] = double(hist.gray[i]) / double(input.rows * input.cols);
+		histogram[i] = double(hist.gray.at<float>(i)) / double(input.rows * input.cols);
 	}
 	double w1 = 0.0, w2 = 1.0; //类概率w1,w2
-	double u1, u2; //类均值u1,u2
+	double u1 = 0.0, u2 = 0.0; //类均值u1,u2
 	double max = 0.0; //最大类间方差
 	double sum = 0.0;//总均值
 	for (int i = 0; i <= 255; i++) {
@@ -386,14 +385,108 @@ int SRVision::getThresholdOtsu(Mat input, Mat &output, SRThreshold type)
 	{
 	case Threshold_2:
 	{
-		getThresholdImage(input, output, Threshold_0, 0, round(value));
+		threshold(input, output, value, 255, THRESH_BINARY);
 		break;
 	}
 	case Threshold_3:
 	{
-		getThresholdImage(input, output, Threshold_1, round(value), 255);
+		threshold(input, output, value, 255, THRESH_BINARY_INV);
 		break;
 	}
 	}
 	return round(value);
+}
+
+void SRVision::getPreprocessImage(Mat input, Mat & output, int type, int shape, int size,int time)
+{
+	MorphShapes shapes;
+	Size sizes;
+	Mat element;
+	Mat debugImage = input.clone();
+	switch (shape)
+	{
+	case 0:shapes = MORPH_RECT; break;
+	case 1:shapes = MORPH_ELLIPSE; break;
+	case 2:shapes = MORPH_CROSS; break;
+	default:
+		break;
+	}
+	sizes = Size((size + 1) * 2 + 1, (size + 1) * 2 + 1);
+	element = getStructuringElement(shapes, sizes);
+	switch (type)
+	{
+	case 4://腐蚀
+	{
+		cv::morphologyEx(debugImage, debugImage, cv::MORPH_ERODE, element, Point(-1, -1), time);
+	}
+	case 5://膨胀
+	{
+		cv::morphologyEx(debugImage, debugImage, cv::MORPH_DILATE, element, Point(-1, -1), time);
+		break;
+	}
+	case 6://开运算
+	{
+		cv::morphologyEx(debugImage, debugImage, cv::MORPH_OPEN, element, Point(-1, -1), time);
+		break;
+	}
+	case 7://闭运算
+	{
+		cv::morphologyEx(debugImage, debugImage, cv::MORPH_CLOSE, element, Point(-1, -1), time);
+	}
+	}
+	output = debugImage;
+}
+SRVision::SRCamera::SRCamera()
+{
+	initCamera();
+}
+SRVision::SRCamera::~SRCamera()
+{
+
+}
+
+void SRVision::SRCamera::initCamera()
+{
+	int i = 0;
+	while (1)
+	{
+		VideoCapture cap(i++);
+		if (cap.isOpened())
+		{
+			this->cameraList.append(cap);
+			cap.release();
+		}
+		else
+		{
+			break;
+		}
+	}
+}
+
+void SRVision::SRCamera::useCamera(int index)
+{
+	capture = cameraList[index];
+	capture.isOpened();
+}
+
+void SRVision::SRCamera::destroyCamera()
+{
+	capture.release();
+}
+
+void SRVision::SRCamera::getImage()
+{
+	capture >> frame;
+	emit sendImage(frame);
+}
+
+void SRVision::SRCamera::online()
+{
+	onlineFlag = true;
+	while (onlineFlag)
+	{
+		capture >> frame;
+		emit sendImage(frame);
+		waitKey(10);
+	}
 }
