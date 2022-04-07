@@ -152,30 +152,70 @@ void SRDemo::kernel(Mat input, Mat & output)
 }
 void SRDemo::erod(Mat input, Mat & output)
 {
+	int shape = ui.erod_comboBox_shape->currentIndex();
+	int size = ui.erod_comboBox_size->currentIndex();
+	int time = ui.erod_spinBox->value();
+	getPreprocessImage(input, output, 4, shape, size, time);
+	SRCalcHist hist(output);
+	ui.erod_label_histImage->setPixmap(QPixmap::fromImage(MatToQImage(hist.calcHistImage)));
 }
 void SRDemo::dilat(Mat input, Mat & output)
 {
+	int shape = ui.dilat_comboBox_shape->currentIndex();
+	int size = ui.dilat_comboBox_size->currentIndex();
+	int time = ui.dilat_spinBox->value();
+	getPreprocessImage(input, output, 5, shape, size, time);
+	SRCalcHist hist(output);
+	ui.dilat_label_histImage->setPixmap(QPixmap::fromImage(MatToQImage(hist.calcHistImage)));
 }
 void SRDemo::openFilter(Mat input, Mat & output)
 {
+	int shape = ui.open_comboBox_shape->currentIndex();
+	int size = ui.open_comboBox_size->currentIndex();
+	int time = ui.open_spinBox->value();
+	getPreprocessImage(input, output, 6, shape, size, time);
+	SRCalcHist hist(output);
+	ui.open_label_histImage->setPixmap(QPixmap::fromImage(MatToQImage(hist.calcHistImage)));
 }
 void SRDemo::closeFilter(Mat input, Mat & output)
 {
+	int shape = ui.close_comboBox_shape->currentIndex();
+	int size = ui.close_comboBox_size->currentIndex();
+	int time = ui.close_spinBox->value();
+	getPreprocessImage(input, output, 7, shape, size, time);
+	SRCalcHist hist(output);
+	ui.close_label_histImage->setPixmap(QPixmap::fromImage(MatToQImage(hist.calcHistImage)));
 }
 void SRDemo::gaussianFilter(Mat input, Mat & output)
 {
+	int size = ui.gauss_spinBox->value();
+	Size sizes = Size((size + 1) * 2 + 1, (size + 1) * 2 + 1);
+	cv::GaussianBlur(input, output, sizes, 0.0);
+	SRCalcHist hist(output);
+	ui.gauss_label_histImage->setPixmap(QPixmap::fromImage(MatToQImage(hist.calcHistImage)));
 }
 void SRDemo::medianFilter(Mat input, Mat & output)
 {
+	int size = ui.median_spinBox->value();
+	cv::medianBlur(input, output, size);
+	SRCalcHist hist(output);
+	ui.median_label_histImage->setPixmap(QPixmap::fromImage(MatToQImage(hist.calcHistImage)));
 }
 void SRDemo::averageFilter(Mat input, Mat & output)
 {
+	int size = ui.average_spinBox->value();
+	Size sizes = Size((size + 1) * 2 + 1, (size + 1) * 2 + 1);
+	cv::boxFilter(input, output, -1, sizes);
+	SRCalcHist hist(output);
+	ui.average_label_histImage->setPixmap(QPixmap::fromImage(MatToQImage(hist.calcHistImage)));
 }
 void SRDemo::fourierTransformation(Mat input, Mat & output)
 {
+	output = input;
 }
 void SRDemo::histogramEqualization(Mat input, Mat & output)
 {
+	output = input;
 }
 void SRDemo::on_inputClicked()
 {
@@ -214,25 +254,23 @@ void SRDemo::refreshImage(Mat &image)
 	int hMax = ui.label_image->height();//显示的最大高度
 	int h = image.rows;//图片高度
 	int w = image.cols;//图片宽度
-	double scale = 1.0;
 	//QPainter painter(ui.label_image);
 	if (h <= hMax && w <= wMax)
 	{
 		ui.label_image->setPixmap(QPixmap::fromImage(MatToQImage(image)));
-		//painter.drawImage(QPoint(0, 0), MatToQImage(image));
 	}
 	else
 	{
 		double scalew = double(wMax) / double(w);
 		double scaleh = double(hMax) / double(h);
-		scale = MIN(scalew, scaleh);
-		printf("scalew: %f\nscaleh: %f\nscale: %f\n", scalew, scaleh, scale);
+		image_scale = MIN(scalew, scaleh);
+		printf("scalew: %f\nscaleh: %f\nscale: %f\n", scalew, scaleh, image_scale);
 		Mat dst;
-		cv::resize(image, dst, Size(0, 0), scale, scale, INTER_LINEAR);
+		cv::resize(image, dst, Size(0, 0), image_scale + image_scale_offset, image_scale + image_scale_offset, INTER_LINEAR);
 		ui.label_image->setPixmap(QPixmap::fromImage(MatToQImage(dst)));
 		//painter.drawImage(QPoint(0, 0), MatToQImage(dst));
 	}
-	statusBarMessage.setText(QString("(%1 x %2) scale :%3").arg(w).arg(h).arg(scale));
+	statusBarMessage.setText(QString("(%1 x %2) scale :%3").arg(w).arg(h).arg(image_scale + image_scale_offset));
 	ui.statusBar->addWidget(&statusBarMessage);
 	
 }
@@ -434,89 +472,62 @@ void SRDemo::on_deBugImage()
 	case 4://腐蚀
 	{
 		qDebug() << "腐蚀";
-		int shape = ui.erod_comboBox_shape->currentIndex();
-		int size = ui.erod_comboBox_size->currentIndex();
-		int time = ui.erod_spinBox->value();
-		getPreprocessImage(currentImage, debugImage, 4, shape, size, time);
-		SRCalcHist hist(debugImage);
-		ui.erod_label_histImage->setPixmap(QPixmap::fromImage(MatToQImage(hist.calcHistImage)));
+		erod(debugImage, debugImage);
 		refreshImage(debugImage);
 		break;
 	}
 	case 5://膨胀
 	{
 		qDebug() << "膨胀";
-		int shape = ui.dilat_comboBox_shape->currentIndex();
-		int size = ui.dilat_comboBox_size->currentIndex();
-		int time = ui.dilat_spinBox->value();
-		getPreprocessImage(currentImage, debugImage, 5, shape, size, time);
-		SRCalcHist hist(debugImage);
-		ui.dilat_label_histImage->setPixmap(QPixmap::fromImage(MatToQImage(hist.calcHistImage)));
+		dilat(debugImage, debugImage);
 		refreshImage(debugImage);
 		break;
 	}
 	case 6://开运算
 	{
 		qDebug() << "开运算";
-		int shape = ui.open_comboBox_shape->currentIndex();
-		int size = ui.open_comboBox_size->currentIndex();
-		int time = ui.open_spinBox->value();
-		getPreprocessImage(currentImage, debugImage, 6, shape, size, time);
-		SRCalcHist hist(debugImage);
-		ui.open_label_histImage->setPixmap(QPixmap::fromImage(MatToQImage(hist.calcHistImage)));
+		openFilter(debugImage, debugImage);
 		refreshImage(debugImage);
 		break;
 	}
 	case 7://闭运算
 	{
 		qDebug() << "闭运算";
-		int shape = ui.close_comboBox_shape->currentIndex();
-		int size = ui.close_comboBox_size->currentIndex();
-		int time = ui.close_spinBox->value();
-		getPreprocessImage(currentImage, debugImage, 7, shape, size, time);
-		SRCalcHist hist(debugImage);
-		ui.close_label_histImage->setPixmap(QPixmap::fromImage(MatToQImage(hist.calcHistImage)));
+		closeFilter(debugImage, debugImage);
 		refreshImage(debugImage);
 		break;
 	}
 	case 8://高斯滤波
 	{
 		qDebug() << "高斯滤波";
-		int size = ui.gauss_spinBox->value();
-		Size sizes = Size((size + 1) * 2 + 1, (size + 1) * 2 + 1);
-		cv::GaussianBlur(debugImage, debugImage, sizes,0.0);
-		SRCalcHist hist(debugImage);
-		ui.gauss_label_histImage->setPixmap(QPixmap::fromImage(MatToQImage(hist.calcHistImage)));
+		gaussianFilter(debugImage, debugImage);
 		refreshImage(debugImage);
 		break;
 	}
 	case 9://中值滤波
 	{
 		qDebug() << "中值滤波";
-		int size = ui.median_spinBox->value();
-		cv::medianBlur(debugImage, debugImage, size);
-		SRCalcHist hist(debugImage);
-		ui.median_label_histImage->setPixmap(QPixmap::fromImage(MatToQImage(hist.calcHistImage)));
+		medianFilter(debugImage, debugImage);
 		refreshImage(debugImage);
 		break;
 	}
 	case 10://均值滤波
 	{
 		qDebug() << "均值滤波";
-		int size = ui.average_spinBox->value();
-		Size sizes = Size((size + 1) * 2 + 1, (size + 1) * 2 + 1);
-		cv::boxFilter(debugImage, debugImage, -1,sizes);
-		SRCalcHist hist(debugImage);
-		ui.average_label_histImage->setPixmap(QPixmap::fromImage(MatToQImage(hist.calcHistImage)));
+		averageFilter(debugImage, debugImage);
 		refreshImage(debugImage);
 		break;
 	}
 	case 11://傅里叶变换
 	{
+		fourierTransformation(debugImage, debugImage);
+		refreshImage(debugImage);
 		break;
 	}
 	case 12://直方图均衡化
 	{
+		histogramEqualization(debugImage, debugImage);
+		refreshImage(debugImage);
 		break;
 	}
 	default:break;
@@ -559,6 +570,15 @@ void SRDemo::on_do()
 	case 1:	funcList.append(&SRDemo::extraction); funcValueList.append(u8"通道提取"); break;
 	case 2: funcList.append(&SRDemo::threshold); funcValueList.append(u8"二值化"); break;
 	case 3: funcList.append(&SRDemo::kernel); funcValueList.append(u8"自定义滤波"); break;
+	case 4: funcList.append(&SRDemo::erod); funcValueList.append(u8"腐蚀"); break;
+	case 5: funcList.append(&SRDemo::dilat); funcValueList.append(u8"膨胀"); break;
+	case 6: funcList.append(&SRDemo::openFilter); funcValueList.append(u8"开运算"); break;
+	case 7: funcList.append(&SRDemo::closeFilter); funcValueList.append(u8"闭运算"); break;
+	case 8: funcList.append(&SRDemo::gaussianFilter); funcValueList.append(u8"高斯滤波"); break;
+	case 9: funcList.append(&SRDemo::medianFilter); funcValueList.append(u8"中值滤波"); break;
+	case 10: funcList.append(&SRDemo::averageFilter); funcValueList.append(u8"均值滤波"); break;
+	case 11: funcList.append(&SRDemo::fourierTransformation); funcValueList.append(u8"傅里叶变换"); break;
+	case 12: funcList.append(&SRDemo::histogramEqualization); funcValueList.append(u8"直方图均衡"); break;
 	default:
 		break;
 	}
@@ -748,12 +768,16 @@ void SRDemo::on_cameraOnline()
 	{
 		ui.camera_btn_online->setText(u8"关闭采集");
 		ui.camera_btn_ontime->setEnabled(false);
+		ui.groupBox->setEnabled(false);
+		ui.groupBox_2->setEnabled(false);
 		camera.online();
 	}
 	else
 	{
 		ui.camera_btn_online->setText(u8"实时采集");
 		ui.camera_btn_ontime->setEnabled(true);
+		ui.groupBox->setEnabled(true);
+		ui.groupBox_2->setEnabled(true);
 		camera.onlineFlag = false;
 	}
 

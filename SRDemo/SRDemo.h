@@ -26,6 +26,8 @@ public:
 private:
     Ui::SRDemoClass ui;
 	SRCamera camera;
+	double image_scale = 1.0;
+	double image_scale_offset = 0.0;
 	bool debugFlag = false;
 	Mat sourceImage;
 	Mat currentImage;
