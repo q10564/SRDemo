@@ -226,7 +226,7 @@ void SRVision::SRCalcHist::getSmoothHist(Mat input,Mat &output, int time)
 	}
 	catch (cv::Exception e)
 	{
-		printf("%s\n", e.msg);
+		printf("%s\n", e.msg.c_str());
 	}
 	
 }
@@ -435,6 +435,30 @@ void SRVision::getPreprocessImage(Mat input, Mat & output, int type, int shape, 
 	}
 	}
 	output = debugImage;
+}
+void SRVision::getOperationImage(Mat input, Mat & output, int type, int number)
+{
+
+	switch (type)
+	{
+	case 0:output = input + number; break;//加
+	case 1:output = input - number; break;//减
+	case 2:output = input * number; break;//乘
+	case 3:output = input / number; break;//除
+	case 4:output = input & number; break;//与
+	case 5:output = input | number; break;//或
+	case 6:output = 255-(input & number); break;//与非
+	case 7:output = 255-(input | number); break;//或非
+	case 8:absdiff(input, number, output); break;//绝对差值
+	case 9:output = input / 2 + double(number/2); break;//平均值
+	case 10:output = min(input, number); break;//最小值
+	case 11:output = max(input, number); break;//最大值
+	default:
+		break;
+	}
+}
+void SRVision::getOperationImage(Mat input, Mat & output, int type, Mat images)
+{
 }
 SRVision::SRCamera::SRCamera()
 {

@@ -119,4 +119,15 @@ eg:
 	int getThresholdOtsu(Mat input, Mat &output,SRThreshold type);
 
 	void getPreprocessImage(Mat input, Mat &output,int type,int shape, int size,int time);
+	/*
+	函数作用：
+			获取二值化图像
+		变量：
+			input:输入图像
+			output：输出图像
+			operationType：操作方式
+			number：数值 / image:图片
+	*/
+	void getOperationImage(Mat input, Mat &output,int type, int number);
+	void getOperationImage(Mat input, Mat &output,int type, Mat images);
 }

@@ -217,6 +217,21 @@ void SRDemo::histogramEqualization(Mat input, Mat & output)
 {
 	output = input;
 }
+void SRDemo::imageOperation(Mat input, Mat & output)
+{
+	int type = ui.operation_combox->currentIndex();
+	if (ui.operation_radioButton_number->isChecked())
+	{
+		getOperationImage(input, output, type, ui.operation_spinBox->value());
+	}
+	else if (ui.operation_radioButton_image->isChecked())
+	{
+		int index = ui.operation_comboBox_image->currentIndex();
+		Mat image;
+		getOperationImage(input, output, type, image);
+	}
+
+}
 void SRDemo::on_inputClicked()
 {
 	imagePath = QFileDialog::getOpenFileName(this, tr("打开图片"), "../image", tr("Images (*.png *.bmp *.jpg)"));
@@ -257,7 +272,11 @@ void SRDemo::refreshImage(Mat &image)
 	//QPainter painter(ui.label_image);
 	if (h <= hMax && w <= wMax)
 	{
-		ui.label_image->setPixmap(QPixmap::fromImage(MatToQImage(image)));
+		image_scale = 1.0;
+		//ui.label_image->setPixmap(QPixmap::fromImage(MatToQImage(image)));
+		Mat dst;
+		cv::resize(image, dst, Size(0, 0), image_scale + image_scale_offset, image_scale + image_scale_offset, INTER_LINEAR);
+		ui.label_image->setPixmap(QPixmap::fromImage(MatToQImage(dst)));
 	}
 	else
 	{
@@ -530,6 +549,12 @@ void SRDemo::on_deBugImage()
 		refreshImage(debugImage);
 		break;
 	}
+	case 13://图像操作
+	{
+		imageOperation(debugImage, debugImage);
+		refreshImage(debugImage);
+		break;
+	}
 	default:break;
 	}
 }
@@ -576,9 +601,10 @@ void SRDemo::on_do()
 	case 7: funcList.append(&SRDemo::closeFilter); funcValueList.append(u8"闭运算"); break;
 	case 8: funcList.append(&SRDemo::gaussianFilter); funcValueList.append(u8"高斯滤波"); break;
 	case 9: funcList.append(&SRDemo::medianFilter); funcValueList.append(u8"中值滤波"); break;
-	case 10: funcList.append(&SRDemo::averageFilter); funcValueList.append(u8"均值滤波"); break;
-	case 11: funcList.append(&SRDemo::fourierTransformation); funcValueList.append(u8"傅里叶变换"); break;
-	case 12: funcList.append(&SRDemo::histogramEqualization); funcValueList.append(u8"直方图均衡"); break;
+	case 10:funcList.append(&SRDemo::averageFilter); funcValueList.append(u8"均值滤波"); break;
+	case 11:funcList.append(&SRDemo::fourierTransformation); funcValueList.append(u8"傅里叶变换"); break;
+	case 12:funcList.append(&SRDemo::histogramEqualization); funcValueList.append(u8"直方图均衡"); break;
+	case 13:funcList.append(&SRDemo::imageOperation); funcValueList.append(u8"图像操作"); break;
 	default:
 		break;
 	}
@@ -753,6 +779,19 @@ void SRDemo::on_histogramEqualization()
 	ui.stackedWidget->setCurrentWidget(ui.page_histogramTransformation);
 	debugFlag = true;
 }
+void SRDemo::on_imageOperation()
+{
+	if (currentImage.type() != CV_8UC1)
+	{
+		msgBox.setWindowTitle(tr("error"));
+		msgBox.setText(u8"该图像不为灰度图像");
+		msgBox.exec();
+		debugFlag = false;
+		return;
+	}
+	ui.stackedWidget->setCurrentWidget(ui.page_ImageOperation);
+	debugFlag = true;
+}
 void SRDemo::on_cameraChanged(int index)
 {
 	if (ui.camera_radioButton->isChecked())
@@ -795,6 +834,29 @@ void SRDemo::on_showCamera(Mat image)
 	}
 	currentImage = image;
 	refreshImage(image);
+}
+void SRDemo::on_scaleUp()
+{
+	image_scale_offset += 0.1;
+	refreshImage(currentImage);
+}
+void SRDemo::on_scaleDowm()
+{
+	if ((image_scale_offset + image_scale) > 0.2)
+	{
+		image_scale_offset -= 0.1;
+	}
+	refreshImage(currentImage);
+}
+void SRDemo::on_scaleReal()
+{
+	image_scale_offset = 1 - image_scale;
+	refreshImage(currentImage);
+}
+void SRDemo::on_scaleAuto()
+{
+	image_scale_offset = 0;
+	refreshImage(currentImage);
 }
 //自定义滤波核界面设置
 void SRDemo::on_kernelSet(int num)
