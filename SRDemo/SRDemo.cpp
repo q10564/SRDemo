@@ -137,13 +137,25 @@ void SRDemo::kernel(Mat input, Mat & output)
 {
 	int kernel_size = kernel_gridLayout->rowCount();//获取行列
 	int *value;
+	float sum = 0.0;
 	Mat kernel = (Mat_<float>(kernel_size, kernel_size));
 	for (int i = 0; i < kernel_size; i++)
 	{
 		for (int j = 0; j < kernel_size; j++)
 		{
 			kernel.ptr<float>(i)[j] = ((QLineEdit*)(kernel_gridLayout->itemAtPosition(i, j)->widget()))->text().toFloat();
+			sum += kernel.ptr<float>(i)[j];
 			qDebug() << kernel.ptr<float>(i)[j];
+		}
+
+		//qDebug() << ((QLineEdit*)(kernel_gridLayout->itemAtPosition(i,j)->widget()))->text().toFloat();
+	}
+	for (int i = 0; i < kernel_size; i++)
+	{
+		for (int j = 0; j < kernel_size; j++)
+		{
+			//kernel.ptr<float>(i)[j] = kernel.ptr<float>(i)[j] / sum;
+			kernel.ptr<float>(i)[j] = kernel.ptr<float>(i)[j];
 		}
 
 		//qDebug() << ((QLineEdit*)(kernel_gridLayout->itemAtPosition(i,j)->widget()))->text().toFloat();
@@ -227,16 +239,132 @@ void SRDemo::imageOperation(Mat input, Mat & output)
 	else if (ui.operation_radioButton_image->isChecked())
 	{
 		int index = ui.operation_comboBox_image->currentIndex();
-		Mat image;
-		getOperationImage(input, output, type, image);
+		getOperationImage(input, output, type, imageList[index]);
 	}
 
 }
+/*
+	在图像上画出ROI
+	type:
+	-1://默认，ROI生成算子用，选择的type
+	0://直线 
+	1://矩形 
+	2://圆形 
+	3://点集
+*/
+void SRDemo::drawROI(int type = -1)
+{
+	cv::Point p1(roiStart.x(), roiStart.y());
+	cv::Point p2(roiEnd.x(), roiEnd.y());
+	Mat image = debugImage.clone();
+	if (type == -1)
+		type = ui.roi_type->currentIndex();
+	if (currentImage.type() == CV_8UC1)
+	{
+		cvtColor(debugImage, image, COLOR_GRAY2BGR);
+	}
+	switch (type)
+	{
+	case 0://直线
+	{	
+		arrowedLine(image, p1, p2, Scalar(255, 0, 0), 1, 8, 0, 0.025);
+		ui.roi_line_startX->setValue(roiStart.x());
+		ui.roi_line_startY->setValue(roiStart.y());
+		ui.roi_line_endX->setValue(roiEnd.x());
+		ui.roi_line_endY->setValue(roiEnd.y());
+		break;
+	}
+	case 1://矩形
+	{
+		rectangle(image, p1, p2, Scalar(255, 0, 0), 1, 8);
+		ui.roi_rect_centerX->setValue(double(p1.x + p2.x) / 2);
+		ui.roi_rect_centerY->setValue(double(p1.y + p2.y) / 2);
+		ui.roi_rect_center_width->setValue(abs(p1.x - p2.x));
+		ui.roi_rect_center_height->setValue(abs(p1.y - p2.y));
+		ui.roi_rect_angle->setValue(0);
+		break;
+	}
+	case 2://圆形
+	{
+		double radius_in = ui.roi_circle_radius_in->value();
+		double radius = sqrt(powf((p1.x - p2.x), 2) + powf((p1.y - p2.y), 2));
+		if (radius_in >= radius)
+			return;
+		cv::circle(image, p1, radius, Scalar(255, 0, 0), 1, 8);
+		cv::circle(image, p1, radius_in, Scalar(255, 0, 0), 1, 8);
+		cv::circle(image, p1, 2, Scalar(0, 255, 0), -1, 8);
+		ui.roi_circle_centerX->setValue(p1.x);
+		ui.roi_circle_centerY->setValue(p1.y);
+		ui.roi_circle_radius_out->setValue(radius);
+		break;
+	}
+	case 3:break;//点集
+	default:break;
+	}
+	refreshImage(image);
+}
+//画十字标
+void SRDemo::drawCross(cv::Point point,Mat &image)
+{
+	cv::Point p1(roiStart.x(), roiStart.y());
+	cv::Point p2(roiEnd.x(), roiEnd.y());
+	Mat im = image.clone();
+	if (currentImage.type() == CV_8UC1)
+	{
+		cvtColor(image, im, COLOR_GRAY2BGR);
+	}
+	//绘制横线
+	line(im, cv::Point(point.x - 4 / 2, point.y), cv::Point(point.x + 4 / 2, point.y), Scalar(0, 255, 0), 1, 8, 0);
+	//绘制竖线
+	line(im, cv::Point(point.x, point.y - 4 / 2), cv::Point(point.x, point.y + 4 / 2), Scalar(0, 255, 0), 1, 8, 0);
+	//绘制ROI
+	arrowedLine(im, p1, p2, Scalar(255, 0, 0), 1, 8, 0, 0.025);
+	refreshImage(im);
+}
+
+void SRDemo::findPoint()
+{
+	int strength = ui.findPoint_strength->value();
+	int polarity = ui.findPoint_polarity->currentIndex();
+	int type = ui.findPoint_type->currentIndex();
+	SRroiLine line;
+	line.start = cv::Point(roiStart.x(), roiStart.y());
+	line.end = cv::Point(roiEnd.x(), roiEnd.y());
+	fpoint.findPoint(currentImage, line, strength, polarity);
+	if (fpoint.pointGroup.empty())
+		return;
+	ui.findPoint_label->setPixmap(QPixmap::fromImage(MatToQImage(fpoint.sectional)));
+	drawCross(fpoint.pointGroup[0], debugImage);
+}
+
+void SRDemo::findLine()
+{
+	int strength = ui.findLine_strength->value();//边缘强度
+	int polarity = ui.findLine_polarity->currentIndex();//边缘极性
+	int type = ui.findLine_type->currentIndex();//边缘类型
+	int direction = ui.findLine_direction->currentIndex();//搜索方向
+	int distance = ui.findLine_distance->value();//搜索间隔
+	SRroiRect rect;
+	rect.center = cv::Point(double(roiStart.x() + roiEnd.x()) / 2, double(roiStart.y() + roiEnd.y()) / 2);
+	rect.height = abs(roiStart.x() - roiEnd.x());
+	rect.width = abs(roiStart.y() - roiEnd.y());
+	fline.findLine(currentImage, rect, strength, polarity, type, direction,distance);
+}
+
+void SRDemo::findCircle()
+{
+}
+
 void SRDemo::on_inputClicked()
 {
 	imagePath = QFileDialog::getOpenFileName(this, tr("打开图片"), "../image", tr("Images (*.png *.bmp *.jpg)"));
 	QFileInfo fileinfo = QFileInfo(imagePath);
 	sourceImage = imread(imagePath.toStdString());
+	for (int i = 0; i < funcList.length(); i++)
+	{
+		(this->*funcList[i])(sourceImage, sourceImage);
+		imageList[i] = sourceImage;
+	}
 	currentImage = sourceImage;
 	refreshImage(sourceImage);
 	ui.line_path->setText(fileinfo.fileName());
@@ -246,6 +374,7 @@ void SRDemo::on_reset()
 {
 	funcList.clear();
 	funcValueList.clear();
+	imageList.clear();
 	funcValueModel->setStringList(funcValueList);
 	ui.func_list->setModel(funcValueModel);
 	if (sourceImage.empty())
@@ -265,12 +394,13 @@ void SRDemo::refreshImage(Mat &image)
 		msgBox.exec();
 		return;
 	}
+	ui.label_image->clear();
 	int wMax = ui.label_image->width();//显示的最大宽度
 	int hMax = ui.label_image->height();//显示的最大高度
-	int h = image.rows;//图片高度
-	int w = image.cols;//图片宽度
+	image_h = image.rows;//图片高度
+	image_w = image.cols;//图片宽度
 	//QPainter painter(ui.label_image);
-	if (h <= hMax && w <= wMax)
+	if (image_h <= hMax && image_w <= wMax)
 	{
 		image_scale = 1.0;
 		//ui.label_image->setPixmap(QPixmap::fromImage(MatToQImage(image)));
@@ -280,8 +410,8 @@ void SRDemo::refreshImage(Mat &image)
 	}
 	else
 	{
-		double scalew = double(wMax) / double(w);
-		double scaleh = double(hMax) / double(h);
+		double scalew = double(wMax) / double(image_w);
+		double scaleh = double(hMax) / double(image_h);
 		image_scale = MIN(scalew, scaleh);
 		printf("scalew: %f\nscaleh: %f\nscale: %f\n", scalew, scaleh, image_scale);
 		Mat dst;
@@ -289,9 +419,19 @@ void SRDemo::refreshImage(Mat &image)
 		ui.label_image->setPixmap(QPixmap::fromImage(MatToQImage(dst)));
 		//painter.drawImage(QPoint(0, 0), MatToQImage(dst));
 	}
-	statusBarMessage.setText(QString("(%1 x %2) scale :%3").arg(w).arg(h).arg(image_scale + image_scale_offset));
+	statusBarMessage.setText(QString("(%1 x %2) scale :%3 (%4,%5)").arg(image_w).arg(image_h).arg(image_scale + image_scale_offset).arg(0).arg(0));
 	ui.statusBar->addWidget(&statusBarMessage);
 	
+}
+/*获取到控件坐标后首先调用refreshImagePos将控件坐标转换到图像坐标*/
+void SRDemo::refreshImagePos(QPoint input , QPoint &output)
+{
+	double h = (image_h * (image_scale + image_scale_offset) - ui.label_image->height()) / 2;
+	double w = (image_w * (image_scale + image_scale_offset) - ui.label_image->width()) / 2;
+	double x_in_label = (input.x() + round(w)) / (image_scale + image_scale_offset);
+	double y_in_label = (input.y() + round(h)) / (image_scale + image_scale_offset);
+	output.setX(round(x_in_label));
+	output.setY(round(y_in_label));
 }
 void SRDemo::refreshCalibBox()
 {
@@ -551,8 +691,25 @@ void SRDemo::on_deBugImage()
 	}
 	case 13://图像操作
 	{
+		if (ui.operation_comboBox_image->count() == 0)
+			return;
 		imageOperation(debugImage, debugImage);
 		refreshImage(debugImage);
+		break;
+	}
+	case 15://找点
+	{
+		findPoint();
+		break;
+	}
+	case 16://找直线‘
+	{
+		findLine();
+		break;
+	}
+	case 17://找圆
+	{
+		findCircle();
 		break;
 	}
 	default:break;
@@ -605,9 +762,18 @@ void SRDemo::on_do()
 	case 11:funcList.append(&SRDemo::fourierTransformation); funcValueList.append(u8"傅里叶变换"); break;
 	case 12:funcList.append(&SRDemo::histogramEqualization); funcValueList.append(u8"直方图均衡"); break;
 	case 13:funcList.append(&SRDemo::imageOperation); funcValueList.append(u8"图像操作"); break;
+	case 14: //生成ROI
+	case 15://找点
+	{
+		disconnect(ui.label_image, &SRLabel::sendLeftStartPos, this, &SRDemo::on_getLeftStartPos);
+		disconnect(ui.label_image, &SRLabel::sendLeftEndPos, this, &SRDemo::on_getLeftEndPos);
+		disconnect(ui.label_image, &SRLabel::sendLeftMovePos, this, &SRDemo::on_getLeftMovePos);
+		break;
+	}
 	default:
 		break;
 	}
+	imageList.append(currentImage);
 	funcValueModel->setStringList(funcValueList);
 	ui.func_list->setModel(funcValueModel);
 	ui.stackedWidget->setCurrentWidget(ui.page_non);
@@ -616,7 +782,20 @@ void SRDemo::on_do()
 
 void SRDemo::on_cancel()
 {
-	if(!currentImage.empty())
+	switch (ui.stackedWidget->currentIndex())
+	{
+	case 14: //生成ROI
+	case 15://找点
+	{
+		disconnect(ui.label_image, &SRLabel::sendLeftStartPos, this, &SRDemo::on_getLeftStartPos);
+		disconnect(ui.label_image, &SRLabel::sendLeftEndPos, this, &SRDemo::on_getLeftEndPos);
+		disconnect(ui.label_image, &SRLabel::sendLeftMovePos, this, &SRDemo::on_getLeftMovePos);
+		break;
+	}
+	default:
+		break;
+	}
+	if (!currentImage.empty())
 		refreshImage(currentImage);
 	ui.stackedWidget->setCurrentWidget(ui.page_non);
 }
@@ -790,6 +969,8 @@ void SRDemo::on_imageOperation()
 		return;
 	}
 	ui.stackedWidget->setCurrentWidget(ui.page_ImageOperation);
+	ui.operation_comboBox_image->clear();
+	ui.operation_comboBox_image->addItems(funcValueList);
 	debugFlag = true;
 }
 void SRDemo::on_cameraChanged(int index)
@@ -809,6 +990,7 @@ void SRDemo::on_cameraOnline()
 		ui.camera_btn_ontime->setEnabled(false);
 		ui.groupBox->setEnabled(false);
 		ui.groupBox_2->setEnabled(false);
+		ui.func_list->setEnabled(false);
 		camera.online();
 	}
 	else
@@ -817,6 +999,7 @@ void SRDemo::on_cameraOnline()
 		ui.camera_btn_ontime->setEnabled(true);
 		ui.groupBox->setEnabled(true);
 		ui.groupBox_2->setEnabled(true);
+		ui.func_list->setEnabled(true);
 		camera.onlineFlag = false;
 	}
 
@@ -827,10 +1010,10 @@ void SRDemo::on_cameraGetImage()
 }
 void SRDemo::on_showCamera(Mat image)
 {
-	//extraction(image, image);
 	for (int i = 0; i < funcList.length(); i++)
 	{
 		(this->*funcList[i])(image, image);
+		imageList[i] = image.clone();
 	}
 	currentImage = image;
 	refreshImage(image);
@@ -857,6 +1040,131 @@ void SRDemo::on_scaleAuto()
 {
 	image_scale_offset = 0;
 	refreshImage(currentImage);
+}
+void SRDemo::on_showFuncImage(QModelIndex index)
+{
+	qDebug() << index.row();
+	refreshImage(imageList[index.row()]);
+}
+
+//获取图像上的坐标
+void SRDemo::on_getImagePos(QPoint pos)
+{
+	QPoint imagePos;
+	refreshImagePos(pos, imagePos);
+	statusBarMessage.setText(QString("(%1 x %2) scale :%3 (%4,%5)").arg(image_w).arg(image_h).arg(image_scale + image_scale_offset).arg(imagePos.x()).arg(imagePos.y()));
+	ui.statusBar->addWidget(&statusBarMessage);
+
+}
+/*获取左键按下的第一个坐标*/
+void SRDemo::on_getLeftStartPos(QPoint pos)
+{
+	refreshImagePos(pos, roiStart);
+}
+void SRDemo::on_getLeftMovePos(QPoint pos)
+{
+	debugImage = currentImage.clone();
+	refreshImagePos(pos, roiEnd);
+	if (ui.stackedWidget->currentWidget() == ui.page_GetROI)
+	{
+		drawROI();
+	}
+	if (ui.stackedWidget->currentWidget() == ui.page_findPoint)
+	{
+		drawROI(0);
+	}
+	if (ui.stackedWidget->currentWidget() == ui.page_findLine)
+	{
+		drawROI(1);
+	}
+	if (ui.stackedWidget->currentWidget() == ui.page_findCircle)
+	{
+		drawROI(2);
+	}
+}
+/*获取左键按下的左后一个坐标*/
+void SRDemo::on_getLeftEndPos(QPoint pos)
+{
+	debugImage = currentImage.clone();
+	if (ui.stackedWidget->currentWidget() == ui.page_findPoint)
+	{
+		findPoint();
+	}
+	if (ui.stackedWidget->currentWidget() == ui.page_findLine)
+	{
+		findLine();
+	}
+	if (ui.stackedWidget->currentWidget() == ui.page_findCircle)
+	{
+		findCircle();
+	}
+
+}
+//获取ROI
+void SRDemo::on_getROI()
+{
+	if (currentImage.empty())
+	{
+		msgBox.setWindowTitle(tr("error"));
+		msgBox.setText(u8"图像为空");
+		msgBox.exec();
+		return;
+	}
+	ui.stackedWidget->setCurrentWidget(ui.page_GetROI);
+	ui.stackedWidget_roi->setCurrentIndex(ui.roi_type->currentIndex());
+	connect(ui.label_image, &SRLabel::sendLeftStartPos, this, &SRDemo::on_getLeftStartPos);
+	connect(ui.label_image, &SRLabel::sendLeftEndPos, this, &SRDemo::on_getLeftEndPos);
+	connect(ui.label_image, &SRLabel::sendLeftMovePos, this, &SRDemo::on_getLeftMovePos);
+}
+void SRDemo::on_roiPageChange(int value)
+{
+	ui.stackedWidget_roi->setCurrentIndex(value);
+}
+void SRDemo::on_findPoint()
+{
+	if (currentImage.type() != CV_8UC1)
+	{
+		msgBox.setWindowTitle(tr("error"));
+		msgBox.setText(u8"该图像不为灰度图像");
+		msgBox.exec();
+		debugFlag = false;
+		return;
+	}
+	ui.stackedWidget->setCurrentWidget(ui.page_findPoint);
+	connect(ui.label_image, &SRLabel::sendLeftStartPos, this, &SRDemo::on_getLeftStartPos);
+	connect(ui.label_image, &SRLabel::sendLeftEndPos, this, &SRDemo::on_getLeftEndPos);
+	connect(ui.label_image, &SRLabel::sendLeftMovePos, this, &SRDemo::on_getLeftMovePos);
+
+}
+void SRDemo::on_findLine()
+{
+	if (currentImage.type() != CV_8UC1)
+	{
+		msgBox.setWindowTitle(tr("error"));
+		msgBox.setText(u8"该图像不为灰度图像");
+		msgBox.exec();
+		debugFlag = false;
+		return;
+	}
+	ui.stackedWidget->setCurrentWidget(ui.page_findLine);
+	connect(ui.label_image, &SRLabel::sendLeftStartPos, this, &SRDemo::on_getLeftStartPos);
+	connect(ui.label_image, &SRLabel::sendLeftEndPos, this, &SRDemo::on_getLeftEndPos);
+	connect(ui.label_image, &SRLabel::sendLeftMovePos, this, &SRDemo::on_getLeftMovePos);
+}
+void SRDemo::on_findCircle()
+{
+	if (currentImage.type() != CV_8UC1)
+	{
+		msgBox.setWindowTitle(tr("error"));
+		msgBox.setText(u8"该图像不为灰度图像");
+		msgBox.exec();
+		debugFlag = false;
+		return;
+	}
+	ui.stackedWidget->setCurrentWidget(ui.page_findCircle);
+	connect(ui.label_image, &SRLabel::sendLeftStartPos, this, &SRDemo::on_getLeftStartPos);
+	connect(ui.label_image, &SRLabel::sendLeftEndPos, this, &SRDemo::on_getLeftEndPos);
+	connect(ui.label_image, &SRLabel::sendLeftMovePos, this, &SRDemo::on_getLeftMovePos);
 }
 //自定义滤波核界面设置
 void SRDemo::on_kernelSet(int num)

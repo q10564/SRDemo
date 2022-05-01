@@ -20,6 +20,39 @@ namespace SRVision
 		double E;
 		double F;
 	};
+	class SRroi
+	{
+	public:
+		/*
+		0 SRroiLine
+		1 SRroiRect
+		2 SRroiCircle
+		*/
+		int type;
+	};
+	class SRroiLine :public SRroi
+	{
+	public:
+		SRroiLine();
+		cv::Point start;
+		cv::Point end;
+	};
+	class SRroiRect :public SRroi
+	{
+	public:
+		SRroiRect();
+		cv::Point center;
+		int width;
+		int height;
+	};
+	class SRroiCircle :public SRroi
+	{
+	public:
+		SRroiCircle();
+		cv::Point center;
+		double radius_out;
+		double radius_in;
+	};
 	enum SRThreshold
 	{
 		Threshold_0, //手动二值化 黑色对象
@@ -83,6 +116,50 @@ eg:
 
 	signals:
 	void sendImage(Mat image);
+
+	};
+	/*边缘点检测*/
+	class SRFindPoint
+	{
+	public:
+			SRFindPoint();
+		/*
+		* 边缘点检测
+		* @param[in] image 输入图像
+		* @param[in] roi 直线ROI
+		* @param[in] strength 边缘强度
+		* @param[in] polarity 边缘极性 0黑->白、1白->黑 2所有
+		*/
+		SRFindPoint(Mat image, SRroiLine roi, int strength, int polarity);
+		vector<int> group;//剖面图数组
+		vector<Point> pointGroup;//返回数组
+		Mat sectional;//剖面图
+		void findPoint(Mat image, SRroiLine roi, int strength, int polarity);
+
+	};
+	/*找直线*/
+	class SRFindLine
+	{
+	public:
+		SRFindLine();
+		/*
+		* 找直线
+		* @param[in] image 输入图像
+		* @param[in] roi 矩形ROI
+		* @param[in] strength 边缘强度
+		* @param[in] polarity 边缘极性 0黑->白、1白->黑 2所有
+		* @param[in] type 边缘类型 0第一条直线 1最后一条直线 2最佳直线
+		* @param[in] directionint 搜索方向 0从上到下 1从下到上 2从左到右 3从右到左
+		* @param[in] distance 搜索间隔
+		*/
+		void findLine(Mat image, SRroiRect roi, int strength, int polarity, int type, int directionint, int distance);
+		vector<cv::Point> effectivePoint;
+		vector<cv::Point> linePoint;
+		double angle;
+	};
+	/*找圆*/
+	class SRFindCircle
+	{
 
 	};
 	/*

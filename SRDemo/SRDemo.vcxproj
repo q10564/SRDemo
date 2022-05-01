@@ -111,6 +111,7 @@
   <ItemGroup>
     <ClCompile Include="SRTools.cpp" />
     <ClCompile Include="SRVision.cpp" />
+    <ClCompile Include="x64\Debug\uic\SRLabel.cpp" />
     <QtRcc Include="SRDemo.qrc" />
     <QtUic Include="SRDemo.ui" />
     <QtMoc Include="SRDemo.h" />
@@ -122,6 +123,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="SRTools.h" />
+    <QtMoc Include="x64\Debug\uic\SRLabel.h" />
     <QtMoc Include="SRVision.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

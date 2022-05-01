@@ -9,7 +9,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1069</width>
+    <width>1087</width>
     <height>1012</height>
    </rect>
   </property>
@@ -24,7 +24,7 @@
   </property>
   <property name="windowIcon">
    <iconset>
-    <normaloff>../image/ico.png</normaloff>../image/ico.png</iconset>
+    <normaloff>C:/Users/Shinelon/.designer/image/ico.png</normaloff>C:/Users/Shinelon/.designer/image/ico.png</iconset>
   </property>
   <property name="tabShape">
    <enum>QTabWidget::Rounded</enum>
@@ -161,39 +161,18 @@
              <property name="widgetResizable">
               <bool>true</bool>
              </property>
-             <property name="alignment">
-              <set>Qt::AlignCenter</set>
-             </property>
              <widget class="QWidget" name="scrollAreaWidgetContents">
               <property name="geometry">
                <rect>
                 <x>0</x>
                 <y>0</y>
-                <width>667</width>
+                <width>685</width>
                 <height>859</height>
                </rect>
               </property>
-              <property name="layoutDirection">
-               <enum>Qt::LeftToRight</enum>
-              </property>
               <layout class="QVBoxLayout" name="verticalLayout_19">
-               <property name="sizeConstraint">
-                <enum>QLayout::SetMaximumSize</enum>
-               </property>
-               <property name="leftMargin">
-                <number>1</number>
-               </property>
-               <property name="topMargin">
-                <number>1</number>
-               </property>
-               <property name="rightMargin">
-                <number>1</number>
-               </property>
-               <property name="bottomMargin">
-                <number>1</number>
-               </property>
                <item>
-                <widget class="QLabel" name="label_image">
+                <widget class="SRLabel" name="label_image">
                  <property name="sizePolicy">
                   <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
                    <horstretch>0</horstretch>
@@ -541,7 +520,7 @@
                  <property name="geometry">
                   <rect>
                    <x>0</x>
-                   <y>-45</y>
+                   <y>0</y>
                    <width>325</width>
                    <height>157</height>
                   </rect>
@@ -690,31 +669,17 @@
                   </rect>
                  </property>
                  <layout class="QGridLayout" name="gridLayout_3">
-                  <item row="3" column="0">
-                   <widget class="QPushButton" name="pushButton_9">
+                  <item row="4" column="0">
+                   <widget class="QPushButton" name="pushButton_13">
                     <property name="text">
-                     <string>灰度匹配</string>
+                     <string>字符识别</string>
                     </property>
                    </widget>
                   </item>
-                  <item row="3" column="1">
-                   <widget class="QPushButton" name="pushButton_10">
+                  <item row="0" column="2">
+                   <widget class="QPushButton" name="pushButton_3">
                     <property name="text">
-                     <string>特征匹配</string>
-                    </property>
-                   </widget>
-                  </item>
-                  <item row="1" column="2">
-                   <widget class="QPushButton" name="pushButton_6">
-                    <property name="text">
-                     <string>轮廓提取</string>
-                    </property>
-                   </widget>
-                  </item>
-                  <item row="3" column="2">
-                   <widget class="QPushButton" name="pushButton_11">
-                    <property name="text">
-                     <string>轮廓匹配</string>
+                     <string>找直线</string>
                     </property>
                    </widget>
                   </item>
@@ -725,24 +690,38 @@
                     </property>
                    </widget>
                   </item>
-                  <item row="0" column="1">
-                   <widget class="QPushButton" name="pushButton_3">
+                  <item row="2" column="0">
+                   <widget class="QPushButton" name="pushButton_15">
                     <property name="text">
-                     <string>找直线</string>
+                     <string>间隙测量</string>
                     </property>
                    </widget>
                   </item>
-                  <item row="0" column="2">
-                   <widget class="QPushButton" name="pushButton_5">
+                  <item row="3" column="0">
+                   <widget class="QPushButton" name="pushButton_9">
                     <property name="text">
-                     <string>找圆</string>
+                     <string>灰度匹配</string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item row="3" column="2">
+                   <widget class="QPushButton" name="pushButton_10">
+                    <property name="text">
+                     <string>特征匹配</string>
+                    </property>
+                   </widget>
+                  </item>
+                  <item row="0" column="1">
+                   <widget class="QPushButton" name="pushButton_4">
+                    <property name="text">
+                     <string>找点</string>
                     </property>
                    </widget>
                   </item>
                   <item row="1" column="0">
-                   <widget class="QPushButton" name="pushButton_4">
+                   <widget class="QPushButton" name="pushButton_5">
                     <property name="text">
-                     <string>找点</string>
+                     <string>找圆</string>
                     </property>
                    </widget>
                   </item>
@@ -753,10 +732,10 @@
                     </property>
                    </widget>
                   </item>
-                  <item row="2" column="0">
-                   <widget class="QPushButton" name="pushButton_15">
+                  <item row="1" column="2">
+                   <widget class="QPushButton" name="pushButton_6">
                     <property name="text">
-                     <string>间隙测量</string>
+                     <string>轮廓提取</string>
                     </property>
                    </widget>
                   </item>
@@ -767,10 +746,10 @@
                     </property>
                    </widget>
                   </item>
-                  <item row="4" column="0">
-                   <widget class="QPushButton" name="pushButton_13">
+                  <item row="3" column="1">
+                   <widget class="QPushButton" name="pushButton_11">
                     <property name="text">
-                     <string>字符识别</string>
+                     <string>轮廓匹配</string>
                     </property>
                    </widget>
                   </item>
@@ -812,7 +791,7 @@
               <item>
                <widget class="QStackedWidget" name="stackedWidget">
                 <property name="currentIndex">
-                 <number>13</number>
+                 <number>16</number>
                 </property>
                 <widget class="QWidget" name="page_non">
                  <layout class="QVBoxLayout" name="verticalLayout_6">
@@ -822,7 +801,7 @@
                      <string/>
                     </property>
                     <property name="pixmap">
-                     <pixmap>../image/logo.png</pixmap>
+                     <pixmap>C:/Users/Shinelon/.designer/image/logo.png</pixmap>
                     </property>
                     <property name="scaledContents">
                      <bool>false</bool>
@@ -2729,6 +2708,1214 @@
                   </item>
                  </layout>
                 </widget>
+                <widget class="QWidget" name="page_GetROI">
+                 <layout class="QVBoxLayout" name="verticalLayout_22" stretch="0,9">
+                  <item>
+                   <layout class="QHBoxLayout" name="horizontalLayout_29">
+                    <item>
+                     <widget class="QLabel" name="label_17">
+                      <property name="text">
+                       <string>ROI类型</string>
+                      </property>
+                     </widget>
+                    </item>
+                    <item>
+                     <widget class="QComboBox" name="roi_type">
+                      <item>
+                       <property name="text">
+                        <string>直线</string>
+                       </property>
+                      </item>
+                      <item>
+                       <property name="text">
+                        <string>旋转矩形</string>
+                       </property>
+                      </item>
+                      <item>
+                       <property name="text">
+                        <string>圆</string>
+                       </property>
+                      </item>
+                      <item>
+                       <property name="text">
+                        <string>点集</string>
+                       </property>
+                      </item>
+                     </widget>
+                    </item>
+                   </layout>
+                  </item>
+                  <item>
+                   <widget class="QGroupBox" name="groupBox_18">
+                    <property name="title">
+                     <string>ROI</string>
+                    </property>
+                    <layout class="QVBoxLayout" name="verticalLayout_23">
+                     <item>
+                      <widget class="QStackedWidget" name="stackedWidget_roi">
+                       <property name="currentIndex">
+                        <number>2</number>
+                       </property>
+                       <widget class="QWidget" name="page_line">
+                        <layout class="QVBoxLayout" name="verticalLayout_24">
+                         <item>
+                          <layout class="QHBoxLayout" name="horizontalLayout_28">
+                           <item>
+                            <widget class="QLabel" name="label_18">
+                             <property name="text">
+                              <string>起始点X</string>
+                             </property>
+                            </widget>
+                           </item>
+                           <item>
+                            <widget class="QDoubleSpinBox" name="roi_line_startX">
+                             <property name="maximum">
+                              <double>99990000.000000000000000</double>
+                             </property>
+                            </widget>
+                           </item>
+                          </layout>
+                         </item>
+                         <item>
+                          <layout class="QHBoxLayout" name="horizontalLayout_30">
+                           <item>
+                            <widget class="QLabel" name="label_19">
+                             <property name="text">
+                              <string>起始点Y</string>
+                             </property>
+                            </widget>
+                           </item>
+                           <item>
+                            <widget class="QDoubleSpinBox" name="roi_line_startY">
+                             <property name="maximum">
+                              <double>999999999999.000000000000000</double>
+                             </property>
+                            </widget>
+                           </item>
+                          </layout>
+                         </item>
+                         <item>
+                          <layout class="QHBoxLayout" name="horizontalLayout_40">
+                           <item>
+                            <widget class="QLabel" name="label_20">
+                             <property name="text">
+                              <string>终止点X</string>
+                             </property>
+                            </widget>
+                           </item>
+                           <item>
+                            <widget class="QDoubleSpinBox" name="roi_line_endX">
+                             <property name="maximum">
+                              <double>99990000.000000000000000</double>
+                             </property>
+                            </widget>
+                           </item>
+                          </layout>
+                         </item>
+                         <item>
+                          <layout class="QHBoxLayout" name="horizontalLayout_41" stretch="0,0">
+                           <item>
+                            <widget class="QLabel" name="label_21">
+                             <property name="text">
+                              <string>终止点Y</string>
+                             </property>
+                            </widget>
+                           </item>
+                           <item>
+                            <widget class="QDoubleSpinBox" name="roi_line_endY">
+                             <property name="maximum">
+                              <double>99990000.000000000000000</double>
+                             </property>
+                            </widget>
+                           </item>
+                          </layout>
+                         </item>
+                        </layout>
+                       </widget>
+                       <widget class="QWidget" name="page_rectangle">
+                        <layout class="QVBoxLayout" name="verticalLayout_36">
+                         <item>
+                          <layout class="QHBoxLayout" name="horizontalLayout_45" stretch="0,0">
+                           <item>
+                            <widget class="QLabel" name="label_34">
+                             <property name="text">
+                              <string>中心点X</string>
+                             </property>
+                            </widget>
+                           </item>
+                           <item>
+                            <widget class="QDoubleSpinBox" name="roi_rect_centerX">
+                             <property name="maximum">
+                              <double>99999999.000000000000000</double>
+                             </property>
+                            </widget>
+                           </item>
+                          </layout>
+                         </item>
+                         <item>
+                          <layout class="QHBoxLayout" name="horizontalLayout_44">
+                           <item>
+                            <widget class="QLabel" name="label_33">
+                             <property name="text">
+                              <string>中心点Y</string>
+                             </property>
+                            </widget>
+                           </item>
+                           <item>
+                            <widget class="QDoubleSpinBox" name="roi_rect_centerY">
+                             <property name="maximum">
+                              <double>99999999.000000000000000</double>
+                             </property>
+                            </widget>
+                           </item>
+                          </layout>
+                         </item>
+                         <item>
+                          <layout class="QHBoxLayout" name="horizontalLayout_43">
+                           <item>
+                            <widget class="QLabel" name="label_32">
+                             <property name="text">
+                              <string>宽度</string>
+                             </property>
+                            </widget>
+                           </item>
+                           <item>
+                            <widget class="QDoubleSpinBox" name="roi_rect_center_width">
+                             <property name="maximum">
+                              <double>99999999.000000000000000</double>
+                             </property>
+                            </widget>
+                           </item>
+                          </layout>
+                         </item>
+                         <item>
+                          <layout class="QHBoxLayout" name="horizontalLayout_42">
+                           <item>
+                            <widget class="QLabel" name="label_22">
+                             <property name="text">
+                              <string>高度</string>
+                             </property>
+                            </widget>
+                           </item>
+                           <item>
+                            <widget class="QDoubleSpinBox" name="roi_rect_center_height">
+                             <property name="maximum">
+                              <double>99999999.000000000000000</double>
+                             </property>
+                            </widget>
+                           </item>
+                          </layout>
+                         </item>
+                         <item>
+                          <layout class="QHBoxLayout" name="horizontalLayout_46">
+                           <item>
+                            <widget class="QLabel" name="label_35">
+                             <property name="text">
+                              <string>角度</string>
+                             </property>
+                            </widget>
+                           </item>
+                           <item>
+                            <widget class="QDoubleSpinBox" name="roi_rect_angle">
+                             <property name="maximum">
+                              <double>360.000000000000000</double>
+                             </property>
+                            </widget>
+                           </item>
+                          </layout>
+                         </item>
+                        </layout>
+                       </widget>
+                       <widget class="QWidget" name="page_circle">
+                        <layout class="QVBoxLayout" name="verticalLayout_37">
+                         <item>
+                          <layout class="QHBoxLayout" name="horizontalLayout_50" stretch="0,0">
+                           <item>
+                            <widget class="QLabel" name="label_39">
+                             <property name="text">
+                              <string>中心点X</string>
+                             </property>
+                            </widget>
+                           </item>
+                           <item>
+                            <widget class="QDoubleSpinBox" name="roi_circle_centerX">
+                             <property name="maximum">
+                              <double>99990000.000000000000000</double>
+                             </property>
+                            </widget>
+                           </item>
+                          </layout>
+                         </item>
+                         <item>
+                          <layout class="QHBoxLayout" name="horizontalLayout_49">
+                           <item>
+                            <widget class="QLabel" name="label_38">
+                             <property name="text">
+                              <string>中心点Y</string>
+                             </property>
+                            </widget>
+                           </item>
+                           <item>
+                            <widget class="QDoubleSpinBox" name="roi_circle_centerY">
+                             <property name="maximum">
+                              <double>99990000.000000000000000</double>
+                             </property>
+                            </widget>
+                           </item>
+                          </layout>
+                         </item>
+                         <item>
+                          <layout class="QHBoxLayout" name="horizontalLayout_48">
+                           <item>
+                            <widget class="QLabel" name="label_37">
+                             <property name="text">
+                              <string>内径</string>
+                             </property>
+                            </widget>
+                           </item>
+                           <item>
+                            <widget class="QDoubleSpinBox" name="roi_circle_radius_in">
+                             <property name="maximum">
+                              <double>99990000.000000000000000</double>
+                             </property>
+                             <property name="value">
+                              <double>10.000000000000000</double>
+                             </property>
+                            </widget>
+                           </item>
+                          </layout>
+                         </item>
+                         <item>
+                          <layout class="QHBoxLayout" name="horizontalLayout_64">
+                           <item>
+                            <widget class="QLabel" name="label_55">
+                             <property name="text">
+                              <string>外径</string>
+                             </property>
+                            </widget>
+                           </item>
+                           <item>
+                            <widget class="QDoubleSpinBox" name="roi_circle_radius_out">
+                             <property name="maximum">
+                              <double>99990000.000000000000000</double>
+                             </property>
+                            </widget>
+                           </item>
+                          </layout>
+                         </item>
+                        </layout>
+                       </widget>
+                       <widget class="QWidget" name="page_pointGroup">
+                        <layout class="QVBoxLayout" name="verticalLayout_38">
+                         <item>
+                          <layout class="QHBoxLayout" name="horizontalLayout_47">
+                           <item>
+                            <widget class="QLabel" name="label_36">
+                             <property name="text">
+                              <string>Point点集</string>
+                             </property>
+                            </widget>
+                           </item>
+                           <item>
+                            <widget class="QComboBox" name="comboBox"/>
+                           </item>
+                          </layout>
+                         </item>
+                         <item>
+                          <spacer name="verticalSpacer_2">
+                           <property name="orientation">
+                            <enum>Qt::Vertical</enum>
+                           </property>
+                           <property name="sizeHint" stdset="0">
+                            <size>
+                             <width>20</width>
+                             <height>40</height>
+                            </size>
+                           </property>
+                          </spacer>
+                         </item>
+                        </layout>
+                       </widget>
+                      </widget>
+                     </item>
+                    </layout>
+                   </widget>
+                  </item>
+                 </layout>
+                </widget>
+                <widget class="QWidget" name="page_findPoint">
+                 <layout class="QVBoxLayout" name="verticalLayout_41" stretch="0,9">
+                  <item>
+                   <layout class="QVBoxLayout" name="verticalLayout_39">
+                    <item>
+                     <layout class="QHBoxLayout" name="horizontalLayout_51">
+                      <item>
+                       <spacer name="horizontalSpacer_41">
+                        <property name="orientation">
+                         <enum>Qt::Horizontal</enum>
+                        </property>
+                        <property name="sizeHint" stdset="0">
+                         <size>
+                          <width>40</width>
+                          <height>20</height>
+                         </size>
+                        </property>
+                       </spacer>
+                      </item>
+                      <item>
+                       <widget class="QLabel" name="label_40">
+                        <property name="text">
+                         <string>边缘强度</string>
+                        </property>
+                       </widget>
+                      </item>
+                      <item>
+                       <widget class="QSpinBox" name="findPoint_strength">
+                        <property name="maximum">
+                         <number>255</number>
+                        </property>
+                        <property name="value">
+                         <number>30</number>
+                        </property>
+                       </widget>
+                      </item>
+                      <item>
+                       <spacer name="horizontalSpacer_42">
+                        <property name="orientation">
+                         <enum>Qt::Horizontal</enum>
+                        </property>
+                        <property name="sizeHint" stdset="0">
+                         <size>
+                          <width>40</width>
+                          <height>20</height>
+                         </size>
+                        </property>
+                       </spacer>
+                      </item>
+                     </layout>
+                    </item>
+                    <item>
+                     <layout class="QHBoxLayout" name="horizontalLayout_52">
+                      <item>
+                       <spacer name="horizontalSpacer_43">
+                        <property name="orientation">
+                         <enum>Qt::Horizontal</enum>
+                        </property>
+                        <property name="sizeHint" stdset="0">
+                         <size>
+                          <width>40</width>
+                          <height>20</height>
+                         </size>
+                        </property>
+                       </spacer>
+                      </item>
+                      <item>
+                       <widget class="QLabel" name="label_41">
+                        <property name="text">
+                         <string>边缘极性</string>
+                        </property>
+                       </widget>
+                      </item>
+                      <item>
+                       <widget class="QComboBox" name="findPoint_polarity">
+                        <item>
+                         <property name="text">
+                          <string>从黑到白</string>
+                         </property>
+                        </item>
+                        <item>
+                         <property name="text">
+                          <string>从白到黑</string>
+                         </property>
+                        </item>
+                        <item>
+                         <property name="text">
+                          <string>所有</string>
+                         </property>
+                        </item>
+                       </widget>
+                      </item>
+                      <item>
+                       <spacer name="horizontalSpacer_44">
+                        <property name="orientation">
+                         <enum>Qt::Horizontal</enum>
+                        </property>
+                        <property name="sizeHint" stdset="0">
+                         <size>
+                          <width>40</width>
+                          <height>20</height>
+                         </size>
+                        </property>
+                       </spacer>
+                      </item>
+                     </layout>
+                    </item>
+                    <item>
+                     <layout class="QHBoxLayout" name="horizontalLayout_53">
+                      <item>
+                       <spacer name="horizontalSpacer_45">
+                        <property name="orientation">
+                         <enum>Qt::Horizontal</enum>
+                        </property>
+                        <property name="sizeHint" stdset="0">
+                         <size>
+                          <width>40</width>
+                          <height>20</height>
+                         </size>
+                        </property>
+                       </spacer>
+                      </item>
+                      <item>
+                       <widget class="QLabel" name="label_42">
+                        <property name="text">
+                         <string>边缘类型</string>
+                        </property>
+                       </widget>
+                      </item>
+                      <item>
+                       <widget class="QComboBox" name="findPoint_type">
+                        <item>
+                         <property name="text">
+                          <string>第一个点</string>
+                         </property>
+                        </item>
+                        <item>
+                         <property name="text">
+                          <string>最后一个点</string>
+                         </property>
+                        </item>
+                        <item>
+                         <property name="text">
+                          <string>最佳点</string>
+                         </property>
+                        </item>
+                        <item>
+                         <property name="text">
+                          <string>所有点</string>
+                         </property>
+                        </item>
+                       </widget>
+                      </item>
+                      <item>
+                       <spacer name="horizontalSpacer_46">
+                        <property name="orientation">
+                         <enum>Qt::Horizontal</enum>
+                        </property>
+                        <property name="sizeHint" stdset="0">
+                         <size>
+                          <width>40</width>
+                          <height>20</height>
+                         </size>
+                        </property>
+                       </spacer>
+                      </item>
+                     </layout>
+                    </item>
+                   </layout>
+                  </item>
+                  <item>
+                   <widget class="QGroupBox" name="groupBox_17">
+                    <property name="title">
+                     <string>剖面图</string>
+                    </property>
+                    <layout class="QVBoxLayout" name="verticalLayout_40">
+                     <item>
+                      <widget class="QLabel" name="findPoint_label">
+                       <property name="text">
+                        <string/>
+                       </property>
+                      </widget>
+                     </item>
+                    </layout>
+                   </widget>
+                  </item>
+                 </layout>
+                </widget>
+                <widget class="QWidget" name="page_findLine">
+                 <layout class="QVBoxLayout" name="verticalLayout_43">
+                  <item>
+                   <layout class="QVBoxLayout" name="verticalLayout_42">
+                    <item>
+                     <layout class="QHBoxLayout" name="horizontalLayout_54">
+                      <item>
+                       <spacer name="horizontalSpacer_47">
+                        <property name="orientation">
+                         <enum>Qt::Horizontal</enum>
+                        </property>
+                        <property name="sizeHint" stdset="0">
+                         <size>
+                          <width>40</width>
+                          <height>20</height>
+                         </size>
+                        </property>
+                       </spacer>
+                      </item>
+                      <item>
+                       <widget class="QLabel" name="label_43">
+                        <property name="text">
+                         <string>边缘强度</string>
+                        </property>
+                       </widget>
+                      </item>
+                      <item>
+                       <widget class="QSpinBox" name="findLine_strength">
+                        <property name="maximum">
+                         <number>255</number>
+                        </property>
+                        <property name="value">
+                         <number>30</number>
+                        </property>
+                       </widget>
+                      </item>
+                      <item>
+                       <spacer name="horizontalSpacer_48">
+                        <property name="orientation">
+                         <enum>Qt::Horizontal</enum>
+                        </property>
+                        <property name="sizeHint" stdset="0">
+                         <size>
+                          <width>40</width>
+                          <height>20</height>
+                         </size>
+                        </property>
+                       </spacer>
+                      </item>
+                     </layout>
+                    </item>
+                    <item>
+                     <layout class="QHBoxLayout" name="horizontalLayout_55">
+                      <item>
+                       <spacer name="horizontalSpacer_49">
+                        <property name="orientation">
+                         <enum>Qt::Horizontal</enum>
+                        </property>
+                        <property name="sizeHint" stdset="0">
+                         <size>
+                          <width>40</width>
+                          <height>20</height>
+                         </size>
+                        </property>
+                       </spacer>
+                      </item>
+                      <item>
+                       <widget class="QLabel" name="label_44">
+                        <property name="text">
+                         <string>边缘极性</string>
+                        </property>
+                       </widget>
+                      </item>
+                      <item>
+                       <widget class="QComboBox" name="findLine_polarity">
+                        <item>
+                         <property name="text">
+                          <string>从黑到白</string>
+                         </property>
+                        </item>
+                        <item>
+                         <property name="text">
+                          <string>从白到黑</string>
+                         </property>
+                        </item>
+                        <item>
+                         <property name="text">
+                          <string>所有</string>
+                         </property>
+                        </item>
+                       </widget>
+                      </item>
+                      <item>
+                       <spacer name="horizontalSpacer_50">
+                        <property name="orientation">
+                         <enum>Qt::Horizontal</enum>
+                        </property>
+                        <property name="sizeHint" stdset="0">
+                         <size>
+                          <width>40</width>
+                          <height>20</height>
+                         </size>
+                        </property>
+                       </spacer>
+                      </item>
+                     </layout>
+                    </item>
+                    <item>
+                     <layout class="QHBoxLayout" name="horizontalLayout_56">
+                      <item>
+                       <spacer name="horizontalSpacer_51">
+                        <property name="orientation">
+                         <enum>Qt::Horizontal</enum>
+                        </property>
+                        <property name="sizeHint" stdset="0">
+                         <size>
+                          <width>40</width>
+                          <height>20</height>
+                         </size>
+                        </property>
+                       </spacer>
+                      </item>
+                      <item>
+                       <widget class="QLabel" name="label_45">
+                        <property name="text">
+                         <string>边缘类型</string>
+                        </property>
+                       </widget>
+                      </item>
+                      <item>
+                       <widget class="QComboBox" name="findLine_type">
+                        <item>
+                         <property name="text">
+                          <string>第一条直线</string>
+                         </property>
+                        </item>
+                        <item>
+                         <property name="text">
+                          <string>最后一条直线</string>
+                         </property>
+                        </item>
+                        <item>
+                         <property name="text">
+                          <string>最佳直线</string>
+                         </property>
+                        </item>
+                       </widget>
+                      </item>
+                      <item>
+                       <spacer name="horizontalSpacer_52">
+                        <property name="orientation">
+                         <enum>Qt::Horizontal</enum>
+                        </property>
+                        <property name="sizeHint" stdset="0">
+                         <size>
+                          <width>40</width>
+                          <height>20</height>
+                         </size>
+                        </property>
+                       </spacer>
+                      </item>
+                     </layout>
+                    </item>
+                    <item>
+                     <layout class="QHBoxLayout" name="horizontalLayout_66">
+                      <item>
+                       <spacer name="horizontalSpacer_62">
+                        <property name="orientation">
+                         <enum>Qt::Horizontal</enum>
+                        </property>
+                        <property name="sizeHint" stdset="0">
+                         <size>
+                          <width>40</width>
+                          <height>20</height>
+                         </size>
+                        </property>
+                       </spacer>
+                      </item>
+                      <item>
+                       <widget class="QLabel" name="label_58">
+                        <property name="text">
+                         <string>搜索方向</string>
+                        </property>
+                       </widget>
+                      </item>
+                      <item>
+                       <widget class="QComboBox" name="findLine_direction">
+                        <item>
+                         <property name="text">
+                          <string>从上到下</string>
+                         </property>
+                        </item>
+                        <item>
+                         <property name="text">
+                          <string>从下到上</string>
+                         </property>
+                        </item>
+                        <item>
+                         <property name="text">
+                          <string>从左到右</string>
+                         </property>
+                        </item>
+                        <item>
+                         <property name="text">
+                          <string>从右到左</string>
+                         </property>
+                        </item>
+                       </widget>
+                      </item>
+                      <item>
+                       <spacer name="horizontalSpacer_63">
+                        <property name="orientation">
+                         <enum>Qt::Horizontal</enum>
+                        </property>
+                        <property name="sizeHint" stdset="0">
+                         <size>
+                          <width>40</width>
+                          <height>20</height>
+                         </size>
+                        </property>
+                       </spacer>
+                      </item>
+                     </layout>
+                    </item>
+                    <item>
+                     <layout class="QHBoxLayout" name="horizontalLayout_57">
+                      <item>
+                       <spacer name="horizontalSpacer_53">
+                        <property name="orientation">
+                         <enum>Qt::Horizontal</enum>
+                        </property>
+                        <property name="sizeHint" stdset="0">
+                         <size>
+                          <width>40</width>
+                          <height>20</height>
+                         </size>
+                        </property>
+                       </spacer>
+                      </item>
+                      <item>
+                       <widget class="QLabel" name="label_46">
+                        <property name="text">
+                         <string>搜索间隔</string>
+                        </property>
+                       </widget>
+                      </item>
+                      <item>
+                       <widget class="QSpinBox" name="findLine_distance">
+                        <property name="value">
+                         <number>5</number>
+                        </property>
+                       </widget>
+                      </item>
+                      <item>
+                       <spacer name="horizontalSpacer_54">
+                        <property name="orientation">
+                         <enum>Qt::Horizontal</enum>
+                        </property>
+                        <property name="sizeHint" stdset="0">
+                         <size>
+                          <width>40</width>
+                          <height>20</height>
+                         </size>
+                        </property>
+                       </spacer>
+                      </item>
+                     </layout>
+                    </item>
+                   </layout>
+                  </item>
+                  <item>
+                   <widget class="QGroupBox" name="groupBox_19">
+                    <property name="title">
+                     <string>结果</string>
+                    </property>
+                    <layout class="QVBoxLayout" name="verticalLayout_45">
+                     <item>
+                      <layout class="QVBoxLayout" name="verticalLayout_44">
+                       <item>
+                        <layout class="QHBoxLayout" name="horizontalLayout_58">
+                         <item>
+                          <widget class="QLabel" name="label_47">
+                           <property name="text">
+                            <string>第一点X</string>
+                           </property>
+                          </widget>
+                         </item>
+                         <item>
+                          <widget class="QLineEdit" name="findLine_firstX">
+                           <property name="enabled">
+                            <bool>false</bool>
+                           </property>
+                           <property name="maximumSize">
+                            <size>
+                             <width>60</width>
+                             <height>16777215</height>
+                            </size>
+                           </property>
+                          </widget>
+                         </item>
+                         <item>
+                          <widget class="QLabel" name="label_48">
+                           <property name="text">
+                            <string>第一点Y</string>
+                           </property>
+                          </widget>
+                         </item>
+                         <item>
+                          <widget class="QLineEdit" name="findLine_firstY">
+                           <property name="enabled">
+                            <bool>false</bool>
+                           </property>
+                           <property name="maximumSize">
+                            <size>
+                             <width>60</width>
+                             <height>16777215</height>
+                            </size>
+                           </property>
+                          </widget>
+                         </item>
+                        </layout>
+                       </item>
+                       <item>
+                        <layout class="QHBoxLayout" name="horizontalLayout_59">
+                         <item>
+                          <widget class="QLabel" name="label_49">
+                           <property name="text">
+                            <string>第二点X</string>
+                           </property>
+                          </widget>
+                         </item>
+                         <item>
+                          <widget class="QLineEdit" name="findLine_secondX">
+                           <property name="enabled">
+                            <bool>false</bool>
+                           </property>
+                           <property name="maximumSize">
+                            <size>
+                             <width>60</width>
+                             <height>16777215</height>
+                            </size>
+                           </property>
+                           <property name="readOnly">
+                            <bool>false</bool>
+                           </property>
+                          </widget>
+                         </item>
+                         <item>
+                          <widget class="QLabel" name="label_50">
+                           <property name="text">
+                            <string>第二点Y</string>
+                           </property>
+                          </widget>
+                         </item>
+                         <item>
+                          <widget class="QLineEdit" name="findLine_secondY">
+                           <property name="enabled">
+                            <bool>false</bool>
+                           </property>
+                           <property name="maximumSize">
+                            <size>
+                             <width>60</width>
+                             <height>16777215</height>
+                            </size>
+                           </property>
+                          </widget>
+                         </item>
+                        </layout>
+                       </item>
+                       <item>
+                        <layout class="QHBoxLayout" name="horizontalLayout_60">
+                         <item>
+                          <widget class="QLabel" name="label_51">
+                           <property name="text">
+                            <string> 角度         </string>
+                           </property>
+                          </widget>
+                         </item>
+                         <item>
+                          <widget class="QLineEdit" name="findLine_angle">
+                           <property name="enabled">
+                            <bool>false</bool>
+                           </property>
+                           <property name="maximumSize">
+                            <size>
+                             <width>60</width>
+                             <height>16777215</height>
+                            </size>
+                           </property>
+                           <property name="text">
+                            <string/>
+                           </property>
+                          </widget>
+                         </item>
+                         <item>
+                          <spacer name="horizontalSpacer_55">
+                           <property name="orientation">
+                            <enum>Qt::Horizontal</enum>
+                           </property>
+                           <property name="sizeHint" stdset="0">
+                            <size>
+                             <width>40</width>
+                             <height>20</height>
+                            </size>
+                           </property>
+                          </spacer>
+                         </item>
+                        </layout>
+                       </item>
+                      </layout>
+                     </item>
+                    </layout>
+                   </widget>
+                  </item>
+                 </layout>
+                </widget>
+                <widget class="QWidget" name="page_findCircle">
+                 <layout class="QVBoxLayout" name="verticalLayout_49">
+                  <item>
+                   <layout class="QVBoxLayout" name="verticalLayout_46">
+                    <item>
+                     <layout class="QHBoxLayout" name="horizontalLayout_61">
+                      <item>
+                       <spacer name="horizontalSpacer_56">
+                        <property name="orientation">
+                         <enum>Qt::Horizontal</enum>
+                        </property>
+                        <property name="sizeHint" stdset="0">
+                         <size>
+                          <width>40</width>
+                          <height>20</height>
+                         </size>
+                        </property>
+                       </spacer>
+                      </item>
+                      <item>
+                       <widget class="QLabel" name="label_52">
+                        <property name="text">
+                         <string>边缘强度</string>
+                        </property>
+                       </widget>
+                      </item>
+                      <item>
+                       <widget class="QSpinBox" name="findLine_strength_2">
+                        <property name="maximum">
+                         <number>255</number>
+                        </property>
+                        <property name="value">
+                         <number>30</number>
+                        </property>
+                       </widget>
+                      </item>
+                      <item>
+                       <spacer name="horizontalSpacer_57">
+                        <property name="orientation">
+                         <enum>Qt::Horizontal</enum>
+                        </property>
+                        <property name="sizeHint" stdset="0">
+                         <size>
+                          <width>40</width>
+                          <height>20</height>
+                         </size>
+                        </property>
+                       </spacer>
+                      </item>
+                     </layout>
+                    </item>
+                    <item>
+                     <layout class="QHBoxLayout" name="horizontalLayout_62">
+                      <item>
+                       <spacer name="horizontalSpacer_58">
+                        <property name="orientation">
+                         <enum>Qt::Horizontal</enum>
+                        </property>
+                        <property name="sizeHint" stdset="0">
+                         <size>
+                          <width>40</width>
+                          <height>20</height>
+                         </size>
+                        </property>
+                       </spacer>
+                      </item>
+                      <item>
+                       <widget class="QLabel" name="label_53">
+                        <property name="text">
+                         <string>边缘极性</string>
+                        </property>
+                       </widget>
+                      </item>
+                      <item>
+                       <widget class="QComboBox" name="findLine_polarity_2">
+                        <item>
+                         <property name="text">
+                          <string>从黑到白</string>
+                         </property>
+                        </item>
+                        <item>
+                         <property name="text">
+                          <string>从白到黑</string>
+                         </property>
+                        </item>
+                        <item>
+                         <property name="text">
+                          <string>所有</string>
+                         </property>
+                        </item>
+                       </widget>
+                      </item>
+                      <item>
+                       <spacer name="horizontalSpacer_59">
+                        <property name="orientation">
+                         <enum>Qt::Horizontal</enum>
+                        </property>
+                        <property name="sizeHint" stdset="0">
+                         <size>
+                          <width>40</width>
+                          <height>20</height>
+                         </size>
+                        </property>
+                       </spacer>
+                      </item>
+                     </layout>
+                    </item>
+                    <item>
+                     <layout class="QHBoxLayout" name="horizontalLayout_63">
+                      <item>
+                       <spacer name="horizontalSpacer_60">
+                        <property name="orientation">
+                         <enum>Qt::Horizontal</enum>
+                        </property>
+                        <property name="sizeHint" stdset="0">
+                         <size>
+                          <width>40</width>
+                          <height>20</height>
+                         </size>
+                        </property>
+                       </spacer>
+                      </item>
+                      <item>
+                       <widget class="QLabel" name="label_54">
+                        <property name="text">
+                         <string>边缘类型</string>
+                        </property>
+                       </widget>
+                      </item>
+                      <item>
+                       <widget class="QComboBox" name="findLine_type_2">
+                        <item>
+                         <property name="text">
+                          <string>第一个点</string>
+                         </property>
+                        </item>
+                        <item>
+                         <property name="text">
+                          <string>最后一个点</string>
+                         </property>
+                        </item>
+                        <item>
+                         <property name="text">
+                          <string>最佳点</string>
+                         </property>
+                        </item>
+                        <item>
+                         <property name="text">
+                          <string>所有点</string>
+                         </property>
+                        </item>
+                       </widget>
+                      </item>
+                      <item>
+                       <spacer name="horizontalSpacer_61">
+                        <property name="orientation">
+                         <enum>Qt::Horizontal</enum>
+                        </property>
+                        <property name="sizeHint" stdset="0">
+                         <size>
+                          <width>40</width>
+                          <height>20</height>
+                         </size>
+                        </property>
+                       </spacer>
+                      </item>
+                     </layout>
+                    </item>
+                   </layout>
+                  </item>
+                  <item>
+                   <widget class="QGroupBox" name="groupBox_20">
+                    <property name="title">
+                     <string>结果</string>
+                    </property>
+                    <layout class="QVBoxLayout" name="verticalLayout_47">
+                     <item>
+                      <layout class="QVBoxLayout" name="verticalLayout_48">
+                       <item>
+                        <layout class="QHBoxLayout" name="horizontalLayout_65">
+                         <item>
+                          <widget class="QLabel" name="label_56">
+                           <property name="text">
+                            <string>圆心X</string>
+                           </property>
+                          </widget>
+                         </item>
+                         <item>
+                          <widget class="QLineEdit" name="findLine_firstX_2">
+                           <property name="enabled">
+                            <bool>false</bool>
+                           </property>
+                           <property name="maximumSize">
+                            <size>
+                             <width>60</width>
+                             <height>16777215</height>
+                            </size>
+                           </property>
+                          </widget>
+                         </item>
+                         <item>
+                          <widget class="QLabel" name="label_57">
+                           <property name="text">
+                            <string>圆心Y</string>
+                           </property>
+                          </widget>
+                         </item>
+                         <item>
+                          <widget class="QLineEdit" name="findLine_firstY_2">
+                           <property name="enabled">
+                            <bool>false</bool>
+                           </property>
+                           <property name="maximumSize">
+                            <size>
+                             <width>60</width>
+                             <height>16777215</height>
+                            </size>
+                           </property>
+                          </widget>
+                         </item>
+                        </layout>
+                       </item>
+                       <item>
+                        <layout class="QHBoxLayout" name="horizontalLayout_67">
+                         <item>
+                          <widget class="QLabel" name="label_60">
+                           <property name="text">
+                            <string>半径          </string>
+                           </property>
+                          </widget>
+                         </item>
+                         <item>
+                          <widget class="QLineEdit" name="findLine_angle_2">
+                           <property name="enabled">
+                            <bool>false</bool>
+                           </property>
+                           <property name="maximumSize">
+                            <size>
+                             <width>60</width>
+                             <height>16777215</height>
+                            </size>
+                           </property>
+                           <property name="text">
+                            <string/>
+                           </property>
+                          </widget>
+                         </item>
+                         <item>
+                          <spacer name="horizontalSpacer_64">
+                           <property name="orientation">
+                            <enum>Qt::Horizontal</enum>
+                           </property>
+                           <property name="sizeHint" stdset="0">
+                            <size>
+                             <width>40</width>
+                             <height>20</height>
+                            </size>
+                           </property>
+                          </spacer>
+                         </item>
+                        </layout>
+                       </item>
+                      </layout>
+                     </item>
+                    </layout>
+                   </widget>
+                  </item>
+                 </layout>
+                </widget>
                </widget>
               </item>
               <item>
@@ -2771,7 +3958,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>1069</width>
+     <width>1087</width>
      <height>23</height>
     </rect>
    </property>
@@ -2791,6 +3978,16 @@
   </widget>
  </widget>
  <layoutdefault spacing="6" margin="11"/>
+ <customwidgets>
+  <customwidget>
+   <class>SRLabel</class>
+   <extends>QLabel</extends>
+   <header location="global">srlabel.h</header>
+   <slots>
+    <signal>sendPos(QPoint)</signal>
+   </slots>
+  </customwidget>
+ </customwidgets>
  <tabstops>
   <tabstop>radioButton_HSL</tabstop>
   <tabstop>radioButton_RGB</tabstop>
@@ -2813,7 +4010,6 @@
   <tabstop>btn_reset</tabstop>
   <tabstop>pushButton_9</tabstop>
   <tabstop>pushButton_10</tabstop>
-  <tabstop>pushButton_11</tabstop>
   <tabstop>btn_do</tabstop>
   <tabstop>pushButton_14</tabstop>
   <tabstop>pushbutton_input</tabstop>
@@ -2830,7 +4026,7 @@
    <slot>on_inputClicked()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>776</x>
+     <x>768</x>
      <y>144</y>
     </hint>
     <hint type="destinationlabel">
@@ -2846,7 +4042,7 @@
    <slot>on_calib()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>928</x>
+     <x>920</x>
      <y>175</y>
     </hint>
     <hint type="destinationlabel">
@@ -2862,7 +4058,7 @@
    <slot>on_useCalib(bool)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>772</x>
+     <x>764</x>
      <y>171</y>
     </hint>
     <hint type="destinationlabel">
@@ -2878,7 +4074,7 @@
    <slot>on_calibChanged(QString)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>847</x>
+     <x>839</x>
      <y>173</y>
     </hint>
     <hint type="destinationlabel">
@@ -2894,11 +4090,11 @@
    <slot>setValue(int)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>874</x>
+     <x>866</x>
      <y>205</y>
     </hint>
     <hint type="destinationlabel">
-     <x>928</x>
+     <x>920</x>
      <y>204</y>
     </hint>
    </hints>
@@ -2910,11 +4106,11 @@
    <slot>setValue(int)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>928</x>
+     <x>920</x>
      <y>204</y>
     </hint>
     <hint type="destinationlabel">
-     <x>874</x>
+     <x>866</x>
      <y>205</y>
     </hint>
    </hints>
@@ -2926,7 +4122,7 @@
    <slot>on_rotation(int)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>874</x>
+     <x>866</x>
      <y>205</y>
     </hint>
     <hint type="destinationlabel">
@@ -2942,7 +4138,7 @@
    <slot>on_reset()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>928</x>
+     <x>920</x>
      <y>144</y>
     </hint>
     <hint type="destinationlabel">
@@ -2958,8 +4154,8 @@
    <slot>on_do()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>868</x>
-     <y>945</y>
+     <x>860</x>
+     <y>959</y>
     </hint>
     <hint type="destinationlabel">
      <x>461</x>
@@ -2990,8 +4186,8 @@
    <slot>on_deBugImage()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>789</x>
-     <y>601</y>
+     <x>1051</x>
+     <y>646</y>
     </hint>
     <hint type="destinationlabel">
      <x>461</x>
@@ -3006,8 +4202,8 @@
    <slot>on_deBugImage()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>789</x>
-     <y>606</y>
+     <x>1051</x>
+     <y>725</y>
     </hint>
     <hint type="destinationlabel">
      <x>461</x>
@@ -3022,8 +4218,8 @@
    <slot>on_deBugImage()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>789</x>
-     <y>611</y>
+     <x>1051</x>
+     <y>804</y>
     </hint>
     <hint type="destinationlabel">
      <x>461</x>
@@ -3038,8 +4234,8 @@
    <slot>on_deBugImage()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>789</x>
-     <y>616</y>
+     <x>1051</x>
+     <y>883</y>
     </hint>
     <hint type="destinationlabel">
      <x>461</x>
@@ -3054,8 +4250,8 @@
    <slot>on_deBugImage()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>739</x>
-     <y>601</y>
+     <x>828</x>
+     <y>644</y>
     </hint>
     <hint type="destinationlabel">
      <x>461</x>
@@ -3070,8 +4266,8 @@
    <slot>on_deBugImage()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>739</x>
-     <y>606</y>
+     <x>828</x>
+     <y>723</y>
     </hint>
     <hint type="destinationlabel">
      <x>461</x>
@@ -3086,8 +4282,8 @@
    <slot>on_deBugImage()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>739</x>
-     <y>611</y>
+     <x>828</x>
+     <y>802</y>
     </hint>
     <hint type="destinationlabel">
      <x>461</x>
@@ -3102,8 +4298,8 @@
    <slot>on_deBugImage()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>739</x>
-     <y>616</y>
+     <x>828</x>
+     <y>881</y>
     </hint>
     <hint type="destinationlabel">
      <x>461</x>
@@ -3118,12 +4314,12 @@
    <slot>setValue(int)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>962</x>
-     <y>878</y>
+     <x>781</x>
+     <y>857</y>
     </hint>
     <hint type="destinationlabel">
-     <x>1016</x>
-     <y>877</y>
+     <x>1030</x>
+     <y>858</y>
     </hint>
    </hints>
   </connection>
@@ -3134,12 +4330,12 @@
    <slot>setValue(int)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>962</x>
-     <y>908</y>
+     <x>781</x>
+     <y>887</y>
     </hint>
     <hint type="destinationlabel">
-     <x>1016</x>
-     <y>907</y>
+     <x>1030</x>
+     <y>888</y>
     </hint>
    </hints>
   </connection>
@@ -3150,12 +4346,12 @@
    <slot>setValue(int)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>1016</x>
-     <y>877</y>
+     <x>1030</x>
+     <y>858</y>
     </hint>
     <hint type="destinationlabel">
-     <x>962</x>
-     <y>878</y>
+     <x>781</x>
+     <y>857</y>
     </hint>
    </hints>
   </connection>
@@ -3166,12 +4362,12 @@
    <slot>setValue(int)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>1016</x>
-     <y>907</y>
+     <x>1030</x>
+     <y>888</y>
     </hint>
     <hint type="destinationlabel">
-     <x>962</x>
-     <y>908</y>
+     <x>781</x>
+     <y>887</y>
     </hint>
    </hints>
   </connection>
@@ -3182,8 +4378,8 @@
    <slot>on_deBugImage()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>962</x>
-     <y>908</y>
+     <x>781</x>
+     <y>887</y>
     </hint>
     <hint type="destinationlabel">
      <x>503</x>
@@ -3198,8 +4394,8 @@
    <slot>on_deBugImage()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>962</x>
-     <y>878</y>
+     <x>781</x>
+     <y>857</y>
     </hint>
     <hint type="destinationlabel">
      <x>503</x>
@@ -3214,8 +4410,8 @@
    <slot>on_deBugImage()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>780</x>
-     <y>619</y>
+     <x>743</x>
+     <y>604</y>
     </hint>
     <hint type="destinationlabel">
      <x>503</x>
@@ -3230,8 +4426,8 @@
    <slot>on_deBugImage()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>857</x>
-     <y>619</y>
+     <x>819</x>
+     <y>604</y>
     </hint>
     <hint type="destinationlabel">
      <x>503</x>
@@ -3246,8 +4442,8 @@
    <slot>on_deBugImage()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>1017</x>
-     <y>621</y>
+     <x>968</x>
+     <y>602</y>
     </hint>
     <hint type="destinationlabel">
      <x>503</x>
@@ -3262,8 +4458,8 @@
    <slot>on_kernelSet(int)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>914</x>
-     <y>622</y>
+     <x>934</x>
+     <y>603</y>
     </hint>
     <hint type="destinationlabel">
      <x>503</x>
@@ -3278,8 +4474,8 @@
    <slot>on_deBugImage()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>931</x>
-     <y>621</y>
+     <x>957</x>
+     <y>602</y>
     </hint>
     <hint type="destinationlabel">
      <x>503</x>
@@ -3294,8 +4490,8 @@
    <slot>on_deBugImage()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>931</x>
-     <y>649</y>
+     <x>957</x>
+     <y>630</y>
     </hint>
     <hint type="destinationlabel">
      <x>503</x>
@@ -3310,8 +4506,8 @@
    <slot>on_deBugImage()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>899</x>
-     <y>677</y>
+     <x>921</x>
+     <y>658</y>
     </hint>
     <hint type="destinationlabel">
      <x>503</x>
@@ -3326,8 +4522,8 @@
    <slot>on_deBugImage()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>931</x>
-     <y>621</y>
+     <x>957</x>
+     <y>602</y>
     </hint>
     <hint type="destinationlabel">
      <x>503</x>
@@ -3342,8 +4538,8 @@
    <slot>on_deBugImage()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>931</x>
-     <y>649</y>
+     <x>957</x>
+     <y>630</y>
     </hint>
     <hint type="destinationlabel">
      <x>503</x>
@@ -3358,8 +4554,8 @@
    <slot>on_deBugImage()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>899</x>
-     <y>677</y>
+     <x>921</x>
+     <y>658</y>
     </hint>
     <hint type="destinationlabel">
      <x>503</x>
@@ -3374,8 +4570,8 @@
    <slot>on_extraction()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>807</x>
-     <y>307</y>
+     <x>799</x>
+     <y>351</y>
     </hint>
     <hint type="destinationlabel">
      <x>503</x>
@@ -3390,8 +4586,8 @@
    <slot>on_deBugImage()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>807</x>
-     <y>307</y>
+     <x>799</x>
+     <y>351</y>
     </hint>
     <hint type="destinationlabel">
      <x>503</x>
@@ -3406,8 +4602,8 @@
    <slot>on_threshold()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>912</x>
-     <y>307</y>
+     <x>904</x>
+     <y>351</y>
     </hint>
     <hint type="destinationlabel">
      <x>503</x>
@@ -3422,8 +4618,8 @@
    <slot>on_deBugImage()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>912</x>
-     <y>307</y>
+     <x>904</x>
+     <y>351</y>
     </hint>
     <hint type="destinationlabel">
      <x>503</x>
@@ -3438,8 +4634,8 @@
    <slot>on_kernel()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>1016</x>
-     <y>307</y>
+     <x>1008</x>
+     <y>351</y>
     </hint>
     <hint type="destinationlabel">
      <x>503</x>
@@ -3454,8 +4650,8 @@
    <slot>on_deBugImage()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>1016</x>
-     <y>307</y>
+     <x>1008</x>
+     <y>351</y>
     </hint>
     <hint type="destinationlabel">
      <x>503</x>
@@ -3470,8 +4666,8 @@
    <slot>on_erod()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>807</x>
-     <y>336</y>
+     <x>799</x>
+     <y>380</y>
     </hint>
     <hint type="destinationlabel">
      <x>503</x>
@@ -3486,8 +4682,8 @@
    <slot>on_deBugImage()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>807</x>
-     <y>336</y>
+     <x>799</x>
+     <y>380</y>
     </hint>
     <hint type="destinationlabel">
      <x>503</x>
@@ -3502,8 +4698,8 @@
    <slot>on_dilat()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>912</x>
-     <y>336</y>
+     <x>904</x>
+     <y>380</y>
     </hint>
     <hint type="destinationlabel">
      <x>503</x>
@@ -3518,8 +4714,8 @@
    <slot>on_deBugImage()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>912</x>
-     <y>336</y>
+     <x>904</x>
+     <y>380</y>
     </hint>
     <hint type="destinationlabel">
      <x>503</x>
@@ -3534,8 +4730,8 @@
    <slot>on_openFilter()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>1016</x>
-     <y>336</y>
+     <x>1008</x>
+     <y>380</y>
     </hint>
     <hint type="destinationlabel">
      <x>503</x>
@@ -3550,8 +4746,8 @@
    <slot>on_deBugImage()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>1016</x>
-     <y>336</y>
+     <x>1008</x>
+     <y>380</y>
     </hint>
     <hint type="destinationlabel">
      <x>503</x>
@@ -3566,8 +4762,8 @@
    <slot>on_closeFilter()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>807</x>
-     <y>365</y>
+     <x>799</x>
+     <y>409</y>
     </hint>
     <hint type="destinationlabel">
      <x>503</x>
@@ -3582,8 +4778,8 @@
    <slot>on_deBugImage()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>807</x>
-     <y>365</y>
+     <x>799</x>
+     <y>409</y>
     </hint>
     <hint type="destinationlabel">
      <x>503</x>
@@ -3598,8 +4794,8 @@
    <slot>on_gaussianFilter()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>912</x>
-     <y>365</y>
+     <x>904</x>
+     <y>409</y>
     </hint>
     <hint type="destinationlabel">
      <x>503</x>
@@ -3614,8 +4810,8 @@
    <slot>on_deBugImage()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>912</x>
-     <y>365</y>
+     <x>904</x>
+     <y>409</y>
     </hint>
     <hint type="destinationlabel">
      <x>503</x>
@@ -3630,8 +4826,8 @@
    <slot>on_medianFilter()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>1016</x>
-     <y>365</y>
+     <x>1008</x>
+     <y>409</y>
     </hint>
     <hint type="destinationlabel">
      <x>503</x>
@@ -3646,8 +4842,8 @@
    <slot>on_deBugImage()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>1016</x>
-     <y>365</y>
+     <x>1008</x>
+     <y>409</y>
     </hint>
     <hint type="destinationlabel">
      <x>663</x>
@@ -3662,8 +4858,8 @@
    <slot>on_averageFilter()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>807</x>
-     <y>394</y>
+     <x>799</x>
+     <y>438</y>
     </hint>
     <hint type="destinationlabel">
      <x>632</x>
@@ -3678,8 +4874,8 @@
    <slot>on_deBugImage()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>807</x>
-     <y>394</y>
+     <x>799</x>
+     <y>438</y>
     </hint>
     <hint type="destinationlabel">
      <x>644</x>
@@ -3694,8 +4890,8 @@
    <slot>on_fourierTransformation()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>912</x>
-     <y>394</y>
+     <x>904</x>
+     <y>438</y>
     </hint>
     <hint type="destinationlabel">
      <x>592</x>
@@ -3710,8 +4906,8 @@
    <slot>on_deBugImage()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>912</x>
-     <y>394</y>
+     <x>904</x>
+     <y>438</y>
     </hint>
     <hint type="destinationlabel">
      <x>628</x>
@@ -3726,8 +4922,8 @@
    <slot>on_histogramEqualization()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>1016</x>
-     <y>394</y>
+     <x>1008</x>
+     <y>438</y>
     </hint>
     <hint type="destinationlabel">
      <x>644</x>
@@ -3742,8 +4938,8 @@
    <slot>on_deBugImage()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>1016</x>
-     <y>394</y>
+     <x>1008</x>
+     <y>438</y>
     </hint>
     <hint type="destinationlabel">
      <x>665</x>
@@ -3758,8 +4954,8 @@
    <slot>on_deBugImage()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>931</x>
-     <y>621</y>
+     <x>957</x>
+     <y>602</y>
     </hint>
     <hint type="destinationlabel">
      <x>812</x>
@@ -3774,8 +4970,8 @@
    <slot>on_deBugImage()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>931</x>
-     <y>649</y>
+     <x>957</x>
+     <y>630</y>
     </hint>
     <hint type="destinationlabel">
      <x>814</x>
@@ -3790,8 +4986,8 @@
    <slot>on_deBugImage()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>899</x>
-     <y>677</y>
+     <x>921</x>
+     <y>658</y>
     </hint>
     <hint type="destinationlabel">
      <x>816</x>
@@ -3806,8 +5002,8 @@
    <slot>on_deBugImage()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>931</x>
-     <y>621</y>
+     <x>957</x>
+     <y>602</y>
     </hint>
     <hint type="destinationlabel">
      <x>811</x>
@@ -3822,8 +5018,8 @@
    <slot>on_deBugImage()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>931</x>
-     <y>649</y>
+     <x>957</x>
+     <y>630</y>
     </hint>
     <hint type="destinationlabel">
      <x>981</x>
@@ -3838,8 +5034,8 @@
    <slot>on_deBugImage()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>899</x>
-     <y>677</y>
+     <x>921</x>
+     <y>658</y>
     </hint>
     <hint type="destinationlabel">
      <x>897</x>
@@ -3854,11 +5050,11 @@
    <slot>on_deBugImage()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>892</x>
-     <y>609</y>
+     <x>929</x>
+     <y>602</y>
     </hint>
     <hint type="destinationlabel">
-     <x>1068</x>
+     <x>1060</x>
      <y>596</y>
     </hint>
    </hints>
@@ -3870,11 +5066,11 @@
    <slot>on_deBugImage()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>920</x>
+     <x>929</x>
      <y>602</y>
     </hint>
     <hint type="destinationlabel">
-     <x>1063</x>
+     <x>1060</x>
      <y>583</y>
     </hint>
    </hints>
@@ -3886,11 +5082,11 @@
    <slot>on_deBugImage()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>889</x>
-     <y>611</y>
+     <x>929</x>
+     <y>602</y>
     </hint>
     <hint type="destinationlabel">
-     <x>1068</x>
+     <x>1060</x>
      <y>588</y>
     </hint>
    </hints>
@@ -3902,11 +5098,11 @@
    <slot>on_cameraChanged(int)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>903</x>
-     <y>240</y>
+     <x>920</x>
+     <y>257</y>
     </hint>
     <hint type="destinationlabel">
-     <x>1066</x>
+     <x>1060</x>
      <y>209</y>
     </hint>
    </hints>
@@ -3918,11 +5114,11 @@
    <slot>on_cameraOnline()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>754</x>
-     <y>276</y>
+     <x>804</x>
+     <y>288</y>
     </hint>
     <hint type="destinationlabel">
-     <x>1065</x>
+     <x>1060</x>
      <y>255</y>
     </hint>
    </hints>
@@ -3934,11 +5130,11 @@
    <slot>on_cameraGetImage()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>893</x>
-     <y>275</y>
+     <x>920</x>
+     <y>288</y>
     </hint>
     <hint type="destinationlabel">
-     <x>1065</x>
+     <x>1060</x>
      <y>308</y>
     </hint>
    </hints>
@@ -3950,11 +5146,11 @@
    <slot>on_imageOperation()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>772</x>
-     <y>409</y>
+     <x>799</x>
+     <y>467</y>
     </hint>
     <hint type="destinationlabel">
-     <x>1067</x>
+     <x>1060</x>
      <y>393</y>
     </hint>
    </hints>
@@ -3966,11 +5162,11 @@
    <slot>on_deBugImage()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>741</x>
-     <y>413</y>
+     <x>799</x>
+     <y>467</y>
     </hint>
     <hint type="destinationlabel">
-     <x>1068</x>
+     <x>1060</x>
      <y>443</y>
     </hint>
    </hints>
@@ -3982,11 +5178,11 @@
    <slot>on_deBugImage()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>897</x>
-     <y>613</y>
+     <x>961</x>
+     <y>621</y>
     </hint>
     <hint type="destinationlabel">
-     <x>1087</x>
+     <x>1060</x>
      <y>636</y>
     </hint>
    </hints>
@@ -3998,11 +5194,11 @@
    <slot>on_deBugImage()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>888</x>
-     <y>643</y>
+     <x>934</x>
+     <y>649</y>
     </hint>
     <hint type="destinationlabel">
-     <x>1068</x>
+     <x>1060</x>
      <y>667</y>
     </hint>
    </hints>
@@ -4014,11 +5210,11 @@
    <slot>on_deBugImage()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>882</x>
-     <y>670</y>
+     <x>955</x>
+     <y>677</y>
     </hint>
     <hint type="destinationlabel">
-     <x>1065</x>
+     <x>1060</x>
      <y>651</y>
     </hint>
    </hints>
@@ -4030,11 +5226,11 @@
    <slot>on_deBugImage()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>843</x>
-     <y>641</y>
+     <x>880</x>
+     <y>647</y>
     </hint>
     <hint type="destinationlabel">
-     <x>1093</x>
+     <x>1060</x>
      <y>610</y>
     </hint>
    </hints>
@@ -4046,11 +5242,11 @@
    <slot>on_deBugImage()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>826</x>
-     <y>667</y>
+     <x>880</x>
+     <y>675</y>
     </hint>
     <hint type="destinationlabel">
-     <x>1067</x>
+     <x>1060</x>
      <y>631</y>
     </hint>
    </hints>
@@ -4062,12 +5258,12 @@
    <slot>on_scaleUp()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>459</x>
-     <y>55</y>
+     <x>455</x>
+     <y>66</y>
     </hint>
     <hint type="destinationlabel">
      <x>512</x>
-     <y>-14</y>
+     <y>0</y>
     </hint>
    </hints>
   </connection>
@@ -4083,7 +5279,7 @@
     </hint>
     <hint type="destinationlabel">
      <x>559</x>
-     <y>-5</y>
+     <y>0</y>
     </hint>
    </hints>
   </connection>
@@ -4094,12 +5290,12 @@
    <slot>on_scaleReal()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>568</x>
-     <y>51</y>
+     <x>564</x>
+     <y>62</y>
     </hint>
     <hint type="destinationlabel">
      <x>659</x>
-     <y>-9</y>
+     <y>0</y>
     </hint>
    </hints>
   </connection>
@@ -4110,12 +5306,284 @@
    <slot>on_scaleAuto()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>627</x>
-     <y>54</y>
+     <x>623</x>
+     <y>65</y>
     </hint>
     <hint type="destinationlabel">
      <x>614</x>
-     <y>-34</y>
+     <y>0</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>func_list</sender>
+   <signal>doubleClicked(QModelIndex)</signal>
+   <receiver>SRDemoClass</receiver>
+   <slot>on_showFuncImage(QModelIndex)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>963</x>
+     <y>163</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>1033</x>
+     <y>56</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>label_image</sender>
+   <signal>sendPos(QPoint)</signal>
+   <receiver>SRDemoClass</receiver>
+   <slot>on_getImagePos(QPoint)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>274</x>
+     <y>402</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>209</x>
+     <y>0</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>pushButton_20</sender>
+   <signal>clicked()</signal>
+   <receiver>SRDemoClass</receiver>
+   <slot>on_getROI()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>799</x>
+     <y>487</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>1060</x>
+     <y>497</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>roi_type</sender>
+   <signal>currentIndexChanged(int)</signal>
+   <receiver>SRDemoClass</receiver>
+   <slot>on_roiPageChange(int)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>1025</x>
+     <y>620</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>1060</x>
+     <y>627</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>pushButton_4</sender>
+   <signal>clicked()</signal>
+   <receiver>SRDemoClass</receiver>
+   <slot>on_findPoint()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>904</x>
+     <y>487</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>1060</x>
+     <y>483</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>findPoint_strength</sender>
+   <signal>valueChanged(int)</signal>
+   <receiver>SRDemoClass</receiver>
+   <slot>on_deBugImage()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>940</x>
+     <y>622</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>1086</x>
+     <y>606</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>findPoint_polarity</sender>
+   <signal>currentIndexChanged(int)</signal>
+   <receiver>SRDemoClass</receiver>
+   <slot>on_deBugImage()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>900</x>
+     <y>643</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>1086</x>
+     <y>643</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>findPoint_type</sender>
+   <signal>currentIndexChanged(int)</signal>
+   <receiver>SRDemoClass</receiver>
+   <slot>on_deBugImage()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>887</x>
+     <y>662</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>1086</x>
+     <y>686</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>findLine_strength</sender>
+   <signal>valueChanged(int)</signal>
+   <receiver>SRDemoClass</receiver>
+   <slot>on_deBugImage()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>918</x>
+     <y>617</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>1136</x>
+     <y>617</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>findLine_polarity</sender>
+   <signal>currentIndexChanged(int)</signal>
+   <receiver>SRDemoClass</receiver>
+   <slot>on_deBugImage()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>922</x>
+     <y>655</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>1198</x>
+     <y>658</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>findLine_type</sender>
+   <signal>currentIndexChanged(int)</signal>
+   <receiver>SRDemoClass</receiver>
+   <slot>on_deBugImage()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>906</x>
+     <y>696</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>1211</x>
+     <y>709</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>findLine_distance</sender>
+   <signal>valueChanged(int)</signal>
+   <receiver>SRDemoClass</receiver>
+   <slot>on_deBugImage()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>915</x>
+     <y>732</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>1168</x>
+     <y>734</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>findLine_strength_2</sender>
+   <signal>valueChanged(int)</signal>
+   <receiver>SRDemoClass</receiver>
+   <slot>on_deBugImage()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>914</x>
+     <y>623</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>1466</x>
+     <y>629</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>findLine_polarity_2</sender>
+   <signal>currentIndexChanged(int)</signal>
+   <receiver>SRDemoClass</receiver>
+   <slot>on_deBugImage()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>914</x>
+     <y>680</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>1574</x>
+     <y>704</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>findLine_type_2</sender>
+   <signal>currentIndexChanged(int)</signal>
+   <receiver>SRDemoClass</receiver>
+   <slot>on_deBugImage()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>915</x>
+     <y>730</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>1639</x>
+     <y>774</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>pushButton_3</sender>
+   <signal>clicked()</signal>
+   <receiver>SRDemoClass</receiver>
+   <slot>on_findLine()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>981</x>
+     <y>478</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>1128</x>
+     <y>475</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>pushButton_5</sender>
+   <signal>clicked()</signal>
+   <receiver>SRDemoClass</receiver>
+   <slot>on_findCircle()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>773</x>
+     <y>509</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>1099</x>
+     <y>521</y>
     </hint>
    </hints>
   </connection>
@@ -4151,5 +5619,12 @@
   <slot>on_scaleDowm()</slot>
   <slot>on_scaleReal()</slot>
   <slot>on_scaleAuto()</slot>
+  <slot>on_showFuncImage(QModelIndex)</slot>
+  <slot>on_getImagePos(QPoint)</slot>
+  <slot>on_getROI()</slot>
+  <slot>on_roiPageChange(int)</slot>
+  <slot>on_findPoint()</slot>
+  <slot>on_findLine()</slot>
+  <slot>on_findCircle()</slot>
  </slots>
 </ui>
