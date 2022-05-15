@@ -304,21 +304,148 @@ void SRDemo::drawROI(int type = -1)
 	refreshImage(image);
 }
 //画十字标
-void SRDemo::drawCross(cv::Point point,Mat &image)
+void SRDemo::drawCross(cv::Point p1,cv::Point p2,cv::Point point,Mat &image, Scalar color)
 {
-	cv::Point p1(roiStart.x(), roiStart.y());
-	cv::Point p2(roiEnd.x(), roiEnd.y());
 	Mat im = image.clone();
 	if (currentImage.type() == CV_8UC1)
 	{
 		cvtColor(image, im, COLOR_GRAY2BGR);
 	}
 	//绘制横线
-	line(im, cv::Point(point.x - 4 / 2, point.y), cv::Point(point.x + 4 / 2, point.y), Scalar(0, 255, 0), 1, 8, 0);
+	line(im, cv::Point(point.x - 4 / 2, point.y), cv::Point(point.x + 4 / 2, point.y), color, 1, 8, 0);
 	//绘制竖线
-	line(im, cv::Point(point.x, point.y - 4 / 2), cv::Point(point.x, point.y + 4 / 2), Scalar(0, 255, 0), 1, 8, 0);
+	line(im, cv::Point(point.x, point.y - 4 / 2), cv::Point(point.x, point.y + 4 / 2), color, 1, 8, 0);
 	//绘制ROI
 	arrowedLine(im, p1, p2, Scalar(255, 0, 0), 1, 8, 0, 0.025);
+	refreshImage(im);
+}
+
+void SRDemo::drawFindLine(Mat &image, SRFindLine &srLine, SRroiRect &roi, int type)
+{
+	Mat im = image.clone();
+	if (currentImage.type() == CV_8UC1)
+	{
+		cvtColor(image, im, COLOR_GRAY2BGR);
+	}
+	cv::Point LeftTop = cv::Point(roi.center.x - round(roi.height / 2), roi.center.y - round(roi.width / 2));
+	cv::Point RightDown = cv::Point(roi.center.x + round(roi.height / 2), roi.center.y + round(roi.width / 2));
+	line(im, srLine.linePoint[0], srLine.linePoint[1], Scalar(0, 255, 0), 1, 8, 0);
+	rectangle(im, LeftTop, RightDown, Scalar(255, 0, 0), 1, 8);
+	switch (type)
+	{
+	case 0://从上到下
+	{	
+		if (ui.findLine_show->isChecked())
+		{
+			for (int i = LeftTop.x; i < RightDown.x; i += ui.findLine_distance->value())
+			{
+				//绘制ROI
+				arrowedLine(im, cv::Point(i, LeftTop.y), cv::Point(i, RightDown.y), Scalar(255, 0, 0), 1, 8, 0, 0.025);
+			}
+		}
+		break;
+	}
+	case 1://从下到上
+	{
+		if (ui.findLine_show->isChecked())
+		{
+			for (int i = RightDown.x; i > LeftTop.x; i -= ui.findLine_distance->value())
+			{
+				//绘制ROI
+				arrowedLine(im, cv::Point(i, RightDown.y), cv::Point(i, LeftTop.y), Scalar(255, 0, 0), 1, 8, 0, 0.025);
+			}
+		}
+		break;
+	}
+	case 2://从左到右
+	{
+		if (ui.findLine_show->isChecked())
+		{
+			for (int i = LeftTop.y; i < RightDown.y; i += ui.findLine_distance->value())
+			{
+				//绘制ROI
+				arrowedLine(im, cv::Point(LeftTop.x, i), cv::Point(RightDown.x, i), Scalar(255, 0, 0), 1, 8, 0, 0.025);
+			}
+		}
+		break;
+	}
+	case 3://从右到左
+	{
+		if (ui.findLine_show->isChecked())
+		{
+			for (int i = RightDown.y; i > LeftTop.y; i -= ui.findLine_distance->value())
+			{
+				//绘制ROI
+				arrowedLine(im, cv::Point(RightDown.x, i), cv::Point(LeftTop.x, i), Scalar(255, 0, 0), 1, 8, 0, 0.025);
+			}
+		}
+		break;
+	}
+	default:
+		break;
+	}
+	for (size_t j = 0; j < srLine.edgePoints.size(); ++j)
+	{
+
+		if (count(srLine.effectivePoints.begin(), srLine.effectivePoints.end(), srLine.edgePoints.at(j)))
+		{
+			//绘制横线
+			line(im, cv::Point(srLine.edgePoints.at(j).x - 4 / 2, srLine.edgePoints.at(j).y), cv::Point(srLine.edgePoints.at(j).x + 4 / 2, srLine.edgePoints.at(j).y), Scalar(0, 255, 0), 1, 8, 0);
+			//绘制竖线
+			line(im, cv::Point(srLine.edgePoints.at(j).x, srLine.edgePoints.at(j).y - 4 / 2), cv::Point(srLine.edgePoints.at(j).x, srLine.edgePoints.at(j).y + 4 / 2), Scalar(0, 255, 0), 1, 8, 0);
+		}
+		else
+		{
+			//绘制横线
+			line(im, cv::Point(srLine.edgePoints.at(j).x - 4 / 2, srLine.edgePoints.at(j).y), cv::Point(srLine.edgePoints.at(j).x + 4 / 2, srLine.edgePoints.at(j).y), Scalar(0, 0, 255), 1, 8, 0);
+			//绘制竖线
+			line(im, cv::Point(srLine.edgePoints.at(j).x, srLine.edgePoints.at(j).y - 4 / 2), cv::Point(srLine.edgePoints.at(j).x, srLine.edgePoints.at(j).y + 4 / 2), Scalar(0, 0, 255), 1, 8, 0);
+		}
+	}
+	refreshImage(im);
+}
+
+void SRDemo::drawFindCircle(Mat &image, SRFindCircle &circle, SRroiCircle &roi, int distance)
+{
+	Mat im = image.clone();
+	if (currentImage.type() == CV_8UC1)
+	{
+		cvtColor(image, im, COLOR_GRAY2BGR);
+	}
+	if (ui.findCircle_show->isChecked())
+	{
+		for (int i = 0; i < 360; i += distance)
+		{
+			SRroiLine lineroi;
+			lineroi.start.x = roi.radius_in*cos(PI / 180.0 * i) + roi.center.x;
+			lineroi.start.y = roi.radius_in*sin(PI / 180.0 * i) + roi.center.y;
+
+			lineroi.end.x = roi.radius_out*cos(PI / 180.0 * i) + roi.center.x;
+			lineroi.end.y = roi.radius_out*sin(PI / 180.0 * i) + roi.center.y;
+
+			//绘制ROI
+			arrowedLine(im, lineroi.start, lineroi.end, Scalar(255, 0, 0), 1, 8, 0, 0.025);
+		}
+	}
+	for (size_t j = 0; j < circle.edgePoints.size(); ++j)
+	{
+
+		if (count(circle.effectivePoints.begin(), circle.effectivePoints.end(), circle.edgePoints.at(j)))
+		{
+			//绘制横线
+			line(im, cv::Point(circle.edgePoints.at(j).x - 4 / 2, circle.edgePoints.at(j).y), cv::Point(circle.edgePoints.at(j).x + 4 / 2, circle.edgePoints.at(j).y), Scalar(0, 255, 0), 1, 8, 0);
+			//绘制竖线
+			line(im, cv::Point(circle.edgePoints.at(j).x, circle.edgePoints.at(j).y - 4 / 2), cv::Point(circle.edgePoints.at(j).x, circle.edgePoints.at(j).y + 4 / 2), Scalar(0, 255, 0), 1, 8, 0);
+		}
+		else
+		{
+			//绘制横线
+			line(im, cv::Point(circle.edgePoints.at(j).x - 4 / 2, circle.edgePoints.at(j).y), cv::Point(circle.edgePoints.at(j).x + 4 / 2, circle.edgePoints.at(j).y), Scalar(0, 0, 255), 1, 8, 0);
+			//绘制竖线
+			line(im, cv::Point(circle.edgePoints.at(j).x, circle.edgePoints.at(j).y - 4 / 2), cv::Point(circle.edgePoints.at(j).x, circle.edgePoints.at(j).y + 4 / 2), Scalar(0, 0, 255), 1, 8, 0);
+		}
+	}
+	cv::circle(im,circle.center, circle.radius,Scalar(0, 255, 0), 1,8);
 	refreshImage(im);
 }
 
@@ -334,7 +461,7 @@ void SRDemo::findPoint()
 	if (fpoint.pointGroup.empty())
 		return;
 	ui.findPoint_label->setPixmap(QPixmap::fromImage(MatToQImage(fpoint.sectional)));
-	drawCross(fpoint.pointGroup[0], debugImage);
+	drawCross(cv::Point(roiStart.x(), roiStart.y()), cv::Point(roiEnd.x(), roiEnd.y()),fpoint.pointGroup[0], debugImage, Scalar(0, 255, 0));
 }
 
 void SRDemo::findLine()
@@ -349,10 +476,37 @@ void SRDemo::findLine()
 	rect.height = abs(roiStart.x() - roiEnd.x());
 	rect.width = abs(roiStart.y() - roiEnd.y());
 	fline.findLine(currentImage, rect, strength, polarity, type, direction,distance);
+	if (fline.linePoint.empty())
+		return;
+	ui.findLine_firstX->setText(QString::number(fline.linePoint[0].x));
+	ui.findLine_firstY->setText(QString::number(fline.linePoint[0].y));
+	ui.findLine_secondX->setText(QString::number(fline.linePoint[1].x));
+	ui.findLine_secondY->setText(QString::number(fline.linePoint[1].y));
+	ui.findLine_angle->setText(QString::number(fline.angle));
+	drawFindLine(currentImage, fline, rect, direction);
 }
 
 void SRDemo::findCircle()
 {
+	int strength = ui.findCircle_strength->value();//边缘强度
+	int polarity = ui.findCircle_polarity->currentIndex();//边缘极性
+	int type = ui.findCircle_type->currentIndex();//边缘类型
+	int distance = ui.findCircle_distance->value();//搜索间隔
+
+	cv::Point p1(roiStart.x(), roiStart.y());
+	cv::Point p2(roiEnd.x(), roiEnd.y());
+	SRroiCircle cir;
+	cir.center = cv::Point(roiStart.x(), roiStart.y());
+	cir.radius_in = ui.findCircle_radius_in->value();
+	cir.radius_out = sqrt(powf((p1.x - p2.x), 2) + powf((p1.y - p2.y), 2));
+
+	fcircle.findCircle(currentImage, cir, strength, polarity, type, distance);
+	ui.findCircle_radius->setText(QString::number(fcircle.radius));
+	ui.findCircle_CenterX->setText(QString::number(fcircle.center.x));
+	ui.findCircle_CenterY->setText(QString::number(fcircle.center.y));
+	
+	drawFindCircle(currentImage, fcircle, cir, distance);
+
 }
 
 void SRDemo::on_inputClicked()
@@ -1079,7 +1233,25 @@ void SRDemo::on_getLeftMovePos(QPoint pos)
 	}
 	if (ui.stackedWidget->currentWidget() == ui.page_findCircle)
 	{
-		drawROI(2);
+		cv::Point p1(roiStart.x(), roiStart.y());
+		cv::Point p2(roiEnd.x(), roiEnd.y());
+		Mat image = debugImage.clone();
+		if (currentImage.type() == CV_8UC1)
+		{
+			cvtColor(debugImage, image, COLOR_GRAY2BGR);
+		}
+		double radius_in = ui.findCircle_radius_in->value();
+		double radius = sqrt(powf((p1.x - p2.x), 2) + powf((p1.y - p2.y), 2));
+		ui.findCircle_radius_out->setValue(round(radius));
+		if (radius_in >= radius)
+			return;
+		cv::circle(image, p1, radius, Scalar(255, 0, 0), 1, 8);
+		cv::circle(image, p1, radius_in, Scalar(255, 0, 0), 1, 8);
+		cv::circle(image, p1, 2, Scalar(0, 255, 0), -1, 8);
+		ui.roi_circle_centerX->setValue(p1.x);
+		ui.roi_circle_centerY->setValue(p1.y);
+		ui.roi_circle_radius_out->setValue(radius);
+		refreshImage(image);
 	}
 }
 /*获取左键按下的左后一个坐标*/

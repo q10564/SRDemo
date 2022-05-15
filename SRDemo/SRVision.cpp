@@ -577,7 +577,7 @@ void SRVision::SRFindPoint::findPoint(Mat image, SRroiLine roi, int strength = 3
 			{
 				for (int i = start.y+1; i < end.y; i++)
 				{
-					int value = -(image.ptr<uchar>(i)[start.x] - image.ptr<uchar>(i-1)[start.x]);
+					int value = (image.ptr<uchar>(i)[start.x] - image.ptr<uchar>(i-1)[start.x]);
 					this->group.push_back(value);
 					if (value > strength)
 						this->pointGroup.push_back(cv::Point(start.x, i));
@@ -587,7 +587,7 @@ void SRVision::SRFindPoint::findPoint(Mat image, SRroiLine roi, int strength = 3
 			{
 				for (int i = start.y - 1; i > end.y; i--)
 				{
-					int value = -(image.ptr<uchar>(i)[start.x] - image.ptr<uchar>(i + 1)[start.x]);
+					int value = (image.ptr<uchar>(i)[start.x] - image.ptr<uchar>(i + 1)[start.x]);
 					this->group.push_back(value);
 					if (value > strength)
 						this->pointGroup.push_back(cv::Point(start.x, i));
@@ -601,7 +601,7 @@ void SRVision::SRFindPoint::findPoint(Mat image, SRroiLine roi, int strength = 3
 			{
 				for (int i = start.y + 1; i < end.y; i++)
 				{
-					int value = (image.ptr<uchar>(i)[start.x] - image.ptr<uchar>(i - 1)[start.x]);
+					int value = -(image.ptr<uchar>(i)[start.x] - image.ptr<uchar>(i - 1)[start.x]);
 					this->group.push_back(value);
 					if (value > strength)
 						this->pointGroup.push_back(cv::Point(start.x, i));
@@ -611,7 +611,7 @@ void SRVision::SRFindPoint::findPoint(Mat image, SRroiLine roi, int strength = 3
 			{
 				for (int i = start.y - 1; i > end.y; i--)
 				{
-					int value = (image.ptr<uchar>(i)[start.x] - image.ptr<uchar>(i + 1)[start.x]);
+					int value = -(image.ptr<uchar>(i)[start.x] - image.ptr<uchar>(i + 1)[start.x]);
 					this->group.push_back(value);
 					if (value > strength)
 						this->pointGroup.push_back(cv::Point(start.x, i));
@@ -673,8 +673,8 @@ void SRVision::SRFindPoint::findPoint(Mat image, SRroiLine roi, int strength = 3
 				for (int i = start.x - 1; i > end.x; i--)
 				{
 					int y1 = round(k * (i)+b);
-					int y2 = round(k * (i + 1) + b);
-					int value = -(image.ptr<uchar>(y1)[i] - image.ptr<uchar>(y2)[i + 1]);
+					int y2 = round(k * (i - 1) + b);
+					int value = -(image.ptr<uchar>(y1)[i] - image.ptr<uchar>(y2)[i - 1]);
 					this->group.push_back(value);
 					if (value > strength)
 						this->pointGroup.push_back(cv::Point(i, y1));
@@ -702,8 +702,8 @@ void SRVision::SRFindPoint::findPoint(Mat image, SRroiLine roi, int strength = 3
 				for (int i = start.x - 1; i > end.x; i--)
 				{
 					int y1 = round(k * (i)+b);
-					int y2 = round(k * (i + 1) + b);
-					int value = (image.ptr<uchar>(y1)[i] - image.ptr<uchar>(y2)[i + 1]);
+					int y2 = round(k * (i - 1) + b);
+					int value = (image.ptr<uchar>(y1)[i] - image.ptr<uchar>(y2)[i - 1]);
 					this->group.push_back(value);
 					if (value > strength)
 						this->pointGroup.push_back(cv::Point(i, y1));
@@ -730,8 +730,8 @@ void SRVision::SRFindPoint::findPoint(Mat image, SRroiLine roi, int strength = 3
 				for (int i = start.x - 1; i > end.x; i--)
 				{
 					int y1 = round(k * (i)+b);
-					int y2 = round(k * (i + 1) + b);
-					int value = abs(image.ptr<uchar>(y1)[i] - image.ptr<uchar>(y2)[i + 1]);
+					int y2 = round(k * (i - 1) + b);
+					int value = abs(image.ptr<uchar>(y1)[i] - image.ptr<uchar>(y2)[i - 1]);
 					this->group.push_back(value);
 					if (value > strength)
 						this->pointGroup.push_back(cv::Point(i, y1));
@@ -813,7 +813,8 @@ SRVision::SRroiCircle::SRroiCircle()
 SRVision::SRFindLine::SRFindLine()
 {
 	this->angle = 0.0;
-	this->effectivePoint = { cv::Point(0, 0) };
+	this->effectivePoints = { cv::Point(0, 0) };
+	this->edgePoints = { cv::Point(0, 0) };
 	this->linePoint = { cv::Point(0, 0) };
 }
 /*
@@ -831,8 +832,9 @@ void SRVision::SRFindLine::findLine(Mat image, SRroiRect roi, int strength, int 
 	if (image.empty())
 		return;
 	//清除数组并回收空间
-	vector<cv::Point>().swap(this->effectivePoint);
-	vector<cv::Point>().swap(this->linePoint);
+	this->effectivePoints.clear();
+	this->edgePoints.clear();
+	this->linePoint.clear();
 
 	cv::Point LeftTop = cv::Point(roi.center.x - round(roi.height / 2), roi.center.y - round(roi.width / 2));
 	cv::Point RightDown = cv::Point(roi.center.x + round(roi.height / 2), roi.center.y + round(roi.width / 2));
@@ -840,7 +842,7 @@ void SRVision::SRFindLine::findLine(Mat image, SRroiRect roi, int strength, int 
 	{
 	case 0://从上到下
 	{
-		for (int i = LeftTop.x; i < RightDown.x;)
+		for (int i = LeftTop.x; i < RightDown.x; i += distance)
 		{
 			SRroiLine lineroi;
 			lineroi.start = cv::Point(i, LeftTop.y);
@@ -848,66 +850,141 @@ void SRVision::SRFindLine::findLine(Mat image, SRroiRect roi, int strength, int 
 			SRFindPoint fpoint;
 			fpoint.findPoint(image, lineroi, strength, polarity);
 			if (fpoint.pointGroup.empty())
-				break;
+				continue;
 			switch (type)
 			{
 			case 0://第一条直线
 			{
-				this->effectivePoint.push_back(fpoint.pointGroup[0]);
+				this->edgePoints.push_back(fpoint.pointGroup.front());
 				break;
 			}
 			case 1://最后一条直线
 			{
-				this->effectivePoint.push_back(fpoint.pointGroup.back());
+				this->edgePoints.push_back(fpoint.pointGroup.back());
 				break;
 			}
 			case 2://最佳直线
 			{
-				this->effectivePoint.push_back(fpoint.pointGroup[0]);
+				this->edgePoints.push_back(fpoint.pointGroup.front());
 				break;
 			}
 			default:
 				break;
 			}
-			i += distance;
 		}
+		break;
 	}
 	case 1://从下到上
+	{
+		for (int i = LeftTop.x; i < RightDown.x; i += distance)
+		{
+			SRroiLine lineroi;
+			lineroi.end = cv::Point(i, LeftTop.y);
+			lineroi.start = cv::Point(i, RightDown.y);
+			SRFindPoint fpoint;
+			fpoint.findPoint(image, lineroi, strength, polarity);
+			if (fpoint.pointGroup.empty())
+				continue;
+			switch (type)
+			{
+			case 0://第一条直线
+			{
+				this->edgePoints.push_back(fpoint.pointGroup.front());
+				break;
+			}
+			case 1://最后一条直线
+			{
+				this->edgePoints.push_back(fpoint.pointGroup.back());
+				break;
+			}
+			case 2://最佳直线
+			{
+				this->edgePoints.push_back(fpoint.pointGroup.front());
+				break;
+			}
+			default:
+				break;
+			}
+		}
+		break;
+	}
 	case 2://从左到右
+	{
+		for (int i = LeftTop.y; i < RightDown.y; i += distance)
+		{
+			SRroiLine lineroi;
+			lineroi.start = cv::Point(LeftTop.x, i);
+			lineroi.end = cv::Point(RightDown.x, i);
+			SRFindPoint fpoint;
+			fpoint.findPoint(image, lineroi, strength, polarity);
+			if (fpoint.pointGroup.empty())
+				continue;
+			switch (type)
+			{
+			case 0://第一条直线
+			{
+				this->edgePoints.push_back(fpoint.pointGroup.front());
+				break;
+			}
+			case 1://最后一条直线
+			{
+				this->edgePoints.push_back(fpoint.pointGroup.back());
+				break;
+			}
+			case 2://最佳直线
+			{
+				this->edgePoints.push_back(fpoint.pointGroup.front());
+				break;
+			}
+			default:
+				break;
+			}
+		}
+		break;
+	}
 	case 3://从右到左
+	{
+		for (int i = LeftTop.y; i < RightDown.y; i += distance)
+		{
+			SRroiLine lineroi;
+			lineroi.end = cv::Point(LeftTop.x, i);
+			lineroi.start = cv::Point(RightDown.x, i);
+			SRFindPoint fpoint;
+			fpoint.findPoint(image, lineroi, strength, polarity);
+			if (fpoint.pointGroup.empty())
+				continue;
+			switch (type)
+			{
+			case 0://第一条直线
+			{
+				this->edgePoints.push_back(fpoint.pointGroup.front());
+				break;
+			}
+			case 1://最后一条直线
+			{
+				this->edgePoints.push_back(fpoint.pointGroup.back());
+				break;
+			}
+			case 2://最佳直线
+			{
+				this->edgePoints.push_back(fpoint.pointGroup.front());
+				break;
+			}
+			default:
+				break;
+			}
+		}
+		break;
+	}
 	default:
 		break;
 	}
-	if (this->effectivePoint.empty())
+	if (this->edgePoints.empty())
 		return;
 	//最小二乘法拟合直线
 	//存在问题：容易受杂点干扰，准确性低
 	//优化方向：ransac(随机采样一致算法)，
-	/*
-	Vec4f line;
-	cv::fitLine(this->effectivePoint, line, cv::DIST_HUBER, 0, 0.01, 0.01);
 
-	//获取点斜式的点和斜率
-	cv::Point point0;
-	point0.x = line[2];
-	point0.y = line[3];
-
-	double k = line[1] / line[0];
-	this->linePoint.push_back(cv::Point(effectivePoint[0].x, k*(effectivePoint[0].x - point0.x) + point0.y));
-	this->linePoint.push_back(cv::Point(effectivePoint.back().x, k*(effectivePoint.back().x - point0.x) + point0.y));
-	Mat im;
-	cvtColor(image, im, COLOR_GRAY2BGR);
-	for (int i = 0; i < this->effectivePoint.size(); i++)
-	{
-		cv::Point point = this->effectivePoint[i];
-		//绘制横线
-		cv::line(im, cv::Point(point.x - 4 / 2, point.y), cv::Point(point.x + 4 / 2, point.y), Scalar(0, 255, 0), 1, 8, 0);
-		//绘制竖线
-		cv::line(im, cv::Point(point.x, point.y - 4 / 2), cv::Point(point.x, point.y + 4 / 2), Scalar(0, 255, 0), 1, 8, 0);
-	}
-	cv::line(im, linePoint[0], linePoint[1], Scalar(255, 0, 0));
-	cv::imshow("findLine", im);
-	*/
 	/*RANSAC直线拟合*/
 	/*
 	算法基本思想和流程
@@ -918,6 +995,293 @@ void SRVision::SRFindLine::findLine(Mat image, SRroiRect roi, int strength, int 
 	3.将所有数据带入这个模型，计算出“内点”的数目；(累加在一定误差范围内的适合当前迭代推出模型的数据)
 	4.比较当前模型和之前推出的最好的模型的“内点“的数量，记录最大“内点”数的模型参数和“内点”数；
 	5.重复1-4步，直到迭代结束或者当前模型已经足够好了(“内点数目大于一定数量”)。
+	迭代次数k = log(1-P)/log(1-t^n)
+	P:期望找到合适直线概率
+	t:内点占比
+	n:模型需要点的个数
 	*/
+
+	//迭代开始(当符合条件的点大于80%退出迭代||迭代次数小于0时退出，每次迭代优化迭代值)
+	//点到拟合直线距离小于2pix视为有效点
+	int iters = round(log(1-0.99)/log(1-pow(0.7,2)));//迭代次数
+	int size = round(this->edgePoints.size() * 0.7);
+	int maxsize = 0;
+	vector<cv::Point> pgroup;
+	while (iters)//迭代直至符合条件
+	{
+		pgroup.clear();//清除内容并回收空间
+		//1.随机获取两个点
+		int index1 = round(rand()%this->edgePoints.size());
+		int index2 = round(rand()%this->edgePoints.size());
+		while (abs(index2 - index1) < 2)//排除随机点相邻的情况
+		{
+			index2 = round(rand()%this->edgePoints.size());
+		}
+		cv::Point p1 = this->edgePoints.at(index1);
+		cv::Point p2 = this->edgePoints.at(index2);
+		//2.通过两点确定直线一般式 Ax+By+C = 0
+		double A, B, C;
+		A = (p2.y - p1.y);
+		B = (p1.x - p2.x);
+		C = p2.x * p1.y - p1.x * p2.y;
+		//3.开始计算内点数目
+		for (int i = 0; i < this->edgePoints.size(); i++)
+		{
+			int dis = abs(A * (this->edgePoints.at(i).x) + B * (this->edgePoints.at(i).y) + C) / sqrt(pow(A, 2) + pow(B, 2));
+			if (dis <= 2)
+			{
+				pgroup.push_back(this->edgePoints.at(i));
+			}
+		}
+		if (pgroup.size() >= size)
+		{
+			this->effectivePoints.assign(pgroup.begin(),pgroup.end());//清空并复制
+			break;
+		}
+		else if (pgroup.size() > maxsize)
+		{
+			this->effectivePoints.assign(pgroup.begin(), pgroup.end());//清空并复制
+			maxsize = pgroup.size();
+		}
+		iters--;
+	}
+
+	//拟合直线
+	Vec4f line;
+	cv::fitLine(this->effectivePoints, line, cv::DIST_HUBER, 0, 0.01, 0.01);
+
+	//获取点斜式的点和斜率 y-y₁=k（x-x₁）
+	cv::Point point0, lpoint, rpoint;
+	point0.x = line[2];
+	point0.y = line[3];
+	double k = line[1] / line[0];
+
+	//计算直线与ROI的交点
+	lpoint.x = LeftTop.x;
+	rpoint.x = RightDown.x;
+	lpoint.y = k * (LeftTop.x - point0.x) + point0.y;
+	rpoint.y = k * (RightDown.x - point0.x) + point0.y;
+	if (lpoint.y < LeftTop.y)
+	{
+		lpoint.y = LeftTop.y;
+		lpoint.x = (lpoint.y - point0.y) / k + point0.x;
+	}
+	else if (lpoint.y > RightDown.y)
+	{
+		lpoint.y = RightDown.y;
+		lpoint.x = (lpoint.y - point0.y) / k + point0.x;
+	}
+
+	if (rpoint.y < LeftTop.y)
+	{
+		rpoint.y = LeftTop.y;
+		rpoint.x = (rpoint.y - point0.y) / k + point0.x;
+	}
+	else if (rpoint.y > RightDown.y)
+	{
+		rpoint.y = RightDown.y;
+		rpoint.x = (rpoint.y - point0.y) / k + point0.x;
+	}
+
+	this->linePoint.push_back(lpoint);
+	this->linePoint.push_back(rpoint);
+	this->angle = -atan2((rpoint.y - lpoint.y),(rpoint.x - lpoint.x)) * 180 / PI;
+}
+/*
+		* 找圆
+		* @param[in] image 输入图像
+		* @param[in] roi 圆ROI
+		* @param[in] strength 边缘强度
+		* @param[in] polarity 边缘极性 0黑->白、1白->黑 2所有
+		* @param[in] type 边缘类型 0第一条直线 1最后一条直线 2最佳直线
+		* @param[in] distance 搜索间隔
+		*/
+void SRVision::SRFindCircle::findCircle(Mat image, SRroiCircle roi, int strength, int polarity, int type, int distance)
+{
+	if (image.empty())
+		return;
+	//清除数组并回收空间
+	this->effectivePoints.clear();
+	this->edgePoints.clear();
+	cv::Point start;
+	cv::Point end;
+	//循环找点
+	for (int i = 0; i < 360; i += distance)
+	{
+		SRroiLine lineroi;
+		lineroi.start.x = roi.radius_in*cos(PI / 180.0 * i) + roi.center.x;
+		lineroi.start.y = roi.radius_in*sin(PI / 180.0 * i) + roi.center.y;
+
+		lineroi.end.x = roi.radius_out*cos(PI / 180.0 * i) + roi.center.x;
+		lineroi.end.y = roi.radius_out*sin(PI / 180.0 * i) + roi.center.y;
 	
+		SRFindPoint fpoint;
+		fpoint.findPoint(image, lineroi, strength, polarity);
+		if (fpoint.pointGroup.empty())
+			continue;
+		switch (type)
+		{
+		case 0://第一条直线
+		{
+			this->edgePoints.push_back(fpoint.pointGroup.front());
+			break;
+		}
+		case 1://最后一条直线
+		{
+			this->edgePoints.push_back(fpoint.pointGroup.back());
+			break;
+		}
+		case 2://最佳直线
+		{
+			this->edgePoints.push_back(fpoint.pointGroup.front());
+			break;
+		}
+		case 3:
+		{
+			this->edgePoints.push_back(fpoint.pointGroup.front());
+			break;
+		}
+		default:
+			break;
+		}
+	}
+	if (this->edgePoints.empty())
+		return;
+
+	/*RANSAC圆拟合*/
+	/*
+	算法基本思想和流程
+	RANSAC是通过反复选择数据集去估计出模型，一直迭代到估计出认为比较好的模型。
+	具体的实现步骤可以分为以下几步：
+	1.选择出可以估计出模型的最小数据集；(对于圆拟合来说就是3个点，对于计算Homography矩阵就是4个点)
+	2.使用这个数据集来计算出数据模型；
+	3.将所有数据带入这个模型，计算出“内点”的数目；(累加在一定误差范围内的适合当前迭代推出模型的数据)
+	4.比较当前模型和之前推出的最好的模型的“内点“的数量，记录最大“内点”数的模型参数和“内点”数；
+	5.重复1-4步，直到迭代结束或者当前模型已经足够好了(“内点数目大于一定数量”)。
+	迭代次数k = log(1-P)/log(1-t^n)
+	P:期望找到合适直线概率
+	t:内点占比
+	n:模型需要点的个数
+	*/
+	int iters = round(log(1 - 0.99) / log(1 - pow(0.7, 3)));//迭代次数
+	int size = round(this->edgePoints.size() * 0.7);
+	int maxsize = 0;
+	vector<cv::Point> pgroup;
+	while (iters)//迭代直至符合条件
+	{
+		pgroup.clear();//清除内容并回收空间
+		cv::Point p1, p2, p3;
+		//1.随机获取两个点
+		int index1 = round(rand() % this->edgePoints.size());
+		int index2 = round(rand() % this->edgePoints.size());
+		int index3 = round(rand() % this->edgePoints.size());
+		p1 = this->edgePoints.at(index1);
+		p2 = this->edgePoints.at(index2);
+		p3 = this->edgePoints.at(index3);
+		while (abs(index2 - index1) < 2 || abs(index2 - index3) < 2)//排除随机点相邻的情况
+		{
+			index2 = round(rand() % this->edgePoints.size());
+			p2 = this->edgePoints.at(index2);
+		}
+		while (abs(index3 - index1) < 2 || abs(index3 - index2) < 2 || (p2.x - p1.x)*(p3.y - p1.y) - (p3.x - p1.x)*(p2.y - p1.y) == 0)//排除随机点相邻的情况且三点共线
+		{
+			index3 = round(rand() % this->edgePoints.size());
+			p3 = this->edgePoints.at(index3);
+		}
+		//三点求圆心(一般式：x²+y²+Dx+Ey+F=0) 圆心：(-D/2,-E/2),半径：sqrt((D²+E²-4F)/4)。
+		//[x1 y1 1]   [D]    -[x1^2 + y1^2]
+		//[x2 y2 1] * [E] =  -[x2^2 + y2^2]   矩阵乘法(A * B = C) => (B = A^-1 * C) //未知矩阵 = 矩阵A的逆*结果矩阵
+		//[x3 y3 1]   [F]    -[x3^2 + y3^2]
+		double centerX = 0.0, centerY = 0.0, r = 0.0, D = 0.0, E = 0.0, F = 0.0;
+		vector<vector<double>> A(3), invA(3), withA(3), C(3);//矩阵A、矩阵A的逆矩阵、伴随矩阵 C结果矩阵
+		for (int i = 0; i < 3; i++)//给矩阵列开辟空间
+		{
+			A[i].resize(3);
+			invA[i].resize(3);
+			withA[i].resize(3);
+			C[i].resize(1);
+		}
+		A[0][0] = p1.x; A[0][1] = p1.y; A[0][2] = 1;
+		A[1][0] = p2.x; A[1][1] = p2.y; A[1][2] = 1;
+		A[2][0] = p3.x; A[2][1] = p3.y; A[2][2] = 1;
+
+		C[0][0] = -(pow(p1.x, 2) + pow(p1.y, 2));
+		C[1][0] = -(pow(p2.x, 2) + pow(p2.y, 2));
+		C[2][0] = -(pow(p3.x, 2) + pow(p3.y, 2));
+		if (A[0][0] == 0)//等式不成立时跳过
+			continue;
+		//求解A的行列式
+		//1.求矩阵A化下三角形式行列式
+		double determinant;//行列式
+		double i, j, k;//下三角行列式主对角线的值
+		double A11, A12, A21, A22;//化第一列时矩阵各行的值
+		//求行列式
+		i = A[0][0];
+		A11 = A[1][1] - (A[1][0] / A[0][0] * A[0][1]);
+		A12 = A[1][2] - (A[1][0] / A[0][0] * A[0][2]);
+		j = A11;
+		A21 = A[2][1] - (A[2][0] / A[0][0] * A[0][1]);
+		A22 = A[2][2] - (A[2][0] / A[0][0] * A[0][2]);
+		if (A11 == 0)//等式不成立时跳过
+			continue;
+		k = A22 - A21 / A11 * A12;
+		determinant = i * j * k;//矩阵行列式的值等于下三角主对角线的乘积
+		if (determinant == 0)//行列式不成立时跳过
+			continue;
+		//求伴随矩阵 withAij = 去除i,j行后的剩余部分求行列式 * -1^(i+j) 也就是A01 A10 A12 A21 需要乘-1 结果再转置就是伴随矩阵
+		withA[0][0] = (A[1][1] * A[2][2] - A[1][2] * A[2][1]);
+		withA[1][0] = (A[1][0] * A[2][2] - A[1][2] * A[2][0]) * -1;
+		withA[2][0] = (A[1][0] * A[2][1] - A[1][1] * A[2][0]);
+
+		withA[0][1] = (A[0][1] * A[2][2] - A[0][2] * A[2][1]) * -1;
+		withA[1][1] = (A[0][0] * A[2][2] - A[0][2] * A[2][0]);
+		withA[2][1] = (A[0][0] * A[2][1] - A[0][1] * A[2][0]) * -1;
+
+		withA[0][2] = (A[0][1] * A[1][2] - A[0][2] * A[1][1]);
+		withA[1][2] = (A[0][0] * A[1][2] - A[0][2] * A[1][0]) * -1;
+		withA[2][2] = (A[0][0] * A[1][1] - A[0][1] * A[1][0]);
+
+		//求逆矩阵
+		invA[0][0] = withA[0][0] / determinant; invA[0][1] = withA[0][1] / determinant; invA[0][2] = withA[0][2] / determinant;
+		invA[1][0] = withA[1][0] / determinant; invA[1][1] = withA[1][1] / determinant; invA[1][2] = withA[1][2] / determinant;
+		invA[2][0] = withA[2][0] / determinant; invA[2][1] = withA[2][1] / determinant; invA[2][2] = withA[2][2] / determinant;
+
+		//求解未知矩阵B: A * B = C) => withA * C = B
+
+		D = invA[0][0] * C[0][0] + invA[0][1] * C[1][0] + invA[0][2] * C[2][0];
+		E = invA[1][0] * C[0][0] + invA[1][1] * C[1][0] + invA[1][2] * C[2][0];
+		F = invA[2][0] * C[0][0] + invA[2][1] * C[1][0] + invA[2][2] * C[2][0];
+
+		centerX = -D / 2;
+		centerY = -E / 2;
+		if ((pow(D, 2) + pow(E, 2) - 4 * F) < 0)
+			continue;
+		r = sqrt((pow(D,2) + pow(E, 2) - 4 * F)) / 2;
+		//循环判断有效点
+		for (int i = 0; i < this->edgePoints.size(); i++)
+		{
+			int dir = abs(sqrt(pow(this->edgePoints.at(i).x - centerX, 2) + pow(this->edgePoints.at(i).y - centerY, 2)) - r);
+			if (dir < 2)
+			{
+				pgroup.push_back(this->edgePoints.at(i));
+			}
+		}
+		//判断是否符合条件
+		if (pgroup.size() >= size)
+		{
+			this->effectivePoints.assign(pgroup.begin(), pgroup.end());//清空并复制
+			break;
+		}
+		else if (pgroup.size() > maxsize)
+		{
+			this->effectivePoints.assign(pgroup.begin(), pgroup.end());//清空并复制
+			maxsize = pgroup.size();
+		}
+		--iters;
+	}
+	if (this->effectivePoints.size() < 3)
+		return;
+	cv::RotatedRect rec = fitEllipse(this->effectivePoints);
+	this->center = rec.center;
+	this->radius = (rec.size.height/2 + rec.size.width/2)/2;
 }

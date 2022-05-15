@@ -791,7 +791,7 @@
               <item>
                <widget class="QStackedWidget" name="stackedWidget">
                 <property name="currentIndex">
-                 <number>16</number>
+                 <number>0</number>
                 </property>
                 <widget class="QWidget" name="page_non">
                  <layout class="QVBoxLayout" name="verticalLayout_6">
@@ -801,7 +801,7 @@
                      <string/>
                     </property>
                     <property name="pixmap">
-                     <pixmap>C:/Users/Shinelon/.designer/image/logo.png</pixmap>
+                     <pixmap resource="SRDemo.qrc">:/SRDemo/image/logo.png</pixmap>
                     </property>
                     <property name="scaledContents">
                      <bool>false</bool>
@@ -3232,7 +3232,7 @@
                  </layout>
                 </widget>
                 <widget class="QWidget" name="page_findLine">
-                 <layout class="QVBoxLayout" name="verticalLayout_43">
+                 <layout class="QVBoxLayout" name="verticalLayout_43" stretch="0,5">
                   <item>
                    <layout class="QVBoxLayout" name="verticalLayout_42">
                     <item>
@@ -3485,6 +3485,16 @@
                        </widget>
                       </item>
                       <item>
+                       <widget class="QCheckBox" name="findLine_show">
+                        <property name="layoutDirection">
+                         <enum>Qt::RightToLeft</enum>
+                        </property>
+                        <property name="text">
+                         <string>显示扫描线</string>
+                        </property>
+                       </widget>
+                      </item>
+                      <item>
                        <spacer name="horizontalSpacer_54">
                         <property name="orientation">
                          <enum>Qt::Horizontal</enum>
@@ -3674,7 +3684,7 @@
                        </widget>
                       </item>
                       <item>
-                       <widget class="QSpinBox" name="findLine_strength_2">
+                       <widget class="QSpinBox" name="findCircle_strength">
                         <property name="maximum">
                          <number>255</number>
                         </property>
@@ -3721,7 +3731,7 @@
                        </widget>
                       </item>
                       <item>
-                       <widget class="QComboBox" name="findLine_polarity_2">
+                       <widget class="QComboBox" name="findCircle_polarity">
                         <item>
                          <property name="text">
                           <string>从黑到白</string>
@@ -3777,7 +3787,7 @@
                        </widget>
                       </item>
                       <item>
-                       <widget class="QComboBox" name="findLine_type_2">
+                       <widget class="QComboBox" name="findCircle_type">
                         <item>
                          <property name="text">
                           <string>第一个点</string>
@@ -3815,6 +3825,127 @@
                       </item>
                      </layout>
                     </item>
+                    <item>
+                     <layout class="QHBoxLayout" name="horizontalLayout_68">
+                      <item>
+                       <spacer name="horizontalSpacer_65">
+                        <property name="orientation">
+                         <enum>Qt::Horizontal</enum>
+                        </property>
+                        <property name="sizeHint" stdset="0">
+                         <size>
+                          <width>40</width>
+                          <height>20</height>
+                         </size>
+                        </property>
+                       </spacer>
+                      </item>
+                      <item>
+                       <widget class="QLabel" name="label_59">
+                        <property name="text">
+                         <string>搜索间隔</string>
+                        </property>
+                       </widget>
+                      </item>
+                      <item>
+                       <widget class="QSpinBox" name="findCircle_distance">
+                        <property name="maximum">
+                         <number>90</number>
+                        </property>
+                        <property name="value">
+                         <number>5</number>
+                        </property>
+                       </widget>
+                      </item>
+                      <item>
+                       <widget class="QCheckBox" name="findCircle_show">
+                        <property name="layoutDirection">
+                         <enum>Qt::RightToLeft</enum>
+                        </property>
+                        <property name="text">
+                         <string>显示扫描线</string>
+                        </property>
+                       </widget>
+                      </item>
+                      <item>
+                       <spacer name="horizontalSpacer_66">
+                        <property name="orientation">
+                         <enum>Qt::Horizontal</enum>
+                        </property>
+                        <property name="sizeHint" stdset="0">
+                         <size>
+                          <width>40</width>
+                          <height>20</height>
+                         </size>
+                        </property>
+                       </spacer>
+                      </item>
+                     </layout>
+                    </item>
+                    <item>
+                     <layout class="QHBoxLayout" name="horizontalLayout_69">
+                      <item>
+                       <spacer name="horizontalSpacer_67">
+                        <property name="orientation">
+                         <enum>Qt::Horizontal</enum>
+                        </property>
+                        <property name="sizeHint" stdset="0">
+                         <size>
+                          <width>40</width>
+                          <height>20</height>
+                         </size>
+                        </property>
+                       </spacer>
+                      </item>
+                      <item>
+                       <widget class="QLabel" name="label_61">
+                        <property name="text">
+                         <string>内径</string>
+                        </property>
+                       </widget>
+                      </item>
+                      <item>
+                       <widget class="QSpinBox" name="findCircle_radius_in">
+                        <property name="maximum">
+                         <number>9999</number>
+                        </property>
+                        <property name="value">
+                         <number>5</number>
+                        </property>
+                       </widget>
+                      </item>
+                      <item>
+                       <widget class="QLabel" name="label_62">
+                        <property name="text">
+                         <string>外径</string>
+                        </property>
+                       </widget>
+                      </item>
+                      <item>
+                       <widget class="QSpinBox" name="findCircle_radius_out">
+                        <property name="maximum">
+                         <number>9999</number>
+                        </property>
+                        <property name="value">
+                         <number>10</number>
+                        </property>
+                       </widget>
+                      </item>
+                      <item>
+                       <spacer name="horizontalSpacer_68">
+                        <property name="orientation">
+                         <enum>Qt::Horizontal</enum>
+                        </property>
+                        <property name="sizeHint" stdset="0">
+                         <size>
+                          <width>40</width>
+                          <height>20</height>
+                         </size>
+                        </property>
+                       </spacer>
+                      </item>
+                     </layout>
+                    </item>
                    </layout>
                   </item>
                   <item>
@@ -3835,7 +3966,7 @@
                           </widget>
                          </item>
                          <item>
-                          <widget class="QLineEdit" name="findLine_firstX_2">
+                          <widget class="QLineEdit" name="findCircle_CenterX">
                            <property name="enabled">
                             <bool>false</bool>
                            </property>
@@ -3855,7 +3986,7 @@
                           </widget>
                          </item>
                          <item>
-                          <widget class="QLineEdit" name="findLine_firstY_2">
+                          <widget class="QLineEdit" name="findCircle_CenterY">
                            <property name="enabled">
                             <bool>false</bool>
                            </property>
@@ -3879,7 +4010,7 @@
                           </widget>
                          </item>
                          <item>
-                          <widget class="QLineEdit" name="findLine_angle_2">
+                          <widget class="QLineEdit" name="findCircle_radius">
                            <property name="enabled">
                             <bool>false</bool>
                            </property>
@@ -4186,8 +4317,8 @@
    <slot>on_deBugImage()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>1051</x>
-     <y>646</y>
+     <x>807</x>
+     <y>601</y>
     </hint>
     <hint type="destinationlabel">
      <x>461</x>
@@ -4202,8 +4333,8 @@
    <slot>on_deBugImage()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>1051</x>
-     <y>725</y>
+     <x>807</x>
+     <y>606</y>
     </hint>
     <hint type="destinationlabel">
      <x>461</x>
@@ -4218,8 +4349,8 @@
    <slot>on_deBugImage()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>1051</x>
-     <y>804</y>
+     <x>807</x>
+     <y>611</y>
     </hint>
     <hint type="destinationlabel">
      <x>461</x>
@@ -4234,8 +4365,8 @@
    <slot>on_deBugImage()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>1051</x>
-     <y>883</y>
+     <x>807</x>
+     <y>616</y>
     </hint>
     <hint type="destinationlabel">
      <x>461</x>
@@ -4250,8 +4381,8 @@
    <slot>on_deBugImage()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>828</x>
-     <y>644</y>
+     <x>757</x>
+     <y>601</y>
     </hint>
     <hint type="destinationlabel">
      <x>461</x>
@@ -4266,8 +4397,8 @@
    <slot>on_deBugImage()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>828</x>
-     <y>723</y>
+     <x>757</x>
+     <y>606</y>
     </hint>
     <hint type="destinationlabel">
      <x>461</x>
@@ -4282,8 +4413,8 @@
    <slot>on_deBugImage()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>828</x>
-     <y>802</y>
+     <x>757</x>
+     <y>611</y>
     </hint>
     <hint type="destinationlabel">
      <x>461</x>
@@ -4298,8 +4429,8 @@
    <slot>on_deBugImage()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>828</x>
-     <y>881</y>
+     <x>757</x>
+     <y>616</y>
     </hint>
     <hint type="destinationlabel">
      <x>461</x>
@@ -4314,12 +4445,12 @@
    <slot>setValue(int)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>781</x>
-     <y>857</y>
+     <x>773</x>
+     <y>617</y>
     </hint>
     <hint type="destinationlabel">
-     <x>1030</x>
-     <y>858</y>
+     <x>807</x>
+     <y>617</y>
     </hint>
    </hints>
   </connection>
@@ -4330,12 +4461,12 @@
    <slot>setValue(int)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>781</x>
-     <y>887</y>
+     <x>773</x>
+     <y>621</y>
     </hint>
     <hint type="destinationlabel">
-     <x>1030</x>
-     <y>888</y>
+     <x>807</x>
+     <y>621</y>
     </hint>
    </hints>
   </connection>
@@ -4346,12 +4477,12 @@
    <slot>setValue(int)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>1030</x>
-     <y>858</y>
+     <x>807</x>
+     <y>617</y>
     </hint>
     <hint type="destinationlabel">
-     <x>781</x>
-     <y>857</y>
+     <x>773</x>
+     <y>617</y>
     </hint>
    </hints>
   </connection>
@@ -4362,12 +4493,12 @@
    <slot>setValue(int)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>1030</x>
-     <y>888</y>
+     <x>807</x>
+     <y>621</y>
     </hint>
     <hint type="destinationlabel">
-     <x>781</x>
-     <y>887</y>
+     <x>773</x>
+     <y>621</y>
     </hint>
    </hints>
   </connection>
@@ -4378,8 +4509,8 @@
    <slot>on_deBugImage()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>781</x>
-     <y>887</y>
+     <x>773</x>
+     <y>621</y>
     </hint>
     <hint type="destinationlabel">
      <x>503</x>
@@ -4394,8 +4525,8 @@
    <slot>on_deBugImage()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>781</x>
-     <y>857</y>
+     <x>773</x>
+     <y>617</y>
     </hint>
     <hint type="destinationlabel">
      <x>503</x>
@@ -4411,7 +4542,7 @@
    <hints>
     <hint type="sourcelabel">
      <x>743</x>
-     <y>604</y>
+     <y>601</y>
     </hint>
     <hint type="destinationlabel">
      <x>503</x>
@@ -4426,8 +4557,8 @@
    <slot>on_deBugImage()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>819</x>
-     <y>604</y>
+     <x>764</x>
+     <y>601</y>
     </hint>
     <hint type="destinationlabel">
      <x>503</x>
@@ -4442,8 +4573,8 @@
    <slot>on_deBugImage()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>968</x>
-     <y>602</y>
+     <x>807</x>
+     <y>601</y>
     </hint>
     <hint type="destinationlabel">
      <x>503</x>
@@ -4458,8 +4589,8 @@
    <slot>on_kernelSet(int)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>934</x>
-     <y>603</y>
+     <x>800</x>
+     <y>602</y>
     </hint>
     <hint type="destinationlabel">
      <x>503</x>
@@ -4474,8 +4605,8 @@
    <slot>on_deBugImage()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>957</x>
-     <y>602</y>
+     <x>840</x>
+     <y>601</y>
     </hint>
     <hint type="destinationlabel">
      <x>503</x>
@@ -4490,8 +4621,8 @@
    <slot>on_deBugImage()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>957</x>
-     <y>630</y>
+     <x>840</x>
+     <y>606</y>
     </hint>
     <hint type="destinationlabel">
      <x>503</x>
@@ -4506,8 +4637,8 @@
    <slot>on_deBugImage()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>921</x>
-     <y>658</y>
+     <x>801</x>
+     <y>611</y>
     </hint>
     <hint type="destinationlabel">
      <x>503</x>
@@ -4522,8 +4653,8 @@
    <slot>on_deBugImage()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>957</x>
-     <y>602</y>
+     <x>840</x>
+     <y>601</y>
     </hint>
     <hint type="destinationlabel">
      <x>503</x>
@@ -4538,8 +4669,8 @@
    <slot>on_deBugImage()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>957</x>
-     <y>630</y>
+     <x>840</x>
+     <y>606</y>
     </hint>
     <hint type="destinationlabel">
      <x>503</x>
@@ -4554,8 +4685,8 @@
    <slot>on_deBugImage()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>921</x>
-     <y>658</y>
+     <x>801</x>
+     <y>611</y>
     </hint>
     <hint type="destinationlabel">
      <x>503</x>
@@ -4954,8 +5085,8 @@
    <slot>on_deBugImage()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>957</x>
-     <y>602</y>
+     <x>840</x>
+     <y>601</y>
     </hint>
     <hint type="destinationlabel">
      <x>812</x>
@@ -4970,8 +5101,8 @@
    <slot>on_deBugImage()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>957</x>
-     <y>630</y>
+     <x>840</x>
+     <y>606</y>
     </hint>
     <hint type="destinationlabel">
      <x>814</x>
@@ -4986,8 +5117,8 @@
    <slot>on_deBugImage()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>921</x>
-     <y>658</y>
+     <x>801</x>
+     <y>611</y>
     </hint>
     <hint type="destinationlabel">
      <x>816</x>
@@ -5002,8 +5133,8 @@
    <slot>on_deBugImage()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>957</x>
-     <y>602</y>
+     <x>840</x>
+     <y>601</y>
     </hint>
     <hint type="destinationlabel">
      <x>811</x>
@@ -5018,8 +5149,8 @@
    <slot>on_deBugImage()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>957</x>
-     <y>630</y>
+     <x>840</x>
+     <y>606</y>
     </hint>
     <hint type="destinationlabel">
      <x>981</x>
@@ -5034,8 +5165,8 @@
    <slot>on_deBugImage()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>921</x>
-     <y>658</y>
+     <x>801</x>
+     <y>611</y>
     </hint>
     <hint type="destinationlabel">
      <x>897</x>
@@ -5050,7 +5181,7 @@
    <slot>on_deBugImage()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>929</x>
+     <x>801</x>
      <y>602</y>
     </hint>
     <hint type="destinationlabel">
@@ -5066,7 +5197,7 @@
    <slot>on_deBugImage()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>929</x>
+     <x>801</x>
      <y>602</y>
     </hint>
     <hint type="destinationlabel">
@@ -5082,7 +5213,7 @@
    <slot>on_deBugImage()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>929</x>
+     <x>801</x>
      <y>602</y>
     </hint>
     <hint type="destinationlabel">
@@ -5178,8 +5309,8 @@
    <slot>on_deBugImage()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>961</x>
-     <y>621</y>
+     <x>801</x>
+     <y>601</y>
     </hint>
     <hint type="destinationlabel">
      <x>1060</x>
@@ -5194,8 +5325,8 @@
    <slot>on_deBugImage()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>934</x>
-     <y>649</y>
+     <x>801</x>
+     <y>606</y>
     </hint>
     <hint type="destinationlabel">
      <x>1060</x>
@@ -5210,8 +5341,8 @@
    <slot>on_deBugImage()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>955</x>
-     <y>677</y>
+     <x>801</x>
+     <y>611</y>
     </hint>
     <hint type="destinationlabel">
      <x>1060</x>
@@ -5226,8 +5357,8 @@
    <slot>on_deBugImage()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>880</x>
-     <y>647</y>
+     <x>775</x>
+     <y>606</y>
     </hint>
     <hint type="destinationlabel">
      <x>1060</x>
@@ -5242,8 +5373,8 @@
    <slot>on_deBugImage()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>880</x>
-     <y>675</y>
+     <x>775</x>
+     <y>611</y>
     </hint>
     <hint type="destinationlabel">
      <x>1060</x>
@@ -5370,8 +5501,8 @@
    <slot>on_roiPageChange(int)</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>1025</x>
-     <y>620</y>
+     <x>1051</x>
+     <y>621</y>
     </hint>
     <hint type="destinationlabel">
      <x>1060</x>
@@ -5418,8 +5549,8 @@
    <slot>on_deBugImage()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>900</x>
-     <y>643</y>
+     <x>953</x>
+     <y>650</y>
     </hint>
     <hint type="destinationlabel">
      <x>1086</x>
@@ -5434,8 +5565,8 @@
    <slot>on_deBugImage()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>887</x>
-     <y>662</y>
+     <x>959</x>
+     <y>678</y>
     </hint>
     <hint type="destinationlabel">
      <x>1086</x>
@@ -5466,8 +5597,8 @@
    <slot>on_deBugImage()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>922</x>
-     <y>655</y>
+     <x>953</x>
+     <y>650</y>
     </hint>
     <hint type="destinationlabel">
      <x>1198</x>
@@ -5482,8 +5613,8 @@
    <slot>on_deBugImage()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>906</x>
-     <y>696</y>
+     <x>965</x>
+     <y>678</y>
     </hint>
     <hint type="destinationlabel">
      <x>1211</x>
@@ -5498,8 +5629,8 @@
    <slot>on_deBugImage()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>915</x>
-     <y>732</y>
+     <x>893</x>
+     <y>734</y>
     </hint>
     <hint type="destinationlabel">
      <x>1168</x>
@@ -5508,13 +5639,13 @@
    </hints>
   </connection>
   <connection>
-   <sender>findLine_strength_2</sender>
+   <sender>findCircle_strength</sender>
    <signal>valueChanged(int)</signal>
    <receiver>SRDemoClass</receiver>
    <slot>on_deBugImage()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>914</x>
+     <x>940</x>
      <y>623</y>
     </hint>
     <hint type="destinationlabel">
@@ -5524,14 +5655,14 @@
    </hints>
   </connection>
   <connection>
-   <sender>findLine_polarity_2</sender>
+   <sender>findCircle_polarity</sender>
    <signal>currentIndexChanged(int)</signal>
    <receiver>SRDemoClass</receiver>
    <slot>on_deBugImage()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>914</x>
-     <y>680</y>
+     <x>953</x>
+     <y>654</y>
     </hint>
     <hint type="destinationlabel">
      <x>1574</x>
@@ -5540,14 +5671,14 @@
    </hints>
   </connection>
   <connection>
-   <sender>findLine_type_2</sender>
+   <sender>findCircle_type</sender>
    <signal>currentIndexChanged(int)</signal>
    <receiver>SRDemoClass</receiver>
    <slot>on_deBugImage()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>915</x>
-     <y>730</y>
+     <x>959</x>
+     <y>686</y>
     </hint>
     <hint type="destinationlabel">
      <x>1639</x>
@@ -5584,6 +5715,86 @@
     <hint type="destinationlabel">
      <x>1099</x>
      <y>521</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>findLine_show</sender>
+   <signal>clicked()</signal>
+   <receiver>SRDemoClass</receiver>
+   <slot>on_deBugImage()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>982</x>
+     <y>732</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>1242</x>
+     <y>749</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>findLine_direction</sender>
+   <signal>currentIndexChanged(int)</signal>
+   <receiver>SRDemoClass</receiver>
+   <slot>on_deBugImage()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>913</x>
+     <y>704</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>1261</x>
+     <y>700</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>findCircle_distance</sender>
+   <signal>valueChanged(int)</signal>
+   <receiver>SRDemoClass</receiver>
+   <slot>on_deBugImage()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>875</x>
+     <y>711</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>1352</x>
+     <y>645</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>findCircle_show</sender>
+   <signal>clicked()</signal>
+   <receiver>SRDemoClass</receiver>
+   <slot>on_deBugImage()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>968</x>
+     <y>707</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>1310</x>
+     <y>679</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>findCircle_radius_in</sender>
+   <signal>valueChanged(int)</signal>
+   <receiver>SRDemoClass</receiver>
+   <slot>on_deBugImage()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>857</x>
+     <y>733</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>1279</x>
+     <y>723</y>
     </hint>
    </hints>
   </connection>

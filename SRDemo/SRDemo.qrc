@@ -1,4 +1,6 @@
 <RCC>
-    <qresource prefix="SRDemo">
-    </qresource>
+  <qresource prefix="SRDemo">
+    <file>image/ico.png</file>
+    <file>image/logo.png</file>
+  </qresource>
 </RCC>

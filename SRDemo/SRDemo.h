@@ -67,7 +67,9 @@ private:
 	void histogramEqualization(Mat input, Mat &output);//直方图均衡
 	void imageOperation(Mat input, Mat &output);//图像操作
 	void drawROI(int);//画出ROI
-	void drawCross(cv::Point, Mat &);//画十字标
+	void drawCross(cv::Point,cv::Point,cv::Point, Mat &, Scalar);//画十字标
+	void drawFindLine(Mat&,SRFindLine&, SRroiRect&,int type);//画找直线结果
+	void drawFindCircle(Mat&, SRFindCircle&, SRroiCircle&,int distance);//画找圆结果
 	void findPoint();//找点
 	void findLine();//找直线
 	void findCircle();//找圆

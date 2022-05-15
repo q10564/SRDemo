@@ -153,14 +153,30 @@ eg:
 		* @param[in] distance 搜索间隔
 		*/
 		void findLine(Mat image, SRroiRect roi, int strength, int polarity, int type, int directionint, int distance);
-		vector<cv::Point> effectivePoint;
+		vector<cv::Point> edgePoints;
+		vector<cv::Point> effectivePoints;
 		vector<cv::Point> linePoint;
 		double angle;
+
 	};
 	/*找圆*/
 	class SRFindCircle
 	{
-
+	public:
+		/*
+		* 找圆
+		* @param[in] image 输入图像
+		* @param[in] roi 圆ROI
+		* @param[in] strength 边缘强度
+		* @param[in] polarity 边缘极性 0黑->白、1白->黑 2所有
+		* @param[in] type 边缘类型 0第一条直线 1最后一条直线 2最佳直线
+		* @param[in] distance 搜索间隔
+		*/
+		void findCircle(Mat image,SRroiCircle roi,int syrength, int polarity, int type, int distance);
+		vector<cv::Point> edgePoints;
+		vector<cv::Point> effectivePoints;
+		cv::Point center;
+		double radius;
 	};
 	/*
 	9点标定函数：calibration(vector<cv::Point2f> world, vector<cv::Point2f> pix, calibResult calib)
