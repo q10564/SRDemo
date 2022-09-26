@@ -178,6 +178,52 @@ eg:
 		cv::Point center;
 		double radius;
 	};
+	/*单个Blob结果*/
+	struct BlobInf
+	{
+		cv::Point center = cv::Point(0,0);//中心位置
+		std::vector<cv::Point> pointgroup;//轮廓点集
+		double area = 0;//面积
+		double arcLength = 00;//轮廓周长
+		int width = 0;//宽度
+		int height = 0;//长度
+	};
+	struct BlobControl
+	{
+		SimpleBlobDetector::Params params;
+	};
+	/*Blob分析*/
+	class SRFindBlob
+	{
+	public:
+		/*
+		*/
+		void findBlob(cv::Mat&, cv::Mat&, BlobControl params);
+		std::vector<BlobInf> result;
+	};
+	/*边缘提取*/
+	class SRFindContour
+	{
+	public:
+		std::vector<std::vector<cv::Point>> result;
+		cv::Mat outImage;
+		/*
+		* 轮廓提取
+		* @param[in] image 输入图像
+		* @param[in] roi 矩形ROI
+		* @param[in] filter 滤波处理
+		* @param[in] size 滤波系数
+		* @param[in] min 低阈值
+		* @param[in] max 高阈值
+		* @param[in] minLength 最小轮廓
+		* @param[in] maxLength 最大轮廓
+		*/
+		void findContour(cv::Mat & image, SRroiRect roi, int filter, int size, int min, int max, int minLength, int maxLength,int zoom);
+	private:
+		//缩放轮廓
+		void ContoursZomm(int zoom);
+		
+	};
 	/*
 	9点标定函数：calibration(vector<cv::Point2f> world, vector<cv::Point2f> pix, calibResult calib)
 	参数：

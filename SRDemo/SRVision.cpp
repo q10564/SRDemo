@@ -505,7 +505,7 @@ void SRVision::SRCamera::initCamera()
 
 void SRVision::SRCamera::useCamera(int index)
 {
-	capture = cameraList[index];
+	capture = cameraList[index]; 
 	capture.isOpened();
 }
 
@@ -1284,4 +1284,161 @@ void SRVision::SRFindCircle::findCircle(Mat image, SRroiCircle roi, int strength
 	cv::RotatedRect rec = fitEllipse(this->effectivePoints);
 	this->center = rec.center;
 	this->radius = (rec.size.height/2 + rec.size.width/2)/2;
+}
+
+void SRVision::SRFindBlob::findBlob(cv::Mat &img,cv::Mat &out, BlobControl params)
+{
+	this->result.clear();
+	Mat output  = Mat::zeros(img.size(), CV_32S);
+	Mat deImage = img.clone();
+	if (deImage.type() == CV_8UC1)
+	{
+		cvtColor(deImage, deImage, COLOR_GRAY2BGR);
+	}
+	Mat dst = Mat::zeros(deImage.size(), deImage.type());
+	Mat stats, centroids;
+	int num_labels = cv::connectedComponentsWithStats(img, output, stats, centroids, 8, 4);
+
+	for (size_t row = 0; row < deImage.rows; row++) 
+	{
+		for (size_t col = 0; col < deImage.cols; col++) 
+		{
+			if (output.at<int>(row, col) == 0)
+				continue;
+			dst.at<Vec3b>(row, col) = Vec3b(0, 255, 0);
+		}
+	}
+	//获取统计信息
+	/*
+	其中stats包括以下枚举类型数据信息： 
+    CC_STAT_LEFT   组件的左上角点像素点坐标的X位置
+    CC_STAT_TOP    组件的左上角点像素点坐标的Y位置
+    CC_STAT_WIDTH  组件外接矩形的宽度 
+    CC_STAT_HEIGHT 组件外接矩形的高度
+    CC_STAT_AREA   当前连通组件的面积（像素单位）
+	*/
+	for (int i = 1; i < num_labels; i++)
+	{
+		Vec2d pt = centroids.at<Vec2d>(i, 0);
+		int x = stats.at<int>(i, CC_STAT_LEFT);
+		int y = stats.at<int>(i, CC_STAT_TOP);
+		int width = stats.at<int>(i, CC_STAT_WIDTH);
+		int height = stats.at<int>(i, CC_STAT_HEIGHT);
+		int area = stats.at<int>(i, CC_STAT_AREA);
+		circle(dst, Point(pt[0], pt[1]), 2, Scalar(0, 0, 255), -1, 8, 0);
+		rectangle(dst, Rect(x, y, width, height), Scalar(0, 0, 255), 1, 8, 0);
+	}
+	imshow("连通域标记图像", dst);
+
+}
+
+/*
+		* 轮廓提取
+		* @param[in] image 输入图像
+		* @param[in] roi 矩形ROI
+		* @param[in] filter 滤波处理
+		* @param[in] size 滤波系数
+		* @param[in] min 低阈值
+		* @param[in] max 高阈值
+		* @param[in] minLength 最小轮廓
+		* @param[in] maxLength 最大轮廓
+		*/
+void SRVision::SRFindContour::findContour(cv::Mat & image, SRroiRect roi, int filter, int size, int min, int max, int minLength, int maxLength,int zoom)
+{
+	if (roi.width == 0 || roi.height == 0)
+	{
+		return;
+	}
+	cv::Mat src = image(Rect(roi.center.x- roi.width / 2, roi.center.y - roi.height / 2, roi.width, roi.height));
+	//cv::imshow("src", src);
+	Mat resultImg;
+	this->result.clear();
+	switch (filter)//图形滤波
+	{
+	case 0://canny滤波
+	{
+		cv::Canny(src, resultImg, min, max, size);
+		break;
+	}
+	case 1://sobel滤波
+	{
+		Mat rX, rY;
+		cv::Sobel(src, rX, src.depth(), 1, 0, size);
+		cv::Sobel(src, rY, src.depth(), 0, 1, size);
+		//resultImg = rX + rY;
+		//梯度相加
+		cv::addWeighted(rX, 0.5, rY, 0.5, 0, resultImg);
+		break;
+	}
+	default:
+		break;
+	}
+	this->outImage = resultImg.clone();
+	cv::findContours(resultImg, this->result, cv::RETR_LIST, cv::CHAIN_APPROX_NONE);
+	for (vector<vector<cv::Point>>::iterator it = result.begin(); it != result.end();/**/)
+	{
+		if ((*it).size() > maxLength || (*it).size() < minLength)
+		{
+			it = result.erase(it);
+		}
+		else
+		{
+			++it;
+		}
+	}
+	//间隔取点
+	for (vector<vector<cv::Point>>::iterator it = result.begin(); it != result.end(); it++)
+	{
+		int i = 0;
+		for (vector<cv::Point>::iterator itt = (*it).begin(); itt != (*it).end(); /**/)
+		{
+			if (i % 3 != 0)
+			{
+				itt = (*it).erase(itt);
+			}
+			else
+			{
+				(*itt).x = (*itt).x + int(roi.center.x - roi.width / 2);
+				(*itt).y = (*itt).y + int(roi.center.y - roi.height / 2);
+				++itt;
+			}
+			i++;
+		}
+	}
+	//调用缩放轮廓
+	ContoursZomm(zoom);
+}
+//缩放轮廓
+void SRVision::SRFindContour::ContoursZomm(int zoom)
+{
+	double A, B, C, xf, yf;
+	cv::Point p1, p2, p3;
+	vector<cv::Point> endResult;
+	for (vector<vector<cv::Point>>::iterator it = result.begin(); it != result.end(); it++)
+	{
+		endResult.clear();
+		for (vector<cv::Point>::iterator itt = (*it).begin(); itt != (*it).end(); itt++)
+		{
+			if (itt == (*it).begin())
+			{
+				p1 = (*itt);
+				continue;
+			}
+			else if (itt == (*it).end())
+				break;
+			p2 = (*itt);
+			//Ax+By=C; 法向为(A,B)
+			A = p2.y - p1.y;
+			B = p1.x - p2.x;
+			C = p2.x*p1.y - p1.x*p2.y;
+			//法向归一化
+			xf = A / sqrt(A*A + B * B);
+			yf = B / sqrt(A*A + B * B);
+			p3.x = (*itt).x + xf * zoom;
+			p3.y = (*itt).y + yf * zoom;
+			p1 = p1 = (*itt);
+			endResult.push_back(p3);
+		}
+		(*it) = endResult;
+	}
 }

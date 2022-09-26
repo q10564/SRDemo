@@ -50,6 +50,8 @@ private:
 	SRFindPoint fpoint;
 	SRFindLine fline;
 	SRFindCircle fcircle;
+	SRFindBlob fblob;
+	SRFindContour fcontour;
 	vector<SRroi> roiGroup;
 private:
 	/*通道提取*/
@@ -70,9 +72,12 @@ private:
 	void drawCross(cv::Point,cv::Point,cv::Point, Mat &, Scalar);//画十字标
 	void drawFindLine(Mat&,SRFindLine&, SRroiRect&,int type);//画找直线结果
 	void drawFindCircle(Mat&, SRFindCircle&, SRroiCircle&,int distance);//画找圆结果
+	void drawPointGroup(Mat&, std::vector<std::vector<cv::Point>> group);
 	void findPoint();//找点
 	void findLine();//找直线
 	void findCircle();//找圆
+	void findBlob();//Blob分析
+	void findContours();//轮廓提取
 
 	
 protected:
@@ -121,5 +126,6 @@ public slots:
 	void on_findPoint();//直线ROI找点
 	void on_findLine();//矩形ROI找直线
 	void on_findCircle();//环形ROI找圆
-
+	void on_findBlob();//全局Blob
+	void on_findContours();//轮廓提取
 };

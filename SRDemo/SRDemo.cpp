@@ -448,6 +448,31 @@ void SRDemo::drawFindCircle(Mat &image, SRFindCircle &circle, SRroiCircle &roi, 
 	cv::circle(im,circle.center, circle.radius,Scalar(0, 255, 0), 1,8);
 	refreshImage(im);
 }
+/*绘制二维点数组*/
+void SRDemo::drawPointGroup(Mat &image, std::vector<std::vector<cv::Point>> group)
+{
+	Mat im = image.clone();
+	if (currentImage.type() == CV_8UC1)
+	{
+		cvtColor(image, im, COLOR_GRAY2BGR);
+	}
+	for (vector<vector<cv::Point>>::iterator it = group.begin(); it != group.end(); it++)
+	{
+		int R = rand() % 256;
+		int G = rand() % 256;
+		int B = rand() % 256;
+		cv::Scalar color(R, G, B);
+		for (vector<cv::Point>::iterator itt = (*it).begin(); itt != (*it).end(); itt++)
+		{
+			//cv::circle(im, (*itt), 1, color, 1, 8, 0);
+			//绘制横线
+			line(im, cv::Point((*itt).x - 2 / 2, (*itt).y), cv::Point((*itt).x + 2 / 2, (*itt).y), color, 1, 8, 0);
+			//绘制竖线
+			line(im, cv::Point((*itt).x, (*itt).y - 2 / 2), cv::Point((*itt).x, (*itt).y + 2 / 2), color, 1, 8, 0);
+		}
+	}
+	refreshImage(im);
+}
 
 void SRDemo::findPoint()
 {
@@ -507,6 +532,30 @@ void SRDemo::findCircle()
 	
 	drawFindCircle(currentImage, fcircle, cir, distance);
 
+}
+
+void SRDemo::findBlob()
+{
+	SRVision::BlobControl c;
+
+	fblob.findBlob(currentImage, currentImage, c);
+}
+
+void SRDemo::findContours()
+{
+	SRroiRect rect;
+	int filter = ui.findContours_filter->currentIndex();
+	int size = ui.findContours_filterNum->value();
+	int min = ui.findContours_low->value();
+	int max = ui.findContours_high->value();
+	int minLength = ui.findContours_min->value();
+	int maxLength = ui.findContours_max->value();
+	int zoom = ui.findContours_zoom->value();//缩放/外扩
+	rect.center = cv::Point(int(roiStart.x() + roiEnd.x()) / 2, int(roiStart.y() + roiEnd.y()) / 2);
+	rect.height = abs(roiStart.x() - roiEnd.x());
+	rect.width = abs(roiStart.y() - roiEnd.y());
+	fcontour.findContour(currentImage, rect, filter, size, min, max, minLength, maxLength, zoom);
+	drawPointGroup(currentImage,fcontour.result);
 }
 
 void SRDemo::on_inputClicked()
@@ -641,7 +690,7 @@ void SRDemo::on_calib()
 	//求图像中轮廓
 	vector <vector<cv::Point>> contours;
 	vector<cv::Vec4i> hireachy;
-	findContours(dst, contours, hireachy, cv::RETR_TREE, cv::CHAIN_APPROX_SIMPLE, cv::Point());
+	cv::findContours(dst, contours, hireachy, cv::RETR_TREE, cv::CHAIN_APPROX_SIMPLE, cv::Point());
 
 	//循环轮廓，将符合条件得轮廓拟合圆
 	for (size_t i = 0; i < contours.size(); i++)
@@ -864,6 +913,16 @@ void SRDemo::on_deBugImage()
 	case 17://找圆
 	{
 		findCircle();
+		break;
+	}
+	case 18://Blob分析
+	{
+		findBlob();
+		break;
+	}
+	case 19://轮廓提取
+	{
+		findContours();
 		break;
 	}
 	default:break;
@@ -1253,6 +1312,10 @@ void SRDemo::on_getLeftMovePos(QPoint pos)
 		ui.roi_circle_radius_out->setValue(radius);
 		refreshImage(image);
 	}
+	if (ui.stackedWidget->currentWidget() == ui.page_findContours)
+	{
+		drawROI(1);
+	}
 }
 /*获取左键按下的左后一个坐标*/
 void SRDemo::on_getLeftEndPos(QPoint pos)
@@ -1269,6 +1332,10 @@ void SRDemo::on_getLeftEndPos(QPoint pos)
 	if (ui.stackedWidget->currentWidget() == ui.page_findCircle)
 	{
 		findCircle();
+	}
+	if (ui.stackedWidget->currentWidget() == ui.page_findContours)
+	{
+		findContours();
 	}
 
 }
@@ -1334,6 +1401,33 @@ void SRDemo::on_findCircle()
 		return;
 	}
 	ui.stackedWidget->setCurrentWidget(ui.page_findCircle);
+	connect(ui.label_image, &SRLabel::sendLeftStartPos, this, &SRDemo::on_getLeftStartPos);
+	connect(ui.label_image, &SRLabel::sendLeftEndPos, this, &SRDemo::on_getLeftEndPos);
+	connect(ui.label_image, &SRLabel::sendLeftMovePos, this, &SRDemo::on_getLeftMovePos);
+}
+void SRDemo::on_findBlob()
+{
+	if (currentImage.type() != CV_8UC1)
+	{
+		msgBox.setWindowTitle(tr("error"));
+		msgBox.setText(u8"该图像不为灰度图像");
+		msgBox.exec();
+		debugFlag = false;
+		return;
+	}
+	ui.stackedWidget->setCurrentWidget(ui.page_findBlob);
+}
+void SRDemo::on_findContours()
+{
+	if (currentImage.type() != CV_8UC1)
+	{
+		msgBox.setWindowTitle(tr("error"));
+		msgBox.setText(u8"该图像不为灰度图像");
+		msgBox.exec();
+		debugFlag = false;
+		return;
+	}
+	ui.stackedWidget->setCurrentWidget(ui.page_findContours);
 	connect(ui.label_image, &SRLabel::sendLeftStartPos, this, &SRDemo::on_getLeftStartPos);
 	connect(ui.label_image, &SRLabel::sendLeftEndPos, this, &SRDemo::on_getLeftEndPos);
 	connect(ui.label_image, &SRLabel::sendLeftMovePos, this, &SRDemo::on_getLeftMovePos);
