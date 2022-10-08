@@ -1333,18 +1333,21 @@ void SRVision::SRFindBlob::findBlob(cv::Mat &img,cv::Mat &out, BlobControl param
 }
 
 /*
-		* 轮廓提取
-		* @param[in] image 输入图像
-		* @param[in] roi 矩形ROI
-		* @param[in] filter 滤波处理
-		* @param[in] size 滤波系数
-		* @param[in] min 低阈值
-		* @param[in] max 高阈值
-		* @param[in] minLength 最小轮廓
-		* @param[in] maxLength 最大轮廓
-		*/
-void SRVision::SRFindContour::findContour(cv::Mat & image, SRroiRect roi, int filter, int size, int min, int max, int minLength, int maxLength,int zoom)
+* 轮廓提取
+* @param[in] image 输入图像
+* @param[in] roi 矩形ROI
+* @param[in] filter 滤波处理
+* @param[in] size 滤波系数
+* @param[in] min 低阈值
+* @param[in] max 高阈值
+* @param[in] minLength 最小轮廓
+* @param[in] maxLength 最大轮廓
+* @param[in] step 取点间隔
+* @param[in] smooth 平滑次数
+*/
+void SRVision::SRFindContour::findContour(cv::Mat & image, SRroiRect roi, int filter, int size, int min, int max, int minLength, int maxLength,int zoom, int step, int smooth)
 {
+	this->result.resize(0);
 	if (roi.width == 0 || roi.height == 0)
 	{
 		return;
@@ -1374,7 +1377,7 @@ void SRVision::SRFindContour::findContour(cv::Mat & image, SRroiRect roi, int fi
 		break;
 	}
 	this->outImage = resultImg.clone();
-	cv::findContours(resultImg, this->result, cv::RETR_LIST, cv::CHAIN_APPROX_NONE);
+	cv::findContours(resultImg, this->result, cv::RETR_EXTERNAL, cv::CHAIN_APPROX_NONE);
 	for (vector<vector<cv::Point>>::iterator it = result.begin(); it != result.end();/**/)
 	{
 		if ((*it).size() > maxLength || (*it).size() < minLength)
@@ -1392,7 +1395,7 @@ void SRVision::SRFindContour::findContour(cv::Mat & image, SRroiRect roi, int fi
 		int i = 0;
 		for (vector<cv::Point>::iterator itt = (*it).begin(); itt != (*it).end(); /**/)
 		{
-			if (i % 3 != 0)
+			if (i % step != 0)
 			{
 				itt = (*it).erase(itt);
 			}
@@ -1405,40 +1408,256 @@ void SRVision::SRFindContour::findContour(cv::Mat & image, SRroiRect roi, int fi
 			i++;
 		}
 	}
+	//调用轮廓平滑
+	int i = smooth;
+	while (i--)
+	{
+		FilterContour();
+	}
 	//调用缩放轮廓
 	ContoursZomm(zoom);
+	//点集优化(主要优化缩放后点集扎堆问题)
+	OptimizeContour();//待完成
 }
 //缩放轮廓
 void SRVision::SRFindContour::ContoursZomm(int zoom)
 {
+	if (zoom == 0)
+		return;
 	double A, B, C, xf, yf;
-	cv::Point p1, p2, p3;
+	cv::Point p1, p2, p3, p4;
+	//-------------------------------//
+	// ↑  ↑  ↑////p1,p2,p3在数据中的位置///
+	// p1  p2  p3/////////////////
 	vector<cv::Point> endResult;
 	for (vector<vector<cv::Point>>::iterator it = result.begin(); it != result.end(); it++)
 	{
-		endResult.clear();
+		endResult.resize(0);
 		for (vector<cv::Point>::iterator itt = (*it).begin(); itt != (*it).end(); itt++)
 		{
 			if (itt == (*it).begin())
 			{
 				p1 = (*itt);
+				p2 = (*itt);
+				p3 = (*itt);
 				continue;
 			}
-			else if (itt == (*it).end())
-				break;
-			p2 = (*itt);
-			//Ax+By=C; 法向为(A,B)
-			A = p2.y - p1.y;
-			B = p1.x - p2.x;
-			C = p2.x*p1.y - p1.x*p2.y;
-			//法向归一化
-			xf = A / sqrt(A*A + B * B);
-			yf = B / sqrt(A*A + B * B);
-			p3.x = (*itt).x + xf * zoom;
-			p3.y = (*itt).y + yf * zoom;
-			p1 = p1 = (*itt);
-			endResult.push_back(p3);
+			else if (p1 == p3)
+			{
+				p2 = (*itt);
+				p3 = (*itt);
+				continue;
+			}
+			else
+			{
+				p3 = (*itt);
+			}
+			//向量法 向量p1->p2(x1,y1) p3->p2(x2,y2) 偏移向量=(x1+x2,y1+y2)
+			double px = (p1.x - p2.x) + (p3.x - p2.x);
+			double py = (p1.y - p2.y) + (p3.y - p2.y);
+			//归一化
+			double fmod = px * px + py * py;
+			if (fmod != 0)
+			{
+				xf = px * sqrt(fmod) / fmod;
+				yf = py * sqrt(fmod) / fmod;
+				p4.x = p2.x + xf * zoom;
+				p4.y = p2.y + yf * zoom;
+				endResult.push_back(p4);
+			}
+			else
+			{
+				//法向法，依次将每个点在相邻两点的法向上平移
+			//Ax+By+C=0; 法向为(B,-A)
+				A = (p3.y - p1.y);
+				B = (p1.x - p3.x);
+				C = p3.x*p1.y - p1.x*p3.y;
+				//法向归一化（xf,yf）
+				double fmod = A * A + B * B;
+				xf = A * sqrt(fmod) / fmod;
+				yf = B * sqrt(fmod) / fmod;
+				p4.x = p2.x + xf * zoom;
+				p4.y = p2.y + yf * zoom;
+				endResult.push_back(p4);
+			}
+			//内缩结束,p1,p2点后移
+			p1 = p2;
+			p2 = p3;
+			
 		}
 		(*it) = endResult;
 	}
+}
+//轮廓平滑
+void SRVision::SRFindContour::FilterContour()
+{
+	cv::Point p1, p2, p3, p4;
+	//-------------------------------//
+	// ↑  ↑  ↑////p1,p2,p3在数据中的位置///
+	// p1  p2  p3/////////////////
+	vector<cv::Point> endResult;
+	for (vector<vector<cv::Point>>::iterator it = result.begin(); it != result.end(); it++)
+	{
+		endResult.resize(0);
+		for (vector<cv::Point>::iterator itt = (*it).begin(); itt != (*it).end(); itt++)
+		{
+			if (itt == (*it).begin())
+			{
+				p1 = (*itt);
+				p2 = (*itt);
+				p3 = (*itt);
+				endResult.push_back(p1);
+				continue;
+			}
+			else if (p1 == p3)
+			{
+				p2 = (*itt);
+				p3 = (*itt);
+				continue;
+			}
+			else
+			{
+				p3 = (*itt);
+			}
+			p4.x = (p1.x + p2.x + p3.x) / 3;
+			p4.y = (p1.y + p2.y + p3.y) / 3;
+			endResult.push_back(p4);
+			if (itt == (*it).end())
+			{
+				endResult.push_back(p3);
+			}
+			p1 = p2;
+			p2 = p3;
+		}
+		(*it) = endResult;
+	}
+}
+
+void SRVision::SRFindContour::OptimizeContour()
+{
+
+}
+//检查结果是否存在并插入
+void SRVision::SRMatch::checkValkue(MatchValue v0)
+{
+	if (this->result.empty())
+	{
+		this->result.push_back(v0);
+		return;
+	}
+	for (auto &v : this->result)
+	{
+		if (abs(v.Loc.x - v0.Loc.x) < 10)
+			if (abs(v.Loc.y - v0.Loc.y) < 10)
+				if (v.Value < v0.Value)
+				{
+					v = v0;
+					return;
+				}
+				else
+				{
+					return;
+				}
+	}
+	this->result.push_back(v0);
+}
+//生成匹配的结果图像
+void SRVision::SRMatch::buildResultImg()
+{
+	if (this->result.empty())
+		return;
+	for (auto &v : this->result)
+	{
+		cv::Point pLeftUp = cv::Point(v.Loc.x + this->diffCols / 2, v.Loc.y + this->diffRows / 2);
+		cv::Point pRightDowm = cv::Point(pLeftUp.x + this->templateImg.cols, pLeftUp.y + this->templateImg.rows);
+		cv::Point pLeftDowm = cv::Point(pLeftUp.x, pRightDowm.y);
+		cv::Point pRightUp = cv::Point(pRightDowm.x, pLeftUp.y);
+		cv::Point pCenter = cv::Point(pLeftUp.x + round(this->templateImg.cols / 2), pLeftUp.y + round(this->templateImg.rows / 2));
+		Point point[4] = { pLeftUp,pRightDowm,pLeftDowm,pRightUp };
+		Point rpoint[4] = { cv::Point(0,0) };
+		double angle = v.Angle * CV_PI / 180;
+		for (int i = 0; i < 4; i++)
+		{
+			int offsetX = point[i].x - pCenter.x;
+			int offsetY = point[i].y - pCenter.y;
+			rpoint[i].x = round(offsetX * cos(angle) + offsetY * sin(angle) + pCenter.x);
+			rpoint[i].y = round(-offsetX * sin(angle)+ offsetY * cos(angle) + pCenter.y);
+		}
+		cv::Point rLU = rpoint[0], rRD = rpoint[1], rLD = rpoint[2], rRU = rpoint[3];
+		line(this->resultImg, rLU, rRU, Scalar(0, 255, 0), 1, 4);
+		line(this->resultImg, rRU, rRD, Scalar(0, 255, 0), 1, 4);
+		line(this->resultImg, rRD, rLD, Scalar(0, 255, 0), 1, 4);
+		line(this->resultImg, rLD, rLU, Scalar(0, 255, 0), 1, 4);
+ 		circle(this->resultImg, pCenter, 2, Scalar(0, 255, 0), -1);//画点
+	}
+}
+/*
+		* 模板匹配（旋转模板依次匹配）
+		* @param[in] image 输入图像
+		* @param[in] templat 模板图像
+		* @param[in] level 金字塔层级
+		* @param[in] startAngle 开始角度
+		* @param[in] endAngle 结束角度
+		* @param[in] angelStep 角度步长
+		* @param[in] grade 最小匹配分数
+		*/
+void SRVision::SRMatch::templateMatch(cv::Mat& image, cv::Mat& temp, int level, int startAngle, int endAngle, int angleStep, int grade, int count)
+{
+	this->result.clear();
+	this->resultImg = Mat::zeros(image.rows, image.cols, CV_8UC3);
+	if (temp.rows > image.rows || temp.cols > image.cols)
+		return;
+	vector<Mat> channels;
+	for (int i = 0; i < 3; i++)
+	{
+		channels.push_back(image);
+	}
+	merge(channels, this->resultImg);
+	for (int i = startAngle; i < endAngle; i += angleStep)
+	{
+		/*建立掩膜 掩膜灰度为0的部分匹配不起作用
+		方法有两种
+		1.先旋转、将旋转后的黑边剔除做mask。会损失一部分模板信息
+		2.放大图像尺寸再旋转。匹配时使用mask，不丢失模板信息
+		本次采用第二种
+		*/
+		//扩大模板，边界以0填充，大小为根号下模板尺寸的一半
+		Mat mask, rotaTemp;
+		int top = (sqrt(temp.rows*temp.rows + temp.cols *temp.cols) - temp.rows)/ 2 ;
+		int bottom = (sqrt(temp.rows * temp.rows + temp.cols * temp.cols) - temp.rows) / 2;
+		int left = (sqrt(temp.rows * temp.rows + temp.cols * temp.cols) - temp.cols) / 2;
+		int right = (sqrt(temp.rows * temp.rows + temp.cols * temp.cols) - temp.cols) / 2;
+		cv::copyMakeBorder(temp, rotaTemp, top, bottom, left, right, cv::BORDER_ISOLATED);
+		//旋转
+		rotaTemp = getRotationImage(rotaTemp, i);
+		//获取旋转后图片放大了多少
+		this->diffRows = rotaTemp.rows - temp.rows;
+		this->diffCols = rotaTemp.cols - temp.cols;
+		//获得mask
+		//cvtColor(rotaTemp, mask, COLOR_BGR2GRAY);
+		threshold(rotaTemp, mask, 2, 255, THRESH_BINARY);
+		//cv::imshow("temp", rotaTemp);
+		//cv::imshow("mask", mask);
+		//匹配	
+		double minValue, maxValue;
+		cv::Point minLoc, maxLoc;
+		int width = image.cols - rotaTemp.cols + 1;  //result 宽度
+		int height = image.rows - rotaTemp.rows + 1; //result 高度
+		Mat res(height, width, CV_32FC1); //创建结果映射图像
+		cv::matchTemplate(image, rotaTemp, res, cv::TM_CCOEFF_NORMED, mask);
+	
+		//获取匹配结果
+		cv::minMaxLoc(res, &minValue, &maxValue, &minLoc, &maxLoc);
+		maxValue = round(maxValue * 100);//取前两位
+		MatchValue value(maxLoc, maxValue, i);
+		//检查并插入结果 
+		if(maxValue > grade)
+			checkValkue(value);
+	}
+	//生成结果图像
+	buildResultImg();
+}
+void SRVision::SRMatch::setTemplate(cv::Mat & image, SRroiRect roi)
+{
+	this->templateImg = image;
 }

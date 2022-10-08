@@ -13,6 +13,7 @@
 #include<QSettings>
 #include<QPainter>
 
+
 using namespace SRVision;
 cv::Mat QImageToMat(QImage image);
 QImage MatToQImage(const cv::Mat& mat);
@@ -53,9 +54,9 @@ private:
 	SRFindBlob fblob;
 	SRFindContour fcontour;
 	vector<SRroi> roiGroup;
+	SRMatch fmatch;
 private:
-	/*通道提取*/
-	void extraction(Mat input, Mat &output);
+	void extraction(Mat input, Mat &output);	/*通道提取*/
 	void threshold(Mat input, Mat &output);//二值化
 	void kernel(Mat input, Mat &output);//自定义滤波核
 	void erod(Mat input, Mat &output);// 腐蚀
@@ -72,12 +73,13 @@ private:
 	void drawCross(cv::Point,cv::Point,cv::Point, Mat &, Scalar);//画十字标
 	void drawFindLine(Mat&,SRFindLine&, SRroiRect&,int type);//画找直线结果
 	void drawFindCircle(Mat&, SRFindCircle&, SRroiCircle&,int distance);//画找圆结果
-	void drawPointGroup(Mat&, std::vector<std::vector<cv::Point>> group);
+	void drawPointGroup(Mat&, std::vector<std::vector<cv::Point>> group);//画点数组
 	void findPoint();//找点
 	void findLine();//找直线
 	void findCircle();//找圆
 	void findBlob();//Blob分析
 	void findContours();//轮廓提取
+	void templateMatch();//模板匹配
 
 	
 protected:
@@ -128,4 +130,8 @@ public slots:
 	void on_findCircle();//环形ROI找圆
 	void on_findBlob();//全局Blob
 	void on_findContours();//轮廓提取
+	void on_templateMatch();//模板匹配
+	void on_match_new();//新建匹配模板
+	void on_match_load();//加载匹配模板
+	void on_match_save();//存储匹配模板
 };

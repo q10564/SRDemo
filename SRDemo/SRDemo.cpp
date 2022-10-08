@@ -456,6 +456,16 @@ void SRDemo::drawPointGroup(Mat &image, std::vector<std::vector<cv::Point>> grou
 	{
 		cvtColor(image, im, COLOR_GRAY2BGR);
 	}
+	/*
+	for (int j = 0; j < group.size(); j++)
+	{
+		int R = rand() % 256;
+		int G = rand() % 256;
+		int B = rand() % 256;
+		cv::Scalar color(R, G, B);
+		cv::drawContours(im, group, j, color, 2);
+	}
+	*/
 	for (vector<vector<cv::Point>>::iterator it = group.begin(); it != group.end(); it++)
 	{
 		int R = rand() % 256;
@@ -464,15 +474,12 @@ void SRDemo::drawPointGroup(Mat &image, std::vector<std::vector<cv::Point>> grou
 		cv::Scalar color(R, G, B);
 		for (vector<cv::Point>::iterator itt = (*it).begin(); itt != (*it).end(); itt++)
 		{
-			//cv::circle(im, (*itt), 1, color, 1, 8, 0);
-			//绘制横线
-			line(im, cv::Point((*itt).x - 2 / 2, (*itt).y), cv::Point((*itt).x + 2 / 2, (*itt).y), color, 1, 8, 0);
-			//绘制竖线
-			line(im, cv::Point((*itt).x, (*itt).y - 2 / 2), cv::Point((*itt).x, (*itt).y + 2 / 2), color, 1, 8, 0);
+			cv::circle(im, (*itt), 2, color, -1);
 		}
 	}
 	refreshImage(im);
 }
+
 
 void SRDemo::findPoint()
 {
@@ -551,11 +558,30 @@ void SRDemo::findContours()
 	int minLength = ui.findContours_min->value();
 	int maxLength = ui.findContours_max->value();
 	int zoom = ui.findContours_zoom->value();//缩放/外扩
+	int step = ui.findContours_step->value();
+	int smooth = ui.findContours_smooth->value();
 	rect.center = cv::Point(int(roiStart.x() + roiEnd.x()) / 2, int(roiStart.y() + roiEnd.y()) / 2);
 	rect.height = abs(roiStart.x() - roiEnd.x());
 	rect.width = abs(roiStart.y() - roiEnd.y());
-	fcontour.findContour(currentImage, rect, filter, size, min, max, minLength, maxLength, zoom);
+	fcontour.findContour(currentImage, rect, filter, size, min, max, minLength, maxLength, zoom, step, smooth);
 	drawPointGroup(currentImage,fcontour.result);
+	
+}
+//模板匹配
+void SRDemo::templateMatch()
+{
+	int level = ui.match_combox_level->currentIndex();
+	int startAngle = ui.match_box_startAngle->value();
+	int endAngle = ui.match_box_endAngle->value();
+	int angleStep = ui.match_box_angleStep->value();
+	int grade = ui.match_box_grade->value();
+	int count = ui.match_box_count
+->value();
+	if (fmatch.templateImg.empty())
+		return;
+	fmatch.templateMatch(currentImage, fmatch.templateImg, level, startAngle, endAngle, angleStep, grade, count);
+	
+	refreshImage(fmatch.resultImg);
 }
 
 void SRDemo::on_inputClicked()
@@ -708,7 +734,6 @@ void SRDemo::on_calib()
 		//绘图
 		cv::ellipse(src, rect, cv::Scalar(0, 255, 0), 5, 8);
 		cv::circle(src, cc, 2, cv::Scalar(0, 255, 0), 3, 8, 0);
-
 		pix.push_back(cc);//将点坐标存入pix变量中
 	}
 	//9点排序并显示//
@@ -925,6 +950,11 @@ void SRDemo::on_deBugImage()
 		findContours();
 		break;
 	}
+	case 20://模板匹配
+	{
+		templateMatch();
+		break;
+	}
 	default:break;
 	}
 }
@@ -976,12 +1006,15 @@ void SRDemo::on_do()
 	case 12:funcList.append(&SRDemo::histogramEqualization); funcValueList.append(u8"直方图均衡"); break;
 	case 13:funcList.append(&SRDemo::imageOperation); funcValueList.append(u8"图像操作"); break;
 	case 14: //生成ROI
-	case 15://找点
+	case 15: //找点
+	case 16: //直线
+	case 17: //圆
+	case 18: //blob
+	case 19: //轮廓
 	{
 		disconnect(ui.label_image, &SRLabel::sendLeftStartPos, this, &SRDemo::on_getLeftStartPos);
 		disconnect(ui.label_image, &SRLabel::sendLeftEndPos, this, &SRDemo::on_getLeftEndPos);
 		disconnect(ui.label_image, &SRLabel::sendLeftMovePos, this, &SRDemo::on_getLeftMovePos);
-		break;
 	}
 	default:
 		break;
@@ -1432,6 +1465,36 @@ void SRDemo::on_findContours()
 	connect(ui.label_image, &SRLabel::sendLeftEndPos, this, &SRDemo::on_getLeftEndPos);
 	connect(ui.label_image, &SRLabel::sendLeftMovePos, this, &SRDemo::on_getLeftMovePos);
 }
+void SRDemo::on_templateMatch()
+{
+	if (currentImage.type() != CV_8UC1)
+	{
+		msgBox.setWindowTitle(tr("error"));
+		msgBox.setText(u8"该图像不为灰度图像");
+		msgBox.exec();
+		debugFlag = false;
+		return;
+	}
+	ui.stackedWidget->setCurrentWidget(ui.page_match);
+}
+//新建匹配模板
+void SRDemo::on_match_new()
+{
+}
+//加载匹配模板
+void SRDemo::on_match_load()
+{
+	imagePath = QFileDialog::getOpenFileName(this, tr("选择模板"), "../image", tr("Images (*.png *.bmp *.jpg)"));
+	QFileInfo fileinfo = QFileInfo(imagePath);
+	fmatch.templateImg = imread(imagePath.toStdString());
+	cvtColor(fmatch.templateImg, fmatch.templateImg, COLOR_BGR2GRAY);
+	ui.match_image->setPixmap(QPixmap::fromImage(MatToQImage(fmatch.templateImg)));
+}
+//存储匹配模板
+void SRDemo::on_match_save()
+{
+}
+
 //自定义滤波核界面设置
 void SRDemo::on_kernelSet(int num)
 {

@@ -1,6 +1,7 @@
 #pragma once
 #include <opencv.hpp>
 #include <vector>
+#include <time.h>
 #include <QObject>
 #include <QList>
 using namespace cv;
@@ -217,12 +218,55 @@ eg:
 		* @param[in] max 高阈值
 		* @param[in] minLength 最小轮廓
 		* @param[in] maxLength 最大轮廓
+		* @param[in] step 取点间隔
+		* @param[in] smooth 平滑次数
 		*/
-		void findContour(cv::Mat & image, SRroiRect roi, int filter, int size, int min, int max, int minLength, int maxLength,int zoom);
+		void findContour(cv::Mat & image, SRroiRect roi, int filter, int size, int min, int max, int minLength, int maxLength,int zoom, int step, int smooth);
 	private:
 		//缩放轮廓
 		void ContoursZomm(int zoom);
+		//轮廓平滑
+		void FilterContour();
+		//点集优化(主要优化缩放后点集扎堆问题)
+		void OptimizeContour();
 		
+	};
+
+	/*模板匹配*/
+	class SRMatch
+	{
+	private:
+		struct MatchValue
+		{
+			MatchValue(cv::Point p, double v,int angle) :Loc(p), Value(v), Angle(angle){}
+			cv::Point Loc;
+			double Value;
+			int Angle;
+		};
+		//检查数据并插入结果
+		void checkValkue(MatchValue);
+		void buildResultImg();
+	public:
+		cv::Mat templateImg;
+		cv::Mat resultImg;
+		int diffRows;
+		int diffCols;
+		double times;
+		std::vector<MatchValue> result;
+
+		/*
+		* 模板匹配
+		* @param[in] image 输入图像
+		* @param[in] level 金字塔层级
+		*/
+		void templateMatch(cv::Mat & image, cv::Mat & temp, int level, int startAngle, int endAngle,int angleStep, int grade, int count);
+	private:
+		/*
+		* 设置模板
+		* @param[in] image 输入图像
+		* @param[in] roi 模板roi
+		*/
+		void setTemplate(cv::Mat & image, SRroiRect roi);
 	};
 	/*
 	9点标定函数：calibration(vector<cv::Point2f> world, vector<cv::Point2f> pix, calibResult calib)
