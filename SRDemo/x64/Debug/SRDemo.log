@@ -1,0 +1,11 @@
+﻿  Reading Qt configuration (C:/Qt/Qt5.14.2/5.14.2/msvc2017_64/bin/qmake)
+  SRTools.cpp
+  SRVision.cpp
+  SRLabel.cpp
+  SRDemo.cpp
+  main.cpp
+  qrc_SRDemo.cpp
+  moc_SRDemo.cpp
+  moc_SRLabel.cpp
+  moc_SRVision.cpp
+  SRDemo.vcxproj -> C:\Users\SunRui\Source\Repos\SRDemo\x64\Debug\SRDemo.exe
