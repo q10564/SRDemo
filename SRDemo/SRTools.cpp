@@ -1,5 +1,4 @@
 #include "SRTools.h"
-
 void writeCalib(vector<Point2f> world, vector<Point2f> pix, calibResult calib)
 {
 	QDomDocument doc;  //QDomDocument¿‡

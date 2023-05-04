@@ -5,15 +5,17 @@
 
 #include "SRVision.h"
 #include "SRTools.h"
-
+#include<QProcess>
 #include<QDebug>
 #include<QFileDialog>
 #include<QMessageBox>
 #include<QTextCodec>
 #include<QSettings>
 #include<QPainter>
-
-
+#include<QStandardItemModel>
+#include <QTcpServer>
+#include <QTcpSocket>
+#include <QThread>
 using namespace SRVision;
 cv::Mat QImageToMat(QImage image);
 QImage MatToQImage(const cv::Mat& mat);
@@ -52,9 +54,21 @@ private:
 	SRFindLine fline;
 	SRFindCircle fcircle;
 	SRFindBlob fblob;
+	QStandardItemModel* blob_Resmodel;
 	SRFindContour fcontour;
 	vector<SRroi> roiGroup;
 	SRMatch fmatch;
+	SRCode fcode;
+
+	//通讯
+	QTcpServer *_server = nullptr;
+	QTcpSocket* _socket = nullptr;
+	void addLog(QString value);
+	void createTcpServer(QTcpServer** _server,int port);
+	void closeTcpServer(QTcpServer** _server);
+	bool connectServer(QTcpSocket** _socket, QString &addr, int &port);
+	void disconnectServer(QTcpSocket** _socket);
+
 private:
 	void extraction(Mat input, Mat &output);	/*通道提取*/
 	void threshold(Mat input, Mat &output);//二值化
@@ -80,12 +94,15 @@ private:
 	void findBlob();//Blob分析
 	void findContours();//轮廓提取
 	void templateMatch();//模板匹配
+	void readCode();//读码
+
 
 	
 protected:
 	void closeEvent(QCloseEvent *event);//关闭测试界面时执行。
 	
 public slots:
+	void on_pageChanged(int);
 	void on_inputClicked();//导入图片按钮事件
 	void on_reset();//重置处理
 	void on_calib();//标定
@@ -134,4 +151,12 @@ public slots:
 	void on_match_new();//新建匹配模板
 	void on_match_load();//加载匹配模板
 	void on_match_save();//存储匹配模板
+	void on_study();//深度学习
+	void on_readCode();//读码
+
+	//通讯测试助手
+	void on_tcpOpen();
+	void on_tcpClear();
+	void on_tcpSend();
+	void on_tcpSave();
 };

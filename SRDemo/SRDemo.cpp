@@ -1,5 +1,4 @@
 #include "SRDemo.h"
-
 SRDemo::SRDemo(QWidget *parent)
     : QMainWindow(parent)
 {
@@ -14,7 +13,25 @@ SRDemo::SRDemo(QWidget *parent)
 		strList.append("camera--" + QString::number(i));
 	}
 	ui.camera_comboBox->addItems(strList);
+
 	funcValueModel = new QStringListModel(this);
+
+	blob_Resmodel = new QStandardItemModel();
+	blob_Resmodel->setHorizontalHeaderItem(0, new QStandardItem(QObject::tr(u8"中心")));
+	blob_Resmodel->setHorizontalHeaderItem(1, new QStandardItem(QObject::tr(u8"质心")));
+	blob_Resmodel->setHorizontalHeaderItem(2, new QStandardItem(QObject::tr(u8"面积")));
+	blob_Resmodel->setHorizontalHeaderItem(3, new QStandardItem(QObject::tr(u8"长")));
+	blob_Resmodel->setHorizontalHeaderItem(4, new QStandardItem(QObject::tr(u8"宽")));
+	//利用setModel()方法将数据模型与QTableView绑定
+	ui.table_res->setModel(blob_Resmodel);
+	ui.table_res->setEditTriggers(QAbstractItemView::NoEditTriggers);//只读
+	//设置表格的各列的属性    
+	ui.table_res->setColumnWidth(0, 30);//列宽
+	for (int i = 0; i < 5; i++)
+	{
+		ui.table_res->setColumnWidth(i, 50);//列宽
+	}
+
 	connect(&camera, &SRCamera::sendImage, this, &SRDemo::on_showCamera);
 }
 void SRDemo::closeEvent(QCloseEvent * event)
@@ -447,7 +464,8 @@ void SRDemo::drawFindCircle(Mat &image, SRFindCircle &circle, SRroiCircle &roi, 
 	}
 	cv::circle(im,circle.center, circle.radius,Scalar(0, 255, 0), 1,8);
 	refreshImage(im);
-}
+} 
+
 /*绘制二维点数组*/
 void SRDemo::drawPointGroup(Mat &image, std::vector<std::vector<cv::Point>> group)
 {
@@ -479,7 +497,6 @@ void SRDemo::drawPointGroup(Mat &image, std::vector<std::vector<cv::Point>> grou
 	}
 	refreshImage(im);
 }
-
 
 void SRDemo::findPoint()
 {
@@ -538,14 +555,32 @@ void SRDemo::findCircle()
 	ui.findCircle_CenterY->setText(QString::number(fcircle.center.y));
 	
 	drawFindCircle(currentImage, fcircle, cir, distance);
-
 }
 
 void SRDemo::findBlob()
 {
 	SRVision::BlobControl c;
-
+	ui.table_res->clearFocus();
 	fblob.findBlob(currentImage, currentImage, c);
+	//遍历结果集
+	for (int i = 0;i<fblob.result.size();i++)
+	{
+		BlobInf inf = fblob.result[i];
+		cv::Point center = inf.center;//中心位置
+		cv::Point centroids = inf.centroids;//质心位置
+		cv::Point LeftToppt = inf.LeftToppt;//左上顶点位置
+		int area = inf.area;//面积
+		int width = inf.width;//宽度
+		int height = inf.height;//长度
+		blob_Resmodel->setItem(i, 0, new QStandardItem(QString("(%1,%2)").arg(center.x).arg(center.y)));
+		blob_Resmodel->setItem(i, 1, new QStandardItem(QString("(%1,%2)").arg(centroids.x).arg(centroids.y)));
+		blob_Resmodel->setItem(i, 2, new QStandardItem(QString("%1").arg(area)));
+		blob_Resmodel->setItem(i, 3, new QStandardItem(QString("%1").arg(height)));
+		blob_Resmodel->setItem(i, 4, new QStandardItem(QString("%1").arg(width)));
+		ui.table_res->setModel(blob_Resmodel);
+	}
+	refreshImage(fblob.dst);
+	
 }
 
 void SRDemo::findContours()
@@ -557,15 +592,15 @@ void SRDemo::findContours()
 	int max = ui.findContours_high->value();
 	int minLength = ui.findContours_min->value();
 	int maxLength = ui.findContours_max->value();
-	int zoom = ui.findContours_zoom->value();//缩放/外扩
-	int step = ui.findContours_step->value();
-	int smooth = ui.findContours_smooth->value();
-	rect.center = cv::Point(int(roiStart.x() + roiEnd.x()) / 2, int(roiStart.y() + roiEnd.y()) / 2);
-	rect.height = abs(roiStart.x() - roiEnd.x());
-	rect.width = abs(roiStart.y() - roiEnd.y());
-	fcontour.findContour(currentImage, rect, filter, size, min, max, minLength, maxLength, zoom, step, smooth);
-	drawPointGroup(currentImage,fcontour.result);
-	
+int zoom = ui.findContours_zoom->value();//缩放/外扩
+int step = ui.findContours_step->value();
+int smooth = ui.findContours_smooth->value();
+rect.center = cv::Point(int(roiStart.x() + roiEnd.x()) / 2, int(roiStart.y() + roiEnd.y()) / 2);
+rect.height = abs(roiStart.x() - roiEnd.x());
+rect.width = abs(roiStart.y() - roiEnd.y());
+fcontour.findContour(currentImage, rect, filter, size, min, max, minLength, maxLength, zoom, step, smooth);
+drawPointGroup(currentImage, fcontour.result);
+
 }
 //模板匹配
 void SRDemo::templateMatch()
@@ -576,19 +611,143 @@ void SRDemo::templateMatch()
 	int angleStep = ui.match_box_angleStep->value();
 	int grade = ui.match_box_grade->value();
 	int count = ui.match_box_count
-->value();
+		->value();
 	if (fmatch.templateImg.empty())
 		return;
 	fmatch.templateMatch(currentImage, fmatch.templateImg, level, startAngle, endAngle, angleStep, grade, count);
-	
+
 	refreshImage(fmatch.resultImg);
+}
+
+void SRDemo::readCode()
+{
+	int type = ui.combox_codeType->currentIndex();
+	fcode.srDecode(currentImage, type);
+	ui.text_codeValue->setText(QString::fromStdString(fcode.value));
+	refreshImage(fcode.resImage);
+}
+
+void SRDemo::addLog(QString value)
+{
+	QDateTime dateTime = QDateTime::currentDateTime();//获取系统当前的时间
+	QString str = dateTime.toString("MM-dd hh:mm:ss-->");//格式化时间
+	str += value;
+	ui.text_log->append(str);
+	ui.text_log->moveCursor(QTextCursor::End);
+}
+
+void SRDemo::createTcpServer(QTcpServer** _server, int port)
+{
+
+	addLog(QString(u8"服务器线程id:%1").arg(QString::number(reinterpret_cast<qint64>(QThread::currentThreadId()))));
+	if (!(*_server)->listen(QHostAddress::LocalHost, port))
+	{
+		addLog(QString(u8"Tcp服务器打开失败，端口:%1").arg(port));
+	}
+	else
+	{
+		addLog(QString(u8"打开Tcp服务器，端口:%1").arg(port));
+		//监听是否存在新的连接
+		connect((*_server), &QTcpServer::newConnection, [=]() {
+			_socket = (*_server)->nextPendingConnection();
+			addLog(QString("new connection from:%1").arg(_socket->peerAddress().toString()));
+			//监听客户端传进来的信息
+			connect(_socket, &QTcpSocket::readyRead, [=]() {
+				QByteArray data = _socket->readAll();
+				QString value = QString::fromUtf8(data);
+				addLog(QString("recv msg:%1").arg(value));
+
+				std::map<QString, QString> dataMap;
+				dataMap.insert({ ui.line_recv1->text(),ui.line_send1->text() });
+				dataMap.insert({ ui.line_recv2->text(),ui.line_send2->text() });
+				dataMap.insert({ ui.line_recv3->text(),ui.line_send3->text() });
+				auto it = dataMap.find(value);
+				if (it != dataMap.end())
+				{
+					addLog(QString("send msg:%1").arg(it->second));
+					_socket->write(it->second.toUtf8());
+					_socket->flush();
+				}
+				});
+			//监听客户端是否断开
+			connect(_socket, &QTcpSocket::disconnected, [=]() {
+				// Do something when the client disconnects
+				addLog(QString(u8"客户端断开连接"));
+				_socket = nullptr;
+				});
+			});
+	}
+
+}
+
+void SRDemo::closeTcpServer(QTcpServer** _server)
+{
+	addLog(QString(u8"服务器关闭"));
+	(*_server)->close();
+	(*_server)->deleteLater();
+	(*_server) = nullptr;
+}
+
+bool SRDemo::connectServer(QTcpSocket** _socket, QString& addr, int& port)
+{
+	(*_socket)->connectToHost(addr, port);
+	if ((*_socket)->waitForConnected(3000))
+	{
+		addLog(QString(u8"连接到服务器:%1 端口:%2").arg(addr).arg(port));
+		connect(*_socket, &QTcpSocket::readyRead, [=]() {
+				QByteArray data = (*_socket)->readAll();
+				QString value = QString::fromUtf8(data);
+				addLog(QString("recv msg:%1").arg(value));
+				std::map<QString, QString> dataMap;
+				dataMap.insert({ ui.line_recv1->text(),ui.line_send1->text() });
+				dataMap.insert({ ui.line_recv2->text(),ui.line_send2->text() });
+				dataMap.insert({ ui.line_recv3->text(),ui.line_send3->text() });
+				auto it = dataMap.find(value);
+				if (it != dataMap.end())
+				{
+					addLog(QString("send msg:%1").arg(it->second));
+					(*_socket)->write(it->second.toUtf8());
+					(*_socket)->flush();
+				}
+			});
+		connect(*_socket, &QTcpSocket::disconnected, [=]() {
+			disconnectServer(_socket);
+			ui.btn_connect->setText(u8"打开");
+			});
+		return true;
+	}
+	else
+	{
+		addLog(QString(u8"连接服务器%1失败，端口:%2").arg(addr).arg(port));
+		return false;
+	}
+}
+
+void SRDemo::disconnectServer(QTcpSocket** _socket)
+{
+	(*_socket)->disconnectFromHost();
+	(*_socket)->deleteLater();
+	(*_socket) = nullptr;
+	addLog(u8"断开连接");
+}
+
+
+void SRDemo::on_pageChanged(int index)
+{
+	switch (index)
+	{
+	case 0:break;//视觉界面
+	case 1:addLog(QString(u8"当前线程id:%1").arg(QString::number(reinterpret_cast<qint64>(QThread::currentThreadId())))); break;
+	default:
+		break;
+	}
 }
 
 void SRDemo::on_inputClicked()
 {
-	imagePath = QFileDialog::getOpenFileName(this, tr("打开图片"), "../image", tr("Images (*.png *.bmp *.jpg)"));
+	imagePath = QFileDialog::getOpenFileName(this, tr("打开图片"), "../image", tr("Images (*.png *.bmp *.jpg *jpeg)"));
 	QFileInfo fileinfo = QFileInfo(imagePath);
-	sourceImage = imread(imagePath.toStdString());
+	sourceImage = imread(imagePath.toLocal8Bit().constData());
 	for (int i = 0; i < funcList.length(); i++)
 	{
 		(this->*funcList[i])(sourceImage, sourceImage);
@@ -953,6 +1112,12 @@ void SRDemo::on_deBugImage()
 	case 20://模板匹配
 	{
 		templateMatch();
+		break;
+	}
+	case 21://读码
+	{
+		ui.text_codeValue->clear();
+		readCode();
 		break;
 	}
 	default:break;
@@ -1493,6 +1658,93 @@ void SRDemo::on_match_load()
 //存储匹配模板
 void SRDemo::on_match_save()
 {
+}
+//深度学习
+void SRDemo::on_study()
+{
+	//非阻塞调用深度学习程序
+	QProcess* pro = new QProcess;
+	pro->start("C:\\Users\\SunRui\\Source\\Repos\\CharacterRecognition\\x64\\Debug\\CharacterRecognition.exe");
+}
+
+void SRDemo::on_readCode()
+{
+	ui.stackedWidget->setCurrentWidget(ui.page_code);
+	debugFlag = true;
+}
+
+void SRDemo::on_tcpOpen()
+{
+	int type = ui.com_type->currentIndex();
+	int port = ui.line_port->text().toInt();
+	QString addr = ui.line_address->text();
+	switch (type)
+	{
+	case 0://客户端
+	{
+		if (_socket == nullptr)
+		{
+			_socket = new QTcpSocket();
+			if (connectServer(&_socket, addr, port))
+				ui.btn_connect->setText(u8"关闭");
+			else
+				_socket = nullptr;
+		}
+		else
+		{
+			disconnectServer(&_socket);
+			ui.btn_connect->setText(u8"打开");
+		}
+		break;
+	}
+	case 1://tcp服务器
+	{
+		if (_server == nullptr)
+		{
+			_server = new QTcpServer();
+			createTcpServer(&_server, port);
+			ui.btn_connect->setText(u8"关闭");
+		}
+		else
+		{	
+			closeTcpServer(&_server);
+			ui.btn_connect->setText(u8"打开");
+		}
+		break;
+	}
+	case 2://udp服务器
+	{
+		break;
+	}
+	default:
+		break;
+	}
+}
+
+void SRDemo::on_tcpClear()
+{
+	ui.text_log->clear();
+}
+
+void SRDemo::on_tcpSend()
+{
+	QString value = ui.text_send->toPlainText();
+	if (_socket != nullptr)
+	{
+		_socket->write(value.toUtf8());
+		_socket->flush();
+	}
+}
+
+void SRDemo::on_tcpSave()
+{
+	QString fileName = QFileDialog::getSaveFileName(nullptr, "Save file", "", "Text files (*.txt)");
+	QFile file(fileName);
+	if (file.open(QIODevice::WriteOnly | QIODevice::Text)) {
+		QTextStream stream(&file);
+		stream << ui.text_log->toPlainText();
+		file.close();
+	}
 }
 
 //自定义滤波核界面设置

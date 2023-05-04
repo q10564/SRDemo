@@ -1286,50 +1286,89 @@ void SRVision::SRFindCircle::findCircle(Mat image, SRroiCircle roi, int strength
 	this->radius = (rec.size.height/2 + rec.size.width/2)/2;
 }
 
-void SRVision::SRFindBlob::findBlob(cv::Mat &img,cv::Mat &out, BlobControl params)
+void SRVision::SRFindBlob::findBlob(cv::Mat &img,cv::Mat &out, BlobControl p)
 {
 	this->result.clear();
-	Mat output  = Mat::zeros(img.size(), CV_32S);
-	Mat deImage = img.clone();
-	if (deImage.type() == CV_8UC1)
+	Mat output = Mat::zeros(img.size(), CV_32S); //初始化一个全零矩阵
+	Mat deImage = img.clone(); //复制输入图像
+	if (deImage.type() == CV_8UC1) //如果输入图像是灰度图
 	{
-		cvtColor(deImage, deImage, COLOR_GRAY2BGR);
+		cvtColor(deImage, deImage, COLOR_GRAY2BGR); //将灰度图转换为BGR图
 	}
-	Mat dst = Mat::zeros(deImage.size(), deImage.type());
-	Mat stats, centroids;
-	int num_labels = cv::connectedComponentsWithStats(img, output, stats, centroids, 8, 4);
-
-	for (size_t row = 0; row < deImage.rows; row++) 
+	Mat dst = Mat::zeros(deImage.size(), deImage.type()); //初始化一个全零矩阵
+	Mat stats, centroids; //定义两个矩阵
+	int num_labels = cv::connectedComponentsWithStats(img, output, stats, centroids, 8, 4); //获取连通域信息
+	vector<int> rember;
+	for (int row = 0; row < deImage.rows; row++) //遍历图像的每一行
 	{
-		for (size_t col = 0; col < deImage.cols; col++) 
+		for (int col = 0; col < deImage.cols; col++) //遍历图像的每一列
 		{
-			if (output.at<int>(row, col) == 0)
-				continue;
-			dst.at<Vec3b>(row, col) = Vec3b(0, 255, 0);
+			if (output.at<int>(row, col) == 0) //如果当前像素点不属于任何一个连通域
+				continue; //跳过当前像素点
+			if (row == 0 || col == 0 || row == (deImage.rows - 1) || col == (deImage.cols - 1))//判断连通域是否处于边界
+			{
+				int index = output.at<int>(row, col);
+				//如果该联通域没有发现过
+				if (count(rember.begin(), rember.end(), index) == 0)
+				{
+					rember.push_back(index);
+				}			
+			}
+			dst.at<Vec3b>(row, col) = Vec3b(0, 255, 0); //将当前像素点标记为绿色
 		}
 	}
+	// 	//删除stats centroids中该数据
+	Mat stats_new, centroids_new;
+	for (int i = 0; i < stats.rows; i++)
+	{
+		if (count(rember.begin(), rember.end(), i) == 0)
+		{
+			stats_new.push_back(stats.row(i));
+			centroids_new.push_back(centroids.row(i));
+		}
+	}
+	stats = stats_new.clone();
+	centroids = centroids_new.clone();
+	num_labels -= rember.size();//总数-1
 	//获取统计信息
 	/*
-	其中stats包括以下枚举类型数据信息： 
-    CC_STAT_LEFT   组件的左上角点像素点坐标的X位置
-    CC_STAT_TOP    组件的左上角点像素点坐标的Y位置
-    CC_STAT_WIDTH  组件外接矩形的宽度 
-    CC_STAT_HEIGHT 组件外接矩形的高度
-    CC_STAT_AREA   当前连通组件的面积（像素单位）
+	其中stats包括以下枚举类型数据信息：
+	CC_STAT_LEFT   组件的左上角点像素点坐标的X位置
+	CC_STAT_TOP    组件的左上角点像素点坐标的Y位置
+	CC_STAT_WIDTH  组件外接矩形的宽度
+	CC_STAT_HEIGHT 组件外接矩形的高度
+	CC_STAT_AREA   当前连通组件的面积（像素单位）
 	*/
-	for (int i = 1; i < num_labels; i++)
+	if (num_labels > 0)
 	{
-		Vec2d pt = centroids.at<Vec2d>(i, 0);
-		int x = stats.at<int>(i, CC_STAT_LEFT);
-		int y = stats.at<int>(i, CC_STAT_TOP);
-		int width = stats.at<int>(i, CC_STAT_WIDTH);
-		int height = stats.at<int>(i, CC_STAT_HEIGHT);
-		int area = stats.at<int>(i, CC_STAT_AREA);
-		circle(dst, Point(pt[0], pt[1]), 2, Scalar(0, 0, 255), -1, 8, 0);
-		rectangle(dst, Rect(x, y, width, height), Scalar(0, 0, 255), 1, 8, 0);
-	}
-	imshow("连通域标记图像", dst);
+		for (int i = 1; i < num_labels; i++) //遍历每一个连通域
+		{
 
+			Vec2d pt = centroids.at<Vec2d>(i, 0); //获取当前连通域的质心坐标
+			Point ptoid = cv::Point(pt[0], pt[1]);
+			int x = stats.at<int>(i, CC_STAT_LEFT); //获取当前连通域外接矩形的左上角点的X坐标
+			int y = stats.at<int>(i, CC_STAT_TOP); //获取当前连通域外接矩形的左上角点的Y坐标
+			int width = stats.at<int>(i, CC_STAT_WIDTH); //获取当前连通域外接矩形的宽度
+			int height = stats.at<int>(i, CC_STAT_HEIGHT); //获取当前连通域外接矩形的高度
+			Point ct = Point(x + int(width / 2), y + int(height / 2));//外接矩形中心
+			int area = stats.at<int>(i, CC_STAT_AREA); //获取当前连通域的面积
+
+			BlobInf inf;
+			inf.area = area;
+			inf.center = ct;
+			inf.centroids = ptoid;
+			inf.height = height;
+			inf.width = width;
+			inf.LeftToppt = cv::Point(x, y);
+			this->result.push_back(inf);
+
+			circle(dst, ct, 2, Scalar(0, 0, 255), -1, 8, 0); //在当前连通域的质心处画一个红色的圆
+			rectangle(dst, Rect(x, y, width, height), Scalar(0, 0, 255), 1, 8, 0); //在当前连通域外接矩形处画一个蓝色的矩形
+			cv::putText(dst, to_string(i), ct, 2, 0.5, Scalar(255, 0, 0), 0); //在当前连通域的质心处添加连通域的编号
+		}
+	}
+	this->dst = dst;
+	//imshow("连通域标记图像", dst); //显示标记后的图像
 }
 
 /*
@@ -1660,4 +1699,106 @@ void SRVision::SRMatch::templateMatch(cv::Mat& image, cv::Mat& temp, int level, 
 void SRVision::SRMatch::setTemplate(cv::Mat & image, SRroiRect roi)
 {
 	this->templateImg = image;
+}
+//解码
+void SRVision::SRCode::srDecode(cv::Mat& image, int type)
+{
+	cv::Mat qrCodeGray;
+	if (image.channels() == 3)
+	{
+		cv::cvtColor(image, qrCodeGray, cv::COLOR_BGR2GRAY);
+		this->resImage = image.clone();
+	}
+	else
+	{
+		qrCodeGray = image.clone();
+		cv::cvtColor(image, this->resImage, cv::COLOR_GRAY2BGR);
+	}
+
+	switch (type)
+	{
+	case 0://QRCode
+	{
+		cv::QRCodeDetector qrDetector;
+		cv::Mat out;
+		std::string qrData = qrDetector.detectAndDecode(qrCodeGray,out);
+		if (qrData.length() > 0)
+		{
+			auto p1 = cv::Point(out.at<cv::Vec2f>(0, 0)[0], out.at<cv::Vec2f>(0, 0)[1]);
+			auto p2 = cv::Point(out.at<cv::Vec2f>(0, 1)[0], out.at<cv::Vec2f>(0, 1)[1]);
+			auto p3 = cv::Point(out.at<cv::Vec2f>(0, 2)[0], out.at<cv::Vec2f>(0, 2)[1]);
+			auto p4 = cv::Point(out.at<cv::Vec2f>(0, 3)[0], out.at<cv::Vec2f>(0, 3)[1]);
+			this->value = qrData;
+
+			//文本二维码上方居中显示
+			int baseline;
+			cv::Point origin;
+			cv::Size size = cv::getTextSize(this->value, FONT_HERSHEY_SIMPLEX, 1, 1, &baseline);
+			origin.x = cv::Point2i((p1 + p3) / 2).x - size.width / 2;
+			origin.y = min(p3.y, min(p1.y, p2.y));
+			cv::putText(this->resImage, this->value, origin, cv::FONT_HERSHEY_SIMPLEX, 1, cv::Scalar(0, 255, 0), 2);
+
+			cv::line(this->resImage, p1, p2, Scalar(0, 255, 0), 1, 8);
+			cv::line(this->resImage, p2, p3, Scalar(0, 255, 0), 1, 8);
+			cv::line(this->resImage, p3, p4, Scalar(0, 255, 0), 1, 8);
+			cv::line(this->resImage, p4, p1, Scalar(0, 255, 0), 1, 8);
+			cv::circle(this->resImage, cv::Point2i((p1+p3)/2), 2, Scalar(0, 255, 0), -1);//画点
+		}
+		else
+			this->value = "QR code not detected";
+		break;
+	}
+	case 1://MatrixCode
+	{
+		//显示加载dll文件
+		HMODULE _decode = LoadLibraryA("C:\\Users\\SunRui\\Source\\Repos\\SRextDeCode\\x64\\Debug\\SRextDeCode.dll");
+		if (_decode == NULL)
+		{
+			FreeLibrary(_decode);
+			this->value = "init SRextDeCode.dll error";
+			return;
+		}
+		typedef void(*deCodeFunc)(cv::Mat& image, std::string& value, std::vector<cv::Point2i>& point);
+		deCodeFunc decode = (deCodeFunc)GetProcAddress(_decode, "decode");
+		if (decode == NULL)
+		{
+			FreeLibrary(_decode);
+			this->value = "init deCodeFunc error";
+			return;
+		}
+		std::vector<cv::Point2i> pGroup;
+		decode(qrCodeGray, this->value, pGroup);
+		if (this->value.size() != 0)
+		{
+			auto p1 = pGroup[0];
+			auto p2 = pGroup[1];
+			auto p3 = pGroup[2];
+			auto p4 = pGroup[3];
+
+			//文本二维码上方居中显示
+			int baseline;
+			cv::Point origin;
+			cv::Size size = cv::getTextSize(this->value, FONT_HERSHEY_SIMPLEX, 1, 1, &baseline);
+			origin.x = cv::Point2i((p1 + p3) / 2).x - size.width / 2;
+			origin.y = min(p3.y, min(p1.y, p2.y));
+			cv::putText(this->resImage, this->value, origin, cv::FONT_HERSHEY_SIMPLEX, 1, cv::Scalar(0, 255, 0), 2);
+			cv::line(this->resImage, p1, p2, Scalar(0, 255, 0), 1, 8);
+			cv::line(this->resImage, p2, p3, Scalar(0, 255, 0), 1, 8);
+			cv::line(this->resImage, p3, p4, Scalar(0, 255, 0), 1, 8);
+			cv::line(this->resImage, p4, p1, Scalar(0, 255, 0), 1, 8);
+			cv::circle(this->resImage, cv::Point2i((p1 + p3) / 2), 2, Scalar(0, 255, 0), -1);//画点
+			FreeLibrary(_decode);
+		}
+		else
+			this->value = "QR code not detected";
+		
+		break;
+	}
+	case 2://条码
+	{
+		break;
+	}
+	default:
+		break;
+	}
 }

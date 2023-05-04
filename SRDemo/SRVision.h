@@ -1,9 +1,12 @@
 #pragma once
+#include <Windows.h>
 #include <opencv.hpp>
 #include <vector>
 #include <time.h>
 #include <QObject>
 #include <QList>
+#include <opencv2/features2d.hpp>
+
 using namespace cv;
 using namespace std;
 namespace SRVision
@@ -183,9 +186,9 @@ eg:
 	struct BlobInf
 	{
 		cv::Point center = cv::Point(0,0);//中心位置
-		std::vector<cv::Point> pointgroup;//轮廓点集
+		cv::Point centroids = cv::Point(0, 0);//质心位置
+		cv::Point LeftToppt = cv::Point(0, 0);//左上顶点位置
 		double area = 0;//面积
-		double arcLength = 00;//轮廓周长
 		int width = 0;//宽度
 		int height = 0;//长度
 	};
@@ -201,6 +204,7 @@ eg:
 		*/
 		void findBlob(cv::Mat&, cv::Mat&, BlobControl params);
 		std::vector<BlobInf> result;
+		cv::Mat dst;
 	};
 	/*边缘提取*/
 	class SRFindContour
@@ -267,6 +271,14 @@ eg:
 		* @param[in] roi 模板roi
 		*/
 		void setTemplate(cv::Mat & image, SRroiRect roi);
+	};
+	/*读码*/
+	class SRCode
+	{
+	public:
+		std::string value;
+		cv::Mat resImage;
+		void srDecode(cv::Mat& image, int type);
 	};
 	/*
 	9点标定函数：calibration(vector<cv::Point2f> world, vector<cv::Point2f> pix, calibResult calib)
